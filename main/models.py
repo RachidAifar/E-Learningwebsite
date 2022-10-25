@@ -9,6 +9,9 @@ class Users(models.Model):
     image = models.CharField(max_length=100)
     dateOfJoining = models.DateField(auto_now_add=True)
 
+    class Meta:
+        verbose_name = "Users"
+
 
 class Teacher(models.Model):
     teacher_id = models.AutoField(primary_key=True)
@@ -19,11 +22,17 @@ class Teacher(models.Model):
     address = models.CharField(max_length=30)
     dateofjoining = models.DateField(auto_now_add=True)
 
+    class Meta:
+        verbose_name = "Teacher"
+
 
 class CourseCategory(models.Model):
     category_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name = "Course Category"
 
 
 class Course(models.Model):
@@ -32,6 +41,9 @@ class Course(models.Model):
     teacher_id = models.ForeignKey(Teacher, default=None, on_delete=models.CASCADE)
     course_title = models.CharField(max_length=50, default=None)
     dateOfJoining = models.DateField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Course"
 
 
 class Students(models.Model):
@@ -43,6 +55,9 @@ class Students(models.Model):
     address = models.CharField(max_length=30)
     dateOfJoining = models.DateField(auto_now_add=True)
 
+    class Meta:
+        verbose_name = "Students"
+
 
 class VideoInfo(models.Model):
     vinfo_id = models.AutoField(primary_key=True)
@@ -51,12 +66,18 @@ class VideoInfo(models.Model):
     uploader_name = models.CharField(max_length=100)
     dateOfUploading = models.DateField(auto_now_add=True)
 
+    class Meta:
+        verbose_name = "Video Info"
+
 
 class CourseVideo(models.Model):
     cvideo_id = models.AutoField(primary_key=True)
     course_id = models.ForeignKey(Course, default=None, on_delete=models.CASCADE)
     vinfo_id = models.ForeignKey(VideoInfo, default=None, on_delete=models.CASCADE)
     video_link = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name = "Course Video"
 
 
 class Quizzes(models.Model):
@@ -71,12 +92,18 @@ class Quizzes(models.Model):
     answer_4 = models.CharField(max_length=100)
     dateOfCreating = models.DateField(auto_now_add=True)
 
+    class Meta:
+        verbose_name = "Quizzes"
+
 
 class CoursePDF(models.Model):
     cpdf_id = models.AutoField(primary_key=True)
     course_id = models.ForeignKey(Course, default=None, on_delete=models.CASCADE)
     pdf_file = models.CharField(max_length=100)
     uploader_name = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name_plural = "CoursePDF"
 
 
 class QuizScore(models.Model):
@@ -85,9 +112,15 @@ class QuizScore(models.Model):
     student_id = models.ForeignKey(Students, default=None, on_delete=models.CASCADE)
     score = models.DecimalField(max_digits=5, decimal_places=2)
 
+    class Meta:
+        verbose_name = "Quiz Score"
+
 
 class Enrollments(models.Model):
     enrollment_id = models.AutoField(primary_key=True)
     course_id = models.ForeignKey(Course, default=None, on_delete=models.CASCADE)
     student_id = models.ForeignKey(Students, default=None, on_delete=models.CASCADE)
     enrollment_date = models.DateField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Enrollments"
