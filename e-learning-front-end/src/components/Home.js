@@ -1,8 +1,11 @@
-function Home() {
-  return (
-    <div className="App">
-      <h3>this is home components</h3>     
-    </div>
+import React, { Fragment } from "react";
+import Header from "../components/Header/Header";
+
+const Home = () => {
+  return(
+    <Fragment>
+      <Header />
+    </Fragment>
   );
 }
 
