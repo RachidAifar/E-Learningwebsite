@@ -2,26 +2,31 @@ import React, { useRef } from "react";
 import { Container } from "reactstrap";
 import "./header.css";
 
+
 const navLinks = [
   {
     display: "Home",
     url: "../Home.js",
   },
   {
-    display: "About",
+    display: "Courses",
     url: "#",
   },
 
   {
-    display: "Courses",
+    display: "Teachers",
     url: "#",
   },
   {
-    display: "Pages",
+    display: "MyCouses",
     url: "#",
   },
   {
-    display: "Blog",
+    display: "Course categories",
+    url: "#",
+  },
+  {
+    display: "About",
     url: "#",
   },
 ];
@@ -36,9 +41,7 @@ const Header = () => {
       <Container>
         <div className="navigation d-flex align-items-center justify-content-between">
           <div className="logo">
-            <h2 className=" d-flex align-items-center gap-1">
-              <i class="ri-pantone-line"></i> Learners.
-            </h2>
+            <img className="ri-pantone-line" src="/images/e-learning-logo.png" alt="" />
           </div>
 
           <div className="nav d-flex align-items-center gap-5">
@@ -51,9 +54,13 @@ const Header = () => {
                 ))}
               </ul>
             </div>
-
-            
+            <div className="nav__right">
+              <p className="mb-0 d-flex align-items-center gap-2">
+              <i class="ri-mail-send-line"></i> rachid.aifar24@gmail.com
+              </p>
+            </div>
           </div>
+          
 
           <div className="mobile__menu">
             <span>
