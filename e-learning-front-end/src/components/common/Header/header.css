@@ -6,6 +6,7 @@
     position: sticky;
     top: 0;
     z-index: 99999;
+    background-color: #fff;
     
   }
   
@@ -30,7 +31,7 @@
   }
   
   .nav__item a {
-    font-weight: 300;
+    font-weight: 400;
     font-size: 16.01px;
     color: #126ed6;
     text-decoration: none;
