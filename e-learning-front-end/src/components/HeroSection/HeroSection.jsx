@@ -5,7 +5,7 @@ import "./hero-section.css";
 const HeroSection = () => {
   return (
     <section>
-      <Container>
+      <Container >
         <Row>
           <Col lg="6" md="6">
             <div className="hero__content">
@@ -18,13 +18,9 @@ const HeroSection = () => {
                 quas officiis et repellat!
               </p>
             </div>
-            <div className="search">
-              <input type="text" placeholder="Search" />
-              <button className="btn">Search</button>
-            </div>
           </Col>
 
-          <Col lg="6" md="6">
+          <Col lg="6" md="6" >
             <img src="https://images.pexels.com/photos/5083413/pexels-photo-5083413.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="" className="w-100 hero__img" />
           </Col>
         </Row>

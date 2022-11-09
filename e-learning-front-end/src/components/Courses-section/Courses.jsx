@@ -120,7 +120,7 @@ const Courses = () => {
     <section>
       <Container>
         <Row>
-          <Col lg="12" className="mb-5">
+          <Col lg="12" className="mb-2">
             <div className="course__top d-flex justify-content-between align-items-center">
               <div className="course__top__left w-50">
                 <h4>Online Courses</h4>
@@ -137,7 +137,7 @@ const Courses = () => {
             </div>
           </Col>
           {olineCoursesData.map((item) => (
-            <Col lg="4" md="6" sm="6">
+            <Col lg="4" md="3" sm="4" >
               <CourseCard key={item.id} item={item} />
             </Col>
           ))}
