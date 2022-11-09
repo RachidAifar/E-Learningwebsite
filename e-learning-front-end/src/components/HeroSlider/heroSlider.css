@@ -1,5 +1,10 @@
 .slider img{
   padding: 20px;
   height: 20px;
-  width: 200px;
+  width: 20px;
+  cursor: pointer;
+}
+.carousel-item {
+  height: 300px;
+  width: 20px;
 }
