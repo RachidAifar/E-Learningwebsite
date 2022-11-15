@@ -1,4 +1,5 @@
 import React from "react";
+// import {Link} from 'react-router-dom';
 
 const CourseCard = (props) => {
   const { imgUrl, title, lesson, students, rating } = props.item;
@@ -6,7 +7,7 @@ const CourseCard = (props) => {
   return (
     <div className="single__course__item">
       <div className="course__img">
-        <img src={imgUrl} alt="" className="w-100" />
+      <img src={imgUrl} alt="" className="w-100" />
       </div>
 
       <div className="course__details">
@@ -28,7 +29,7 @@ const CourseCard = (props) => {
           </p>
 
           <p className="enroll d-flex align-items-center gap-1">
-            <a href="../HeroSection"> Enroll Now</a>
+            <a href="./CourseDetail.jsx"> Enroll Now</a>
           </p>
         </div>
       </div>
