@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Row, Col } from "reactstrap";
 import courseImg1 from "../../images/pexels-negative-space-160107.jpg";
 import courseImg2 from "../../images/pexels-polina-zimmerman-3747266.jpg";
-import courseImg3 from "../../images/pexels-polina-zimmerman-3747266.jpg";
+import courseImg3 from "../../images/pexels-negative-space-160107.jpg";
 import "./courses.css";
 import CourseCard from "./CourseCard";
 
@@ -77,6 +77,7 @@ const ourCoursesData = [
     students: 12.5,
     rating: 5.9,
     imgUrl: courseImg2,
+    
   },
 
   {
@@ -160,7 +161,7 @@ const Courses = () => {
             </div>
           </Col>
           {ourCoursesData.map((item) => (
-            <Col lg="4" md="6" sm="6">
+            <Col lg="4" md="6" sm="6" onClick={() => this.goToDetails(item)}>
               <CourseCard key={item.id} item={item} />
             </Col>
           ))}
