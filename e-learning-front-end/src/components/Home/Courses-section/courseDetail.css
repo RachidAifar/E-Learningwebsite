@@ -1,0 +1,19 @@
+  .counter__title {
+    font-size: 1rem;
+    color: #0a2b1e;
+    font-weight: 500;
+  }
+  
+  .detail__content {
+    padding-left: 50px;
+  }
+  
+  .detail__img img {
+    border-radius: 15px;
+    padding: 20px;
+    margin: 10px;
+  }
+  
+  .about__content h2 {
+    font-weight: 600;
+  }
