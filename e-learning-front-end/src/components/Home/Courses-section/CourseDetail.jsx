@@ -1,18 +1,18 @@
 import React from "react"
 import { Container, Row, Col } from "reactstrap";
+import {Link} from 'react-router-dom';
 import aboutImg from "../../images/pexels-negative-space-160107.jpg";
 import "./courseDetail.css";
-import { useParams } from "react-router-dom";
+//import { useParams } from "react-router-dom";
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
 import {  RelatedCourses} from "../../Data/Data";
 import "./courses.css";
 import CourseCard from "./CourseCard";
 
-
+  // const {course_id}=useParams();
 
 const CourseDetail = () => {
-    const {course_id}=useParams();
   return (
     <section>
       <Container className="card ">
@@ -31,7 +31,7 @@ const CourseDetail = () => {
                 Excepturi cupiditate animi deserunt libero nesciunt corporis
                 explicabo nobis ex quo molestiae!
               </p>
-              <p className="fw-bold">Upoaded by: <a href="#"> Teacher 1</a></p>
+              <p className="fw-bold">Upoaded by: <Link to={"#"}> Teacher 1</Link></p>
               <p className="fw-bold">Time: 2 Hours 13 Minuts</p>  
               <p className="fw-bold">Total Enrolled: 470 Student</p> 
               <p className="fw-bold">Rating 4/5</p> 
@@ -65,7 +65,6 @@ const CourseDetail = () => {
             </Col>
           ))}
         </Row>
-
       </Container>
     </section>
   );
