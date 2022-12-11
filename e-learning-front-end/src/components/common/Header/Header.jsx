@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { Container } from "reactstrap";
 import { navLinks } from "../../Data/Data";
 import { Link } from "react-router-dom";
-import Dropdown from './Dropdown'
+//import Dropdown from './Dropdown'
 import "./header.css";
 
 
@@ -26,8 +26,6 @@ const Header = () => {
                 {navLinks.map((item, index) => (
                   <li key={index} className="nav__item">
                     <Link to={item.path}>{item.text}</Link>
-                    
-                   
                   </li>
                 ))}
               </ul>

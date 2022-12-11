@@ -32,7 +32,9 @@ export const navLinks = [
     {
       text: "Users",
       path: "/users",
-      submenu: [{
+    },
+      // submenu: [
+      {
         text:"Login",
         path:"/login",
       },
@@ -40,8 +42,8 @@ export const navLinks = [
         text:"Register",
         path:"/register",
       },
-    ]
-    },
+    // ]
+    // },
    
   ];
   export const olineCoursesData = [
