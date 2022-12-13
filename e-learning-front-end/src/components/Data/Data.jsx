@@ -30,21 +30,19 @@ export const navLinks = [
       path: "/about",
     },
     {
-      text: "Users",
-      path: "/users",
-    },
-      // submenu: [
-      {
-        text:"Login",
-        path:"/login",
-      },
-      {
-        text:"Register",
-        path:"/register",
-      },
-    // ]
-    // },
-   
+      // text: "Users",
+      // // submenu:[
+      //   {
+          text:"Login",
+          path:"/login",
+        },
+        {
+          text:"Register",
+          path:"/register",
+        },
+      // ],
+     // path: "/users",
+   // },
   ];
   export const olineCoursesData = [
     {
