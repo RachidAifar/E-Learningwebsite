@@ -11,10 +11,10 @@ const Login = () => {
     return (
         <section className="sm-image">
             <div className="container-fluid h-custom">
-                <div className="row d-flex justify-content-center align-items-center h-100">
-                    <div className="col-md-9 col-lg-6 col-sm-5">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
-                            className="img-fluid" alt="Sample image"></img>
+                <div className="row d-flex justify-content-center align-items-center">
+                    <div className="col-md-5 col-lg-6 col-sm-5">
+                        <img src={`https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp`}
+                            className="img-fluid" alt=""></img>
                     </div>
                     <div className="card col-md-5 col-md-4">
                         <div className="card-body">
@@ -22,14 +22,14 @@ const Login = () => {
                             <form>
                                 {/* <!-- Email input --> */}
                                 <div className="form-outline mb-2">
-                                    <input type="email" id="form3Example3" className="form-control form-control-md"
+                                    <input type="email" id="form3Example3" className="form-control form-control-sm"
                                         placeholder="Enter a valid email address" />
                                     <label className="form-label" htmlFor="form3Example3">Email address</label>
                                 </div>
 
                                 {/* <!-- Password input --> */}
                                 <div className="form-outline mb-2">
-                                    <input type="password" id="form3Example4" className="form-control form-control-md"
+                                    <input type="password" id="form3Example4" className="form-control form-control-sm"
                                         placeholder="Enter password" />
                                     <label className="form-label" htmlFor="form3Example4">Password</label>
                                 </div>
@@ -47,7 +47,7 @@ const Login = () => {
 
                                 <div className="text-center text-md-start mt-4 pt-2">
                                     <button type="button" className="btn btn-primary btn-md">Login</button>
-                                    <p className="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <Link to={"#!"}
+                                    <p className="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <Link to={"/register"}
                                         className="link-danger">Register</Link></p>
                                 </div>
 

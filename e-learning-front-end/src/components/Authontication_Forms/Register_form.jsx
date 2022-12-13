@@ -1,4 +1,5 @@
-import React  from 'react';        
+import React  from 'react';  
+import { Link } from 'react-router-dom';      
 import './Register.css'       
         
         
@@ -37,8 +38,8 @@ const Register = () => {
                                                 className="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
                                             </div>
 
-                                        <p className="text-center text-muted mt-2 mb-0">Have already an account? <a href="#!"
-                                            className="fw-bold text-body"><u>Login here</u></a></p>
+                                        <p className="text-center text-muted mt-2 mb-0">Have already an account? <Link to={"/login"}
+                                            className="fw-bold text-body"><u>Login here</u></Link></p>
                       
                                     </form>
                                 </div>
