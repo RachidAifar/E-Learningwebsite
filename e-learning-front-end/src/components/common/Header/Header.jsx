@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { Container } from "reactstrap";
+import "bootstrap";
 import { navLinks } from "../../Data/Data";
 import { Link } from "react-router-dom";
 //import Dropdown from './Dropdown'
@@ -28,6 +29,18 @@ const Header = () => {
                     <Link to={item.path}>{item.text}</Link>
                   </li>
                 ))}
+                 <li className="nav-item">
+                    <Link className="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      User
+                    </Link>
+                    <ul className="dropdown-menu">
+                      <li><Link to={"/register"} className="dropdown-item">Register</Link></li>
+                      <li><Link to={"/login"} className="dropdown-item">Login</Link></li>
+                      <li><hr className="dropdown-divider"/></li>
+                      <li><Link to={"/dashboard"} className="dropdown-item">Dashboard</Link></li>
+                      <li><Link to={"/"} className="dropdown-item">Logout</Link></li>
+                    </ul>
+                </li>
               </ul>
             </div> 
           </div>

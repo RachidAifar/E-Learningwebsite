@@ -18,10 +18,6 @@ export const navLinks = [
       path: "/teachers",
     },
     {
-      text: "MyCourses",
-      path: "/mycourses",
-    },
-    {
       text: "Course categories",
       path: "/coursecategory",
     },
@@ -30,19 +26,14 @@ export const navLinks = [
       path: "/about",
     },
     {
-      // text: "Users",
-      // // submenu:[
-      //   {
-          text:"Login",
-          path:"/login",
-        },
-        {
-          text:"Register",
-          path:"/register",
-        },
-      // ],
-     // path: "/users",
-   // },
+     
+     
+      path:"/login",
+    },
+    {
+      
+      path:"/register",
+    },
   ];
   export const olineCoursesData = [
     {
