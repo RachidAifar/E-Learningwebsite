@@ -4,7 +4,7 @@ import Sidebar from './Sidebar'
 
 
 
-const MyCourses =()=>{
+const FavoriteCourses =()=>{
     return(
         <div className="container mt-4">
             <div className="row">
@@ -13,7 +13,7 @@ const MyCourses =()=>{
                 </aside>
                 <section className="col-md-9">    
                 <div className="card">
-                    <h4 className="card-header">My Courses</h4>
+                    <h4 className="card-header">My Favorite Courses</h4>
                     <div className="card-body">
                         <table className="table table-bordered ">
                             <thead>
@@ -38,4 +38,4 @@ const MyCourses =()=>{
         </div>        
     )
 }
-export default MyCourses;
+export default FavoriteCourses;
