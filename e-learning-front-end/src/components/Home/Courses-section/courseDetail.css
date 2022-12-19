@@ -3,17 +3,23 @@
     color: #0a2b1e;
     font-weight: 500;
   }
-  
+  .card{
+    margin-top: 20px;
+    padding-top: 20px;
+  }
   .detail__content {
     padding-left: 50px;
+    text-decoration: none;
   }
-  
+  .detail__content :any-link{
+    text-decoration: none;
+  }
   .detail__img img {
     border-radius: 15px;
     padding: 20px;
     margin: 10px;
   }
   
-  .about__content h2 {
+  .about__content h3 {
     font-weight: 600;
   }

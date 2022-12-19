@@ -1,14 +1,17 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 import { olineCoursesData, ourCoursesData} from "../../Data/Data";
 import "./courses.css";
 import CourseCard from "./CourseCard";
+//import AllCourses from "./AllCourses"
 
 
 const Courses = () => {
   return (
+    <>
     <section>
-      <Container>
+      <Container className="container">
         <Row>
           <Col lg="12" className="mb-2">
             <div className="course__top d-flex justify-content-between align-items-center">
@@ -45,7 +48,7 @@ const Courses = () => {
               </div>
 
               <div className="w-50 text-end">
-                <button className="btn">See All</button>
+              <Link to={"/all_courses"}><button className="btn"> See All</button></Link>
               </div>
             </div>
           </Col>
@@ -57,6 +60,7 @@ const Courses = () => {
         </Row>
       </Container>
     </section>
+    </>
   );
 };
 

@@ -1,3 +1,11 @@
+.container :any-link {
+  text-decoration:none; 
+}
+
+.container .btn:Link{
+  color:rgb(253, 253, 253);
+}
+
 .single__course__item {
     padding: 15px;
   }
