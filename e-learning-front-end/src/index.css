@@ -8,9 +8,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  
 }
 
-section,
+
 footer {
   padding-top: 70px;
   padding-bottom: 70px;

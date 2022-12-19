@@ -2,8 +2,12 @@
     font-size: 2rem;
     font-weight: 600;
     color: #0a2b1e;
+    
   }
-  
+  .countainer{
+    margin-top:16px;
+    padding-top: 16px;
+  }
   .counter__title {
     font-size: 1rem;
     color: #0a2b1e;

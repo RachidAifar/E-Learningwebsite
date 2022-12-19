@@ -8,7 +8,7 @@ import "./about.css";
 const AboutUs = () => {
   return (
     <section>
-      <Container>
+      <Container className="countainer">
         <Row>
           <Col lg="6" md="6">
             <div className="about__img">
