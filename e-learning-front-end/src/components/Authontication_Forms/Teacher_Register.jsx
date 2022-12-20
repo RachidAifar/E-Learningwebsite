@@ -20,22 +20,28 @@ const Register = () => {
                                         </div>
 
                                         <div className="form-outline mb-2">
-                                            <input type="email" id="form3Example3cg" className="form-control form-control-sm" />
-                                            <label className="form-label" htmlFor="form3Example3cg">Your Email</label>
-                                        </div>
-
-                                        <div className="form-outline mb-2">
                                             <input type="password" id="form3Example4cg" className="form-control form-control-sm" />
                                             <label className="form-label" htmlFor="form3Example4cg">Password</label>
                                         </div>
 
                                         <div className="form-outline mb-2">
-                                            <input type="password" id="form3Example4cdg" className="form-control form-control-sm" />
-                                            <label className="form-label" htmlFor="form3Example4cdg">Repeat your password</label>
+                                            <input type="email" id="form3Example3cg" className="form-control form-control-sm" />
+                                            <label className="form-label" htmlFor="form3Example3cg">Your Email</label>
+                                        </div>
+
+                                        
+
+                                        <div className="form-outline mb-2">
+                                            <input type="number" id="form3Example4cdg" className="form-control form-control-sm" />
+                                            <label className="form-label" htmlFor="form3Example4cdg">Mobile Phone</label>
                                         </div>
                                         <div className="form-outline mb-2">
-                                            <textarea type="email" id="form3Example3cg" className="form-control" />
+                                            <textarea type="text" id="form3Example3cg" className="form-control" />
                                             <label className="form-label" htmlFor="form3Example3cg">Speciality</label>
+                                        </div>
+                                        <div className="form-outline mb-2">
+                                            <textarea type="text" id="form3Example3cg" className="form-control" />
+                                            <label className="form-label" htmlFor="form3Example3cg">Address</label>
                                         </div>
                                         <div className="d-flex justify-content-center">
                                             <button type="button"
