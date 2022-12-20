@@ -12,7 +12,7 @@ export const navLinks = [
     },
     {
       text: "Courses",
-      path: "/courses",
+      path: "/all_courses",
     },
   
     {
@@ -87,6 +87,55 @@ export const navLinks = [
       students: 12.5,
       rating: 5.9,
       imgUrl: courseImg3,
+    },
+    
+  
+  ];
+  export const PouplerCoursesData= [
+    {
+      id: "01",
+      title: "Rachid Aifar",
+      students: 12.5,
+      rating: 5.9,
+      imgUrl: "https://img.freepik.com/premium-vector/man-character-avatar-icon-teacher-male-with-chalkboard_51635-2975.jpg?w=2000",
+    },
+  
+    {
+      id: "02",
+      title: "Django Framework for beginners",
+      students: 12.5,
+      rating: 5.9,
+      imgUrl: "https://img.freepik.com/premium-vector/man-character-avatar-icon-teacher-male-with-chalkboard_51635-2975.jpg?w=2000",
+      
+    },
+  
+    {
+      id: "03",
+      title: "React Framework for beginners",
+      students: 12.5,
+      rating: 5.9,
+      imgUrl: "https://img.freepik.com/premium-vector/man-character-avatar-icon-teacher-male-with-chalkboard_51635-2975.jpg?w=2000",
+    },
+    {
+      id: "04",
+      title: "JavaScript for beginners",
+      students: 12.5,
+      rating: 5.9,
+      imgUrl: "https://img.freepik.com/premium-vector/man-character-avatar-icon-teacher-male-with-chalkboard_51635-2975.jpg?w=2000",
+    },
+    {
+      id: "05",
+      title: "Java for Beginners in 2022",
+      students: 12.5,
+      rating: 5.9,
+      imgUrl: "https://img.freepik.com/premium-vector/man-character-avatar-icon-teacher-male-with-chalkboard_51635-2975.jpg?w=2000",
+    },
+    {
+      id: "06",
+      title: "C Sharp for Beginners in 2022",
+      students: 12.5,
+      rating: 5.9,
+      imgUrl: "https://img.freepik.com/premium-vector/man-character-avatar-icon-teacher-male-with-chalkboard_51635-2975.jpg?w=2000",
     },
     
   
