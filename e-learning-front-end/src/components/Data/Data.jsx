@@ -17,7 +17,7 @@ export const navLinks = [
   
     {
       text: "Teachers",
-      path: "/teachers",
+      path: "/poupler_teachers",
     },
     {
       text: "Course categories",
