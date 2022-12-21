@@ -1,4 +1,8 @@
 import React from "react";
+import { useEffect,useState } from "react";
+import axios from 'axios'
+
+
 import {  Container,Row, Col } from "reactstrap";
 import {  PouplerCoursesData} from "../../Data/Data";
 import TeacherCards from "./TeacherCards";
@@ -8,8 +12,15 @@ import "./courses.css";
 
 
 
-
+const baseUrl='http://127.0.0.1:8000/api'; 
 const PouplerTeacher = () => {
+    const [teacher,setTeacher] =useState(null);
+    useEffect(()=>{
+       axios.get(baseUrl+'/teacher/').then((response)=>{
+            setTeacher(response.data)
+       });
+    },[]);
+    console.log(teacher);
     return (
         <section>
         <Container className="container">
@@ -17,9 +28,9 @@ const PouplerTeacher = () => {
                 <Col lg="12" className="mb-5">
                 <div className="course__top d-flex justify-content-between align-items-center">
                     <div className="course__top__left w-50">
-                    <h4>Poupler Teacher</h4>
+                    <h4>Poupler Teachers </h4>
                     <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
+                        Lorem ipsum Rachid dolor sit amet consectetur adipisicing elit. Quae
                         consequatur libero quod voluptatibus ullam quia quas, vitae
                         voluptatem recusandae reprehenderit!
                     </p>
