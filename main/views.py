@@ -37,9 +37,12 @@ class TeacherList(generics.ListCreateAPIView):
 class TeacherDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Teacher.objects.all()
     serializer_class = TeacherSerialize
+
+
 class StudentDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Students.objects.all()
     serializer_class = StudentSerialize
+
 
 class CourseCategoryList(APIView):
     def get(self, request):

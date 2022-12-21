@@ -19,9 +19,9 @@ class Teacher(models.Model):
     password = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
     mobile_phone = models.CharField(max_length=30)
+    speciality = models.CharField(max_length=150, default='Teacher')
     address = models.CharField(max_length=30)
     dateofjoining = models.DateField(auto_now_add=True)
-
     class Meta:
         verbose_name = "Teacher"
 

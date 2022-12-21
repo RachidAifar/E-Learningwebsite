@@ -11,7 +11,8 @@ class StudentSerialize(serializers.ModelSerializer):
 class TeacherSerialize(serializers.ModelSerializer):
     class Meta:
         model = models.Teacher
-        fields = ['teacher_id', 'teacher_fullname', 'password', 'email', 'mobile_phone', 'address', 'dateofjoining']
+        fields = ['teacher_id', 'teacher_fullname', 'password', 'email', 'mobile_phone', 'address','speciality',
+                  'dateofjoining']
 
 
 class CourseCategorySerialize(serializers.ModelSerializer):
@@ -24,4 +25,3 @@ class CourseSerialize(serializers.ModelSerializer):
     class Meta:
         model = models.Course
         fields = ['course_id', 'category_id', 'teacher_id', 'course_title', 'dateOfJoining']
-
