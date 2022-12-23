@@ -12,6 +12,10 @@ const Header = () => {
 
 
   const menuToggle = () => menuRef.current.classList.toggle("active__menu");
+  
+  const teacherLoginStatus= localStorage.getItem('teacherLoginStatus');//the redirect the loged in user to dashboard 
+  
+
 
   return (
     <header className="header">
@@ -36,7 +40,7 @@ const Header = () => {
                     <ul className="dropdown-menu">
                       <li><Link to={"/register"} className="dropdown-item">Register</Link></li>
                       <li><Link to={"/login"} className="dropdown-item">Login</Link></li>
-                      <li><hr className="dropdown-divider"/></li>
+                      {/* <li><hr className="dropdown-divider"/></li> */}
                       <li><Link to={"/dashboard"} className="dropdown-item">Dashboard</Link></li>
                       <li><Link to={"/"} className="dropdown-item">Logout</Link></li>
                     </ul>
@@ -46,8 +50,12 @@ const Header = () => {
                       Teacher
                     </Link>
                     <ul className="dropdown-menu">
-                      <li><Link to={"/teacher_register"} className="dropdown-item">Register</Link></li>
-                      <li><Link to={"/teacher_login"} className="dropdown-item">Login</Link></li>
+                      {teacherLoginStatus===true &&
+                        <>
+                        <li><Link to={"/teacher_register"} className="dropdown-item">Register</Link></li>
+                        <li><Link to={"/teacher_login"} className="dropdown-item">Login</Link></li></>
+                      }
+                      
                       <li><hr className="dropdown-divider"/></li>
                       <li><Link to={"/teacher_dashboard"} className="dropdown-item">Dashboard</Link></li>
                       <li><Link to={"/"} className="dropdown-item">Logout</Link></li>
