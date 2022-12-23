@@ -20,6 +20,7 @@ import ChangePassword from "../User_Dashboard/ChangePassword";
 import ProfileSetting from "../User_Dashboard/ProfileSetting";
 //teacher
 import AllCourses from "../Home/Courses-section/AllCourses";
+import TeacherLogout from '../Teacher_Dashboard/TeacherLogout'
 //List pages
 import TeacherLogin from "../Authontication_Forms/Teacher_Login";
 import TeacherRegister from "../Authontication_Forms/Teacher_Register";
@@ -62,6 +63,7 @@ const Pages = () => {
           <Route exact path='/add_courses' element={<AddCourse />} />
           <Route exact path='/teacher_profile_setting' element={<TeacherProfileSetting />} />
           <Route exact path='/teacher_chnage_password' element={<TeacherChangePassword />} />
+          <Route exact path='TeacherLogout' element={<TeacherLogout />} />
 
           <Route exact path='/CourseDetail/:course_id' element={<CourseDetail/>} />
           <Route exact path="/teacher_detail:teacher_id" element={<TeacherDetail/>} />
