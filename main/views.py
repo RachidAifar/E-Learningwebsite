@@ -1,5 +1,6 @@
-from django.http import HttpResponse
 from django.shortcuts import render
+from django.http import JsonResponse, HttpResponse  ##without this you can not submit a form to django
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics
@@ -37,6 +38,20 @@ class TeacherList(generics.ListCreateAPIView):
 class TeacherDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Teacher.objects.all()
     serializer_class = TeacherSerialize
+
+
+@csrf_exempt
+def teachers_login(request):
+    email = request.POST['email']
+    password = request.POST['password']
+    try:
+        teacherData = models.Teacher.objects.get(password=password, email=email)
+    except models.Teacher.DoesNotExist:
+        teacherData = None
+    if teacherData:
+        return JsonResponse({'bool': True})
+    else:
+        return JsonResponse({'bool': False})
 
 
 class StudentDetails(generics.RetrieveUpdateDestroyAPIView):

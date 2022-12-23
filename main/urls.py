@@ -8,6 +8,7 @@ urlpatterns = [
 
     path('teacher/', views.TeacherList.as_view()),
     path('teacher/<int:pk>/', views.TeacherDetail.as_view()),
+    path('teacher_login',views.teachers_login),
 
     path('courseCategory/', views.CourseCategoryList.as_view()),
 
