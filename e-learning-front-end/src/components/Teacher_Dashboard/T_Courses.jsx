@@ -27,7 +27,8 @@ const TeacherCourses =()=>{
                                 <td>Java Development</td>
                                 <td><Link to={""}>Rachid Aifar</Link></td>
                                 <td>
-                                    <button className="btn btn-primery  text-danger" >Delete</button>
+                                    <Link className="btn btn-danger btn-sm active mt-0 2 ms-2" >Delete</Link>
+                                    <Link className='btn btn-success btn-sm active mt-0 ms-2' to={"/add_chapter/2  "}>Add Chapters</Link>
                                 </td>
                             </tbody>
                         </table>
