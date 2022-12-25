@@ -22,6 +22,7 @@ class Teacher(models.Model):
     speciality = models.CharField(max_length=150, default='Teacher')
     address = models.CharField(max_length=30)
     dateofjoining = models.DateField(auto_now_add=True)
+
     class Meta:
         verbose_name = "Teacher"
 
@@ -34,12 +35,18 @@ class CourseCategory(models.Model):
     class Meta:
         verbose_name = "Course Category"
 
+    def __str__(self): ##we are returning title
+        return self.title
+
 
 class Course(models.Model):
     course_id = models.AutoField(primary_key=True)
-    category_id = models.ForeignKey(CourseCategory, default=None, on_delete=models.CASCADE)
-    teacher_id = models.ForeignKey(Teacher, default=None, on_delete=models.CASCADE)
+    category = models.ForeignKey(CourseCategory, default=None, on_delete=models.CASCADE)
+    teacher = models.ForeignKey(Teacher, default=None, on_delete=models.CASCADE)
     course_title = models.CharField(max_length=50, default=None)
+    course_description = models.TextField(max_length=50, default='None')
+    feature_img = models.ImageField(upload_to='course_images/', null=True)
+    technologies = models.TextField(max_length=50, default='None')
     dateOfJoining = models.DateField(auto_now_add=True)
 
     class Meta:

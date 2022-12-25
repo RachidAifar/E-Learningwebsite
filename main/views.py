@@ -59,19 +59,13 @@ class StudentDetails(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = StudentSerialize
 
 
-class CourseCategoryList(APIView):
-    def get(self, request):
-        courseCategory = models.CourseCategory.objects.all()
-        serializer = CourseCategorySerialize(courseCategory, many=True)
-        return Response(serializer.data)
+class CourseCategoryList(generics.ListCreateAPIView):
+    queryset = models.CourseCategory.objects.all()
+    serializer_class = CourseCategorySerialize
+    # serializer = CourseCategorySerialize(courseCategory, many=True)
+    # return Response(serializer.data)
 
 
-class CourseList(APIView):
-    def get(self, request):
-        course = models.Course.objects.all()
-        serializer = CourseSerialize(course, many=True)
-        return Response(serializer.data)
-
-
-def index(request):
-    return HttpResponse("Hello, world. You're here finally")
+class CourseList(generics.ListCreateAPIView):
+    queryset = models.Course.objects.all()
+    serializer_class = CourseSerialize
