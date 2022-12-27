@@ -50,7 +50,7 @@ const Header = () => {
                       Teacher
                     </Link>
                     <ul className="dropdown-menu">
-                      {teacherLoginStatus===true &&
+                      {teacherLoginStatus !== 'true' &&
                         <>
                         <li><Link to={"/teacher_register"} className="dropdown-item">Register</Link></li>
                         <li><Link to={"/teacher_login"} className="dropdown-item">Login</Link></li></>
@@ -58,7 +58,7 @@ const Header = () => {
                       
                       <li><hr className="dropdown-divider"/></li>
                       <li><Link to={"/teacher_dashboard"} className="dropdown-item">Dashboard</Link></li>
-                      <li><Link to={"/"} className="dropdown-item">Logout</Link></li>
+                      <li><Link to={"/teacher_logout"} className="dropdown-item">Logout</Link></li>
                     </ul>
                 </li>
               </ul>
