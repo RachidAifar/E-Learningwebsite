@@ -15,6 +15,8 @@ const Login = () => {
         'email':'',
         'password':''
     });
+    //show error message when the teacher is not exist
+    const[errorMsg, seterrorMsg] =useState('');
     //change element value
     const handleChange=(event)=>{
         setTeacherLoginData({
@@ -30,10 +32,12 @@ const Login = () => {
 
          try{
             axios.post(baseUrl+'/teacher_login',teacherFormData).then((response)=>{
-                console.log(response.data);
                 if(response.data.bool===true){
-                localStorage.setItem('teacherLoginStatus', true);
+                localStorage.setItem('teacherLoginStatus', true);//save a data in local storage
+                localStorage.setItem('teacher_id', response.data.teacher_id);
                 window.location.href='/teacher_dashboard';
+            }else{
+                seterrorMsg('Inavalid Email Or Password');
             }
              });
 
@@ -64,6 +68,7 @@ const Login = () => {
                     <div className="card col-md-5 col-md-4">
                         <div className="card-body">
                         <h3 className="text-center mb-3">Teacher Login</h3>
+                        {errorMsg&& <p className="text-danger">{errorMsg}</p>}
                             <form>
                                 {/* <!-- Email input --> */}
                                 <div className="form-outline mb-2">
