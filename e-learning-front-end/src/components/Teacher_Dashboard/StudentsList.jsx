@@ -13,7 +13,7 @@ const StudentList =()=>{
                 </aside>
                 <section className="col-md-9">    
                 <div className="card">
-                    <h4 className="card-header">Student List</h4>
+                    <h4 className="card-header">Students List</h4>
                     <div className="card-body">
                         <table className="table table-bordered ">
                             <thead>
@@ -24,11 +24,13 @@ const StudentList =()=>{
                                 </tr>
                             </thead>
                             <tbody>
-                                <td>Rachid Aifar</td>
-                                <td><Link to={""}>Java Development</Link></td>
-                                <td>
-                                    <button className="btn btn-primery  text-danger" >Delete</button>
-                                </td>
+                                <tr>
+                                    <td>Rachid Aifar</td>
+                                    <td><Link to={""}>Java Development</Link></td>
+                                    <td>
+                                        <button className="btn btn-danger btn-sm mb-2  mt-0 2 ms-2" >Delete</button>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

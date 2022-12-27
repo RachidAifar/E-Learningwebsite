@@ -20,9 +20,6 @@ const AddCourse = () => {
         try{
             axios.get(baseUrl+'/courseCategory').then((response)=>{
                 setCtas(response.data);
-                // setCtas({
-                //     cats:response.data,
-                // });
             });
 
         }catch(error){
@@ -41,11 +38,11 @@ const AddCourse = () => {
             [event.target.name]:event.target.files[0]
         });
     };
-
+    const teacher_id = localStorage.getItem("teacher_id");
     const submitForm=()=>{
         const   CourseFormData =new FormData();
         CourseFormData.append("category",courseData.category );
-        CourseFormData.append("teacher", 1);
+        CourseFormData.append("teacher", teacher_id);
         CourseFormData.append("course_title",courseData.course_title );
         CourseFormData.append("course_description",courseData.course_description );
         CourseFormData.append("feature_img",courseData.feature_img,courseData.feature_img.name );
@@ -59,7 +56,7 @@ const AddCourse = () => {
                 }
             })
             .then((res)=>{
-                console.log(res.data);
+                window.location.href='/add_courses';
             });
         }catch(error){
             console.log(error);
