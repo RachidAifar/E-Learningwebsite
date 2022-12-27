@@ -21,6 +21,7 @@ import ProfileSetting from "../User_Dashboard/ProfileSetting";
 //teacher
 import AllCourses from "../Home/Courses-section/AllCourses";
 import TeacherLogout from '../Teacher_Dashboard/TeacherLogout';
+import AllChapter from "../../components/Teacher_Dashboard/AllChapter"
 //List pages
 import TeacherLogin from "../Authontication_Forms/Teacher_Login";
 import TeacherRegister from "../Authontication_Forms/Teacher_Register";
@@ -66,12 +67,13 @@ const Pages = () => {
           <Route exact path='/add_chapter/:course_id' element={<AddChapter />} />
           <Route exact path='/teacher_profile_setting' element={<TeacherProfileSetting />} />
           <Route exact path='/teacher_chnage_password' element={<TeacherChangePassword />} />
-          <Route exact path='TeacherLogout' element={<TeacherLogout />} />
+          <Route exact path='/teacher_logout' element={<TeacherLogout />} />
 
 
           <Route exact path='/CourseDetail/:course_id' element={<CourseDetail/>} />
           <Route exact path="/teacher_detail:teacher_id" element={<TeacherDetail/>} />
           <Route exact path="/all_courses" element={<AllCourses/>} />
+          <Route exact path="/course_chapter/:course_id" element={<AllChapter/>} />
           <Route exact path="/category/:category_slug" element={<CategoryCourses/>} />
 
 
