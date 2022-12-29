@@ -5,12 +5,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework import permissions
-from .serializers import StudentSerialize
-from .serializers import TeacherSerialize
-from .serializers import CourseCategorySerialize
-from .serializers import CourseSerialize
+from .serializers import StudentSerialize, TeacherSerialize, CourseCategorySerialize, CourseSerialize,  ChapterSerialize
 from . import models
-
+from django.http import Http404
 
 # post and fetch
 class StudentList(generics.ListCreateAPIView):
@@ -49,7 +46,7 @@ def teachers_login(request):
     except models.Teacher.DoesNotExist:
         teacherData = None
     if teacherData:
-        return JsonResponse({'bool': True})
+        return JsonResponse({'bool': True, 'teacher_id': teacherData.teacher_id})
     else:
         return JsonResponse({'bool': False})
 
@@ -66,6 +63,41 @@ class CourseCategoryList(generics.ListCreateAPIView):
     # return Response(serializer.data)
 
 
+# get all courses
 class CourseList(generics.ListCreateAPIView):
     queryset = models.Course.objects.all()
     serializer_class = CourseSerialize
+
+
+# get specific teacher course
+class TeacherCourseList(generics.ListAPIView):
+    serializer_class = CourseSerialize
+
+    def get_queryset(self):
+        teacher_id = self.kwargs['teacher_id']
+        teacher = models.Teacher.objects.get(pk=teacher_id)
+        return models.Course.objects.filter(teacher=teacher)
+
+
+class ChapterList(generics.ListCreateAPIView):
+    queryset = models.Chapter.objects.all()
+    serializer_class = ChapterSerialize
+
+
+class CourseChapterList(generics.ListAPIView):
+    serializer_class = ChapterSerialize
+
+    def get_queryset(self):
+        try:
+            course_id = self.kwargs['course_id']
+            course = models.Course.objects.get(pk=course_id)
+            return models.Chapter.objects.filter(course_id=course)
+        except models.Course.DoesNotExist:
+            raise Http404("Course does not exist")
+        except Exception as e:
+            raise Http404("An error occurred")
+
+
+# class ChapterDetailView(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = models.Chapter.objects.all()
+#     serializer_class = ChapterSerialize

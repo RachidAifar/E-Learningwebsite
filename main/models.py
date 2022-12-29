@@ -8,6 +8,7 @@ class Users(models.Model):
     email = models.CharField(max_length=100)
     image = models.CharField(max_length=100)
     dateOfJoining = models.DateField(auto_now_add=True)
+    objects = models.Manager()
 
     class Meta:
         verbose_name = "Users"
@@ -22,6 +23,7 @@ class Teacher(models.Model):
     speciality = models.CharField(max_length=150, default='Teacher')
     address = models.CharField(max_length=30)
     dateofjoining = models.DateField(auto_now_add=True)
+    objects = models.Manager()
 
     class Meta:
         verbose_name = "Teacher"
@@ -31,11 +33,12 @@ class CourseCategory(models.Model):
     category_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=100)
+    objects = models.Manager()
 
     class Meta:
         verbose_name = "Course Category"
 
-    def __str__(self): ##we are returning title
+    def __str__(self):  ##we are returning title
         return self.title
 
 
@@ -44,13 +47,28 @@ class Course(models.Model):
     category = models.ForeignKey(CourseCategory, default=None, on_delete=models.CASCADE)
     teacher = models.ForeignKey(Teacher, default=None, on_delete=models.CASCADE)
     course_title = models.CharField(max_length=50, default=None)
-    course_description = models.TextField(max_length=50, default='None')
+    course_description = models.TextField(max_length=200, default='None')
     feature_img = models.ImageField(upload_to='course_images/', null=True)
     technologies = models.TextField(max_length=50, default='None')
     dateOfJoining = models.DateField(auto_now_add=True)
+    objects = models.Manager()
 
     class Meta:
         verbose_name = "Course"
+
+
+class Chapter(models.Model):
+    chapter_id = models.AutoField(primary_key=True)
+    course_id = models.ForeignKey(Course, default=None, on_delete=models.CASCADE)
+    chapter_title = models.CharField(max_length=50, default=None)
+    chapter_description = models.TextField(max_length=50, default='None')
+    video = models.FileField(upload_to='chapter_videos/', null=True)
+    remarks = models.TextField(max_length=50, default='None')
+    dateOfJoining = models.DateField(auto_now_add=True)
+    objects = models.Manager()
+
+    class Meta:
+        verbose_name = "Chapter"
 
 
 class Students(models.Model):
@@ -61,6 +79,7 @@ class Students(models.Model):
     mobile_phone = models.CharField(max_length=30)
     address = models.CharField(max_length=30)
     dateOfJoining = models.DateField(auto_now_add=True)
+    objects = models.Manager()
 
     class Meta:
         verbose_name = "Students"
@@ -72,6 +91,7 @@ class VideoInfo(models.Model):
     description = models.CharField(max_length=100)
     uploader_name = models.CharField(max_length=100)
     dateOfUploading = models.DateField(auto_now_add=True)
+    objects = models.Manager()
 
     class Meta:
         verbose_name = "Video Info"
