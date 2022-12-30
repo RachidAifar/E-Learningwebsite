@@ -21,7 +21,8 @@ import ProfileSetting from "../User_Dashboard/ProfileSetting";
 //teacher
 import AllCourses from "../Home/Courses-section/AllCourses";
 import TeacherLogout from '../Teacher_Dashboard/TeacherLogout';
-import AllChapter from "../../components/Teacher_Dashboard/AllChapter"
+import AllChapter from "../../components/Teacher_Dashboard/AllChapter";
+import EditChapter from "../../components/Teacher_Dashboard/EditChapter"
 //List pages
 import TeacherLogin from "../Authontication_Forms/Teacher_Login";
 import TeacherRegister from "../Authontication_Forms/Teacher_Register";
@@ -74,6 +75,8 @@ const Pages = () => {
           <Route exact path="/teacher_detail:teacher_id" element={<TeacherDetail/>} />
           <Route exact path="/all_courses" element={<AllCourses/>} />
           <Route exact path="/course_chapter/:course_id" element={<AllChapter/>} />
+          <Route exact path="/edit_chapter/:chapter_id" element={<EditChapter/>} />
+
           <Route exact path="/category/:category_slug" element={<CategoryCourses/>} />
 
 
