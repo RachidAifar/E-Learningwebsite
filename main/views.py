@@ -98,6 +98,6 @@ class CourseChapterList(generics.ListAPIView):
             raise Http404("An error occurred")
 
 
-# class ChapterDetailView(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = models.Chapter.objects.all()
-#     serializer_class = ChapterSerialize
+class ChapterDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Chapter.objects.all()
+    serializer_class = ChapterSerialize
