@@ -8,10 +8,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-decoration: none;
   
 }
-
-
 footer {
   padding-top: 70px;
   padding-bottom: 80px;
@@ -49,6 +48,6 @@ p {
 } */
 
 
-i {
+/* i {
   color: #1752bf;
-}
+} */

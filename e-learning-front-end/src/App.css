@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  text-decoration: none;
 }
 
 .App-logo {
@@ -24,10 +25,10 @@
   color: white;
 }
 
-.App-link {
+/* .App-link {
   color: #61dafb;
-}
-button {
+} */
+/* button {
   border-radius: 5px;
   padding: 17px 30px;
   background: #1494df;
@@ -38,7 +39,7 @@ button {
 }
 button i {
   margin-right: 5px;
-}
+} */
 
 @keyframes App-logo-spin {
   from {
