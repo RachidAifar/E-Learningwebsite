@@ -34,6 +34,7 @@ import AddCourse from "../Teacher_Dashboard/AddCouses";
 import TeacherProfileSetting from "../Teacher_Dashboard/T_ProfileSetting";
 import CategoryCourses from "../Home/Courses-section/CategoryCourses";
 import AddChapter from "../Teacher_Dashboard/AddChapter";
+import EditCourse from "../Teacher_Dashboard/EditCourse"
 
 //import HeroSlider from "../components/HeroSlider/HeroSlider"
 //import HeroSection from "../components/HeroSection/HeroSection"
@@ -65,6 +66,7 @@ const Pages = () => {
           <Route exact path='/teacher_courses' element={<TeacherCourses />} />
           <Route exact path='/students_list' element={<StudentList />} />
           <Route exact path='/add_courses' element={<AddCourse />} />
+          <Route exact path='/edit_course/:course_id' element={<EditCourse />} />
           <Route exact path='/add_chapter/:course_id' element={<AddChapter />} />
           <Route exact path='/teacher_profile_setting' element={<TeacherProfileSetting />} />
           <Route exact path='/teacher_chnage_password' element={<TeacherChangePassword />} />

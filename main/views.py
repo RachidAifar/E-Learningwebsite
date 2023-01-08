@@ -5,9 +5,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework import permissions
-from .serializers import StudentSerialize, TeacherSerialize, CourseCategorySerialize, CourseSerialize,  ChapterSerialize
+from .serializers import StudentSerialize, TeacherSerialize, CourseCategorySerialize, CourseSerialize, ChapterSerialize
 from . import models
 from django.http import Http404
+
 
 # post and fetch
 class StudentList(generics.ListCreateAPIView):
@@ -68,6 +69,18 @@ class CourseList(generics.ListCreateAPIView):
     queryset = models.Course.objects.all()
     serializer_class = CourseSerialize
 
+    def get_queryset(self):
+        qs = super().get_queryset()
+        if 'result' in self.request.GET:
+            limit = int(self.request.GET['result'])
+            qs = models.Course.objects.all().order_by('-course_id')[:limit]
+        return qs
+
+
+class CourseDetailView(generics.RetrieveAPIView):
+    queryset = models.Course.objects.all()
+    serializer_class = CourseSerialize
+
 
 # get specific teacher course
 class TeacherCourseList(generics.ListAPIView):
@@ -77,6 +90,11 @@ class TeacherCourseList(generics.ListAPIView):
         teacher_id = self.kwargs['teacher_id']
         teacher = models.Teacher.objects.get(pk=teacher_id)
         return models.Course.objects.filter(teacher=teacher)
+
+
+class TeacherCourseDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Course.objects.all()
+    serializer_class = CourseSerialize
 
 
 class ChapterList(generics.ListCreateAPIView):

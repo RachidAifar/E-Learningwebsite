@@ -59,11 +59,11 @@ class Course(models.Model):
 
 class Chapter(models.Model):
     chapter_id = models.AutoField(primary_key=True)
-    course_id = models.ForeignKey(Course, default=None, on_delete=models.CASCADE)
-    chapter_title = models.CharField(max_length=50, default=None)
-    chapter_description = models.TextField(max_length=50, default='None')
+    course_id = models.ForeignKey(Course, default=None, on_delete=models.CASCADE,related_name='course_chapters')
+    chapter_title = models.CharField(max_length=150, default=None)
+    chapter_description = models.TextField(max_length=150, default='None')
     video = models.FileField(upload_to='chapter_videos/', null=True)
-    remarks = models.TextField(max_length=50, default='None')
+    remarks = models.TextField(max_length=150, default='None')
     dateOfJoining = models.DateField(auto_now_add=True)
     objects = models.Manager()
 
