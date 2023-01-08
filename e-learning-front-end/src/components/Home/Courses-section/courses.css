@@ -5,6 +5,30 @@
 .container .btn:Link{
   color:rgb(253, 253, 253);
 }
+.course_card{
+  background-color: transparent !important;
+  border-radius: 50px;
+  min-height: 350px;
+  height: 100%;
+  max-height: 350px;
+  border: none !important;
+  background: transparent;
+  text-decoration: none;
+   margin-top: 20px;
+  padding-top: 20px;
+}
+.card-img-top {
+  max-width: 20rem;
+  border-radius: 10px;
+  margin-bottom: 2;
+  height: 13vw;
+  margin-right: -1px;
+  display: block;
+  border-radius: 0%;
+  align-items: center;
+  justify-items: center;
+  border: none !important;
+ }
 
 .single__course__item {
     padding: 15px;
@@ -44,3 +68,10 @@
   .course__top__left h2 {
     font-weight: 600;
   }
+  button.btn {
+  background:#126ed6;
+  color: #fff;
+  padding: 7px 25px;
+  border-radius: 50px;
+  
+}
