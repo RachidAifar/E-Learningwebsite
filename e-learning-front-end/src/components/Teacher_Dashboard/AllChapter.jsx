@@ -31,13 +31,34 @@ const CourseChapter =()=>{
 
     //delete date 
     //res for confirm message delete
-    const handleDeleteClick = () => {
+    const handleDeleteClick = (chapter_id) => {
         Swal.fire({
             title: 'Confirm!',
             text: 'Do you want to continue deleting this chapter?',
             icon: 'info',
             confirmButtonText: 'Continue',
             showCancelButton: true
+          }).then((result)=>{
+            if(result.isConfirmed){
+                try{
+                    axios.delete(baseUrl+'/chapter/'+chapter_id).then((res)=>{
+                        Swal.fire('success','Chapter has been deleted');
+                        try{
+                            axios.get(baseUrl+'/course_chapter/'+course_id).then((response)=>{//geting teacher by id
+                                setTotalResult(response.data.length);
+                                setChapterCourseData(response.data);
+                            });
+                
+                        }catch(error){
+                            console.log(error);
+                        }
+                    });
+                   
+                }catch(error){
+                    Swal.fire('error','Chapter has not been deleted!!');
+            }}else{  
+                Swal.fire('error','Data has been delted!!!');
+            }
           })
     }
     
@@ -49,7 +70,7 @@ const CourseChapter =()=>{
                 </aside>
                 <section className="col-md-9">    
                 <div className="card">
-                    <h4 className="card-header">All Chapters : {totalResult}</h4>
+                    <h4 className="card-header">All Chapters : {totalResult}<Link className="btn btn-success btn-sm float-end" to={'/add_chapter/'+course_id}>Add Chapter</Link></h4>
                     <div className="card-body">
                         <table className="table table-bordered ">
                                 <thead>
@@ -64,19 +85,21 @@ const CourseChapter =()=>{
                                 <tbody>
                                     {chapterData.map((chapter,index)=>  
                                     <tr>
-                                        <td><Link to={"#"}>{chapter.chapter_title}</Link></td>
+                                        <td><Link to={"/edit_chapter/"+chapter.chapter_id}>{chapter.chapter_title}</Link></td>
                                         <td>{chapter.chapter_description}</td>
                                         <td>
-                                        <video width="320" height="240" controls>
-                                            <source src={chapter.video.url} type="video/mp4"/>
-                                            <source src={chapter.video.url}type="video/ogg"/>
+                                        {!chapterData.video &&
+                                        <video width="320" controls>
+                                            <source src={chapter.video} type="video/mp4"/>
+                                            {/* <source src={chapter.video}type="video/ogg"/> */}
                                             Your browser does not support the video tag.
                                         </video>
+                                        }
                                         </td> {/*add video from database*/}
                                         <td>{chapter.remarks}</td>
                                         <td>
                                             <Link to={"/edit_chapter/"+chapter.chapter_id} name="edit" className='btn btn-info text-white mb-2 ms-2' ><i className="ri-edit-2-fill"></i></Link>
-                                            <Button onClick={handleDeleteClick} to={"/delete_chapter/"+chapter.chapter_id}  name="delete" className="btn btn-danger mb-2  ms-2" ><i className="ri-delete-bin-fill"></i></Button>
+                                            <Button onClick={()=>handleDeleteClick(chapter.chapter_id)}   name="delete" className="btn btn-danger mb-2  ms-2" ><i className="ri-delete-bin-fill"></i></Button>
                                         </td>
                                     </tr>
                                     )}

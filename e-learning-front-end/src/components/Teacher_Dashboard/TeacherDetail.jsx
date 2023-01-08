@@ -8,7 +8,7 @@ import "./teacherDetail.css"
 const TeacherDetail = () => {
     return (
     <section>
-      <Container className="card ">
+      <Container className="card">
         <Row>
           <Col lg="5" md="5">
             <div className="thumbail">

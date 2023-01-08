@@ -1,37 +1,63 @@
 import React from "react"
 import { Container, Row, Col } from "reactstrap";
-import {Link} from 'react-router-dom';
+import {Link,useParams} from 'react-router-dom';
 import aboutImg from "../../images/pexels-negative-space-160107.jpg";
-
 //import { useParams } from "react-router-dom";
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
 import {  RelatedCourses} from "../../Data/Data";
 import "./courseDetail.css";
 import CourseCard from "./CourseCard";
+import axios from 'axios';
+import { useState,useEffect } from 'react';
+
+
+
+
+const baseUrl='http://127.0.0.1:8000/api';
+
 
   // const {course_id}=useParams();
 
 const CourseDetail = () => {
-  return (
+
+  const [chapterData, setChapterCourseData] =useState([]);
+  const [courseData, setCourseData] =useState([]);
+  const [teacherData, setTeacherData] =useState([]);
+  const{course_id}=useParams();
+ 
+
+  useEffect(()=>{
+      //fetch courses
+      try{
+          axios.get(baseUrl+'/course/'+course_id).then((response)=>{//geting teacher by id
+              setCourseData(response.data);
+              setTeacherData(response.data.teacher);
+              setChapterCourseData(response.data.course_chapters)
+          });
+
+      }catch(error){
+          console.log(error);
+      }
+  },[course_id]);
+
+  return(
     <section>
-      <Container className="card ">
+      <Container className="card_courseDetail">
         <Row>
           <Col lg="5" md="5">
             <div className="thumbail">
-              <img src={aboutImg} alt="" className="w-100" />
+              <img  src={courseData.feature_img} alt="" className="w-100 mb-5" />
             </div>
           </Col>
 
-          <Col md="7">
+          <Col mb="5" md="7">
             <div className="detail__content">
-              <h3>Course Title</h3>
+              <h3>{courseData.course_title}</h3>
               <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Excepturi cupiditate animi deserunt libero nesciunt corporis
-                explicabo nobis ex quo molestiae!
+              {courseData.course_description}
               </p>
-              <p className="fw-bold">Upoaded by: <Link to={"/teacher_detail:teacher_id"}> Teacher 1</Link></p>
+              <p className="fw-bold">Upoaded by: <Link to={"/teacher_detail:teacher_id"}>{teacherData.teacher_fullname}</Link></p>
               <p className="fw-bold">Time: 2 Hours 13 Minuts</p>  
               <p className="fw-bold">Total Enrolled: 470 Student</p> 
               <p className="fw-bold">Rating 4/5</p> 
@@ -39,11 +65,11 @@ const CourseDetail = () => {
           </Col>
         </Row>
         <div className="listItem mb-3">
-        <Card style={{ width: '58rem'  }}>
+        <Card className="text-bg-primary p-3" style={{ width: '58rem'  }}>
           <Card.Header><h4>Course Videos</h4></Card.Header>
             <ListGroup variant="flush">
-              <ListGroup.Item>video 1 <button className="btn btn-sm btn-info float-end" data-bs-toggle="modal" data-bs-target="#videoModal1"><i className="ri-youtube-fill"></i> Play</button></ListGroup.Item>
-              {/* video Modal start  */}
+            {chapterData.map((chapter,index) =>
+              <li className="text-bg-light p-3 ms-2 mt-2 mb-2">{chapter.chapter_title}<button className="btn btn-sm btn-info mt-1 float-end" data-bs-toggle="modal" data-bs-target="#videoModal1"><i className="ri-youtube-fill"></i> Play</button>
               <div className="modal fade" id="videoModal1" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div className="modal-dialog modal-lg mt-5 pt-5">
                 <div className="modal-content">
@@ -53,7 +79,7 @@ const CourseDetail = () => {
                   </div>
                   <div className="modal-body">
                     <div className="ratio ratio-16x9">
-                    <iframe src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" title="YouTube video" allowFullScreen></iframe>
+                    <iframe src={chapter.video} title="YouTube video" allowFullScreen></iframe>
                   </div>
                   </div>
                   <div className="modal-footer">
@@ -63,9 +89,8 @@ const CourseDetail = () => {
                 </div>
               </div>
               </div>
-              {/* video modal end */}
-              <ListGroup.Item>video 2 <button className="btn btn-sm btn-info float-end"><i className="ri-youtube-fill"></i> Play</button></ListGroup.Item>
-              <ListGroup.Item>video 3 <button className="btn btn-sm btn-info float-end"><i className="ri-youtube-fill"></i> Play</button></ListGroup.Item>
+              </li>
+               )}
             </ListGroup>
           </Card>
         </div>

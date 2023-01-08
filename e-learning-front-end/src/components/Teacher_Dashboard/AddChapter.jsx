@@ -2,7 +2,7 @@ import React from "react";
 import axios from 'axios';
 import Sidebar from "./T_Sidebar";
 import {useParams} from 'react-router-dom';
-import {useState,useEffect} from "react";
+import {useState} from "react";
 
 
 const baseUrl='http://127.0.0.1:8000/api';

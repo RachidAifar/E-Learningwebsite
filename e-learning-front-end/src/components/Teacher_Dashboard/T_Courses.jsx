@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import Sidebar from './T_Sidebar';
+import Swal from 'sweetalert2';
 import { useState,useEffect } from 'react';
 
 
@@ -15,14 +16,27 @@ const TeacherCourses =()=>{
     useEffect(()=>{
         //fetch courses
         try{
-            axios.get(baseUrl+'/teacher_courses/'+teacher_id).then((response)=>{//geting teacher by id
+            axios.get(baseUrl+'/teacher_courses/'+teacher_id).then((response)=>{//getting teacher by id
                 setCourseData(response.data);
+                console.log(response.data);
             });
 
         }catch(error){
             console.log(error);
         }
-    },[]);
+    },[teacher_id]);
+
+    const handleDeleteClick=(course_id)=>{
+        Swal.fire({
+            title: 'Confirm',
+            text: 'Are you sure you want to delete this data?',
+            icon:'info',
+            confirmButtonText:"info",
+            showConfirmButton:false
+          }
+        );
+
+    }
 
     
     return(
@@ -51,8 +65,9 @@ const TeacherCourses =()=>{
                                     <td><Link to={"/"}>Rachid Aifar</Link></td>
                                     <td><img src={course.feature_img} alt={course.course_title} width={"200"} className="rounded" /></td> {/*add imagee from database*/}
                                     <td>
-                                        <Link className="btn btn-danger btn-sm mb-2  mt-0 2 ms-2" >Delete</Link>
-                                        <Link className='btn btn-success btn-sm  mt-0 ms-2' to={'/add_chapter/'+course.course_id}>Add Chapters</Link>
+                                        <Link to={'/add_chapter/'+course.course_id} className='btn btn-success btn-sm' >Add Chapters</Link>
+                                        <Link to={'/edit_course/'+course.course_id} className="btn btn-info btn-sm mb-2  mt-2 2 ms-2" >Edit</Link>
+                                        <Link onClick={()=>handleDeleteClick(course.course_id)} className="btn btn-danger btn-sm mb-2  mt-2 2 ms-2" >Delete</Link> 
                                     </td>
                                 </tr>
                                 )}
