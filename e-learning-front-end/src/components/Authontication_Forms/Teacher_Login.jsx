@@ -46,10 +46,10 @@ const Login = () => {
         }
     }; 
 
-    const teacherLoginStatus= localStorage.getItem('teacherLoginStatus');//the redirect the loged in user to dashboard 
+    const teacherLoginStatus= localStorage.getItem('teacherLoginStatus');//the redirect the loged in user to dashboard
     if(teacherLoginStatus==='true'){
         window.location.href='/teacher_dashboard'
-    }
+    };
 
 
     useEffect(()=>{

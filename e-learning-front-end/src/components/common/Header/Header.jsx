@@ -14,6 +14,7 @@ const Header = () => {
   const menuToggle = () => menuRef.current.classList.toggle("active__menu");
   
   const teacherLoginStatus= localStorage.getItem('teacherLoginStatus');//the redirect the loged in user to dashboard 
+  const studentLoginStatus= localStorage.getItem('studentLoginStatus');
   
 
 
@@ -38,11 +39,15 @@ const Header = () => {
                       User
                     </Link>
                     <ul className="dropdown-menu">
+                    {studentLoginStatus !== 'true'  && 
+                      <>
                       <li><Link to={"/register"} className="dropdown-item">Register</Link></li>
                       <li><Link to={"/login"} className="dropdown-item">Login</Link></li>
+                      </>
+                    }
                       {/* <li><hr className="dropdown-divider"/></li> */}
                       <li><Link to={"/dashboard"} className="dropdown-item">Dashboard</Link></li>
-                      <li><Link to={"/"} className="dropdown-item">Logout</Link></li>
+                      <li><Link to={"/student_logout"} className="dropdown-item">Logout</Link></li>
                     </ul>
                 </li>
                 <li className="nav-item">
@@ -50,7 +55,7 @@ const Header = () => {
                       Teacher
                     </Link>
                     <ul className="dropdown-menu">
-                      {teacherLoginStatus !== 'true' &&
+                      {teacherLoginStatus !== 'true' && 
                         <>
                         <li><Link to={"/teacher_register"} className="dropdown-item">Register</Link></li>
                         <li><Link to={"/teacher_login"} className="dropdown-item">Login</Link></li></>

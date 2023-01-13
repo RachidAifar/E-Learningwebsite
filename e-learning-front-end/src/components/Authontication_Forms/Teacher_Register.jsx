@@ -13,7 +13,9 @@ const Register = () => {
         'email':'',
         'mobile_phone':'',
         'address':'',
+        'bio':'',
         'speciality':'',
+        'skills':'',
         'status':''
     });
     //change element value
@@ -32,6 +34,8 @@ const Register = () => {
         teacherFormData.append("mobile_phone", teacherData.mobile_phone)
         teacherFormData.append("address", teacherData.address)
         teacherFormData.append("speciality", teacherData.speciality)
+        teacherFormData.append("bio", teacherData.bio)
+        teacherFormData.append("skills", teacherData.skills)
 
         try{
             axios.post(baseUrl,teacherFormData,).then((response)=>{
@@ -42,12 +46,15 @@ const Register = () => {
                     'mobile_phone':'',
                     'address':'',
                     'speciality':'',
-                    'status':'auccess'
+                    'skills':'',
+                    'bio':'',
+                    'status':'success'
                 });
             });
         }catch(error){
             setTeacherData({'status':'error'});
         }
+        console.log(teacherData);
     }; 
     const teacherLoginStatus= localStorage.getItem('teacherLoginStatus');//if the user is logied in redirect them to teacher dashboard.
     if(teacherLoginStatus==='true'){
@@ -57,12 +64,12 @@ const Register = () => {
 
     return (        
         <section className="sm-image">
-            {teacherData.status==='auccess' && <p className='text-success'>you register successfully</p>}
-            {teacherData.status==='error' && <p className='text-danger'>something went wrong!! try again</p>}
             <div className="mask d-flex align-items-center gradient-custom-3">
                 <div className="container h-100">
                     <div className="row d-flex justify-content-center align-items-center">
                         <div className="col-5 col-md-5 col-lg-5 col-md-2">
+                                {teacherData.status ==='success' && <p className='text-success ms-2 mt-2'>Thanks for registeration</p>}
+                                {teacherData.status ==='error' && <p className='text-danger ms-2 mt-2'>Something went wrong!!!</p>}
                             <div className="card" >
                                 <div className="card-body">
                                     <h2 className="text-uppercase text-center mb-5">Teacher Register</h2>
@@ -80,7 +87,7 @@ const Register = () => {
                                             <label className="form-label" htmlFor="form3Example3cg">Your Email</label>
                                         </div>
                                         <div className="form-outline mb-2">
-                                            <input value={teacherData.mobile_phone} onChange={handleChange}  name ="mobile_phone" type="number" id="form3Example4cdg" className="form-control form-control-sm" />
+                                            <input value={teacherData.mobile_phone} onChange={handleChange}  name ="mobile_phone" type="text" id="form3Example4cdg" className="form-control form-control-sm" />
                                             <label className="form-label" htmlFor="form3Example4cdg">Mobile Phone</label>
                                         </div>
                                         <div className="form-outline mb-2">
@@ -90,6 +97,15 @@ const Register = () => {
                                         <div className="form-outline mb-2">
                                             <textarea value={teacherData.speciality} onChange={handleChange}  name="speciality" type="text" id="form3Example3cg" className="form-control" />
                                             <label className="form-label" htmlFor="form3Example3cg">Speciality</label>
+                                        </div>
+                                        <div className="form-outline mb-2">
+                                            <label className="form-label" htmlFor="form3Example4cdg">Skills</label>
+                                            <input value={teacherData.skills} onChange={handleChange}  name ="skills" type="text" id="form3Example4cdg" className="form-control" />
+                                            
+                                        </div>
+                                        <div className="form-outline mb-2">
+                                            <textarea value={teacherData.bio} onChange={handleChange}  name="bio" type="text" id="form3Example3cg" className="form-control" />
+                                            <label className="form-label" htmlFor="form3Example3cg">Bio:Few words about you</label>
                                         </div>
                                         <div className="d-flex justify-content-center">
                                             <button onClick={submitForm} type="button"
