@@ -3,13 +3,34 @@ import {  Container,Row, Col } from "reactstrap";
 import {  ourCoursesData} from "../../Data/Data";
 import CourseCard from "./CourseCard";
 import "./courses.css";
+import {Link,useParams} from 'react-router-dom';
+//import { useParams } from "react-router-dom";
+import axios from 'axios';
+import { useState,useEffect } from 'react';
 
 
+//todo :hty khtad wrtaa tkhdem !!!
 
+const baseUrl='http://127.0.0.1:8000/api';
 
 
 
 const CategoryCourses = () => {
+
+    const [courseData, setCourseData] =useState([]);
+    const {category_slug}=useParams();
+    useEffect(()=>{
+        //fetch courses
+        try{
+            axios.get(baseUrl+'/course/?category='+category_slug).then((response)=>{//getting teacher by id
+                setCourseData(response.data);
+                console.log(response.data);
+            });
+
+        }catch(error){
+            console.log(error);
+        }
+    },[category_slug]);
     return (
         <section>
         <Container className="container">
@@ -17,7 +38,7 @@ const CategoryCourses = () => {
                 <Col lg="12" className="mb-5">
                 <div className="course__top d-flex justify-content-between align-items-center">
                     <div className="course__top__left w-50">
-                    <h4>Category Courses</h4>
+                    <h4>{category_slug}</h4>
                     <p>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
                         consequatur libero quod voluptatibus ullam quia quas, vitae
@@ -26,21 +47,38 @@ const CategoryCourses = () => {
                     </div>
                 </div>
                 </Col>
-                {ourCoursesData.map((item) => (
-                <Col lg="4" md="6" sm="6" mb="4" onClick={() => this.goToDetails(item)}>
-                    <CourseCard key={item.id} item={item} />
+                {courseData && courseData.map((course,index)=>
+                <Col lg="4" md="6" sm="6">
+                  <div className="course_card">
+                  <div className="single__course__item">
+                    <Link to={`/CourseDetail/${course.course_id}`}><img className="card-img-top " src={course.feature_img} alt={course.course_title}/></Link>
+                      <div className="card-body">
+                        <h5 className="card-title mr-0"><Link to={`/CourseDetail/${course.course_id}`}>{course.course_title}</Link></h5>
+                        <div className="d-flex justify-content-between align-items-center">
+                          <p className="lesson d-flex align-items-center gap-1">
+                              <i className="ri-book-open-line"></i>  Lessons
+                          </p>
+
+                          <p className="students d-flex align-items-center gap-1">
+                              <i className="ri-user-line"></i> K
+                          </p>
+                        </div>
+
+                        <div className=" d-flex justify-content-between align-items-center">
+                          <p className="rating d-flex align-items-center gap-1">
+                              <i className="ri-star-fill"></i> Rating:
+                          </p>
+
+                          <p className="enroll d-flex align-items-center gap-1">
+                              <Link to={"/CourseDetail/1"}>Enroll Now</Link> 
+                          </p>
+                        </div>
+                      </div>
+                  </div>
+                  </div>
                 </Col>
-                ))}
-                {ourCoursesData.map((item) => (
-                <Col lg="4" md="6" sm="6" onClick={() => this.goToDetails(item)}>
-                <CourseCard key={item.id} item={item} />
-                </Col>
-                ))}
-                {ourCoursesData.map((item) => (
-                <Col lg="4" md="6" sm="6" onClick={() => this.goToDetails(item)}>
-                <CourseCard key={item.id} item={item} />
-                </Col>
-                ))}
+              )}
+                
             </Row>
         </Container>
         {/* pagination */}
