@@ -19,16 +19,20 @@ export const navLinks = [
       text: "Teachers",
       path: "/poupler_teachers",
     },
-    {
-      text: "Course categories",
-      path: "/coursecategory",
-    },
+    // {
+    //   text: "Course categories",
+    //   path: "/category/:category_slug",
+    // },
     {
       text: "About",
       path: "/about",
     },
     {
-     
+      text: "Contact Us",
+      path: "/about",
+    },
+    {
+      
      
       path:"/login",
     },

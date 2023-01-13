@@ -38,14 +38,14 @@ useEffect(()=>{
                   consequatur libero quod voluptatibus ullam quia quas, vitae
                   voluptatem recusandae reprehenderit!
                 </p>
-            <div className="row mb-4">
+            <div className="row mb-4 ms-4">
               {courseData && courseData.map((course,index)=>
                 <Col lg="4" md="6" sm="6">
-                  <div className="course_card">
+                  <div className="course_card mb-5">
                   <div className="single__course__item">
-                    <Link to={`/course_detail/${course.course_id}`}><img className="card-img-top " src={course.feature_img} alt={course.course_title}/></Link>
-                      <div className="card-body">
-                        <h5 className="card-title mr-0"><Link to={`/course_detail/${course.course_id}`}>{course.course_title}</Link></h5>
+                    <Link to={`/CourseDetail/${course.course_id}`}><img className="card-img-top " src={course.feature_img} alt={course.course_title}/></Link>
+                      <div className="card-body mb-5">
+                        <h5 className="card-title mr-0"><Link to={`/CourseDetail/${course.course_id}`}>{course.course_title}</Link></h5>
                         <div className="d-flex justify-content-between align-items-center">
                           <p className="lesson d-flex align-items-center gap-1">
                               <i className="ri-book-open-line"></i>  Lessons

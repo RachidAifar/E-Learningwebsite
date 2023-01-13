@@ -24,15 +24,16 @@ const AllCourses = () => {
         }
     },[]);
     return (
-        <div className="container mt-4">
-            <h3 className="pb-1 mb-4">Our Courses</h3>
-            <div className="row">
+        <>
+        <h3 className="pb-1 mt-4 ms-5">Our Courses</h3>
+        <div className="container mt-4 me-1">
+            <div className="row mt-4 me-1">
             {courseData && courseData.map((course,index)=>
-                <div className="col-md-3">
-                <div className="course_card">
-                <Link to={`/course_detail/${course.course_id}`}><img className="card-img-top" src={course.feature_img} alt={course.course_title}/></Link>
+                <div className="col-sm-3 me-4" >
+                <div className="course_card ">
+                <Link to={`/CourseDetail/${course.course_id}`}><img className="card-img-top" src={course.feature_img} alt={course.course_title}/></Link>
                 <div className="card-body">
-                    <h5 className="card-title"><Link to={`/course_detail/${course.course_id}`}>{course.course_title}</Link></h5>
+                    <h5 className="card-title"><Link to={`/CourseDetail/${course.course_id}`}>{course.course_title}</Link></h5>
                     <div className=" d-flex justify-content-between align-items-center">
                     <p className="lesson d-flex align-items-center gap-1">
                         <i className="ri-book-open-line"></i>  Lessons
@@ -49,7 +50,7 @@ const AllCourses = () => {
                     </p>
 
                     <p className="enroll d-flex align-items-center gap-1">
-                        <Link to={"/CourseDetail/1"}>Enroll Now</Link> 
+                        <Link to={`/CourseDetail/${course.course_id}`}>Enroll Now</Link> 
                     </p>
                     </div>
                 </div>
@@ -79,6 +80,7 @@ const AllCourses = () => {
          
 
         </div>
+        </>
     )
 };
 

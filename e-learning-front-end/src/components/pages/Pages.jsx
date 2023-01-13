@@ -18,11 +18,16 @@ import FavoriteCourses from "../User_Dashboard/FavoriteCourses";
 import RecommendedCourses from "../User_Dashboard/RecommendedCourses";
 import ChangePassword from "../User_Dashboard/ChangePassword";
 import ProfileSetting from "../User_Dashboard/ProfileSetting";
+import StudentLogin from "../../components/Authontication_Forms/Login_form"
+import StudentLogout from '../User_Dashboard/UserLogout';
+
 //teacher
 import AllCourses from "../Home/Courses-section/AllCourses";
 import TeacherLogout from '../Teacher_Dashboard/TeacherLogout';
 import AllChapter from "../../components/Teacher_Dashboard/AllChapter";
-import EditChapter from "../../components/Teacher_Dashboard/EditChapter"
+import EditChapter from "../../components/Teacher_Dashboard/EditChapter";
+import TeacherSkillCourses from "../../components/Teacher_Dashboard/TeacherSkillCourses";
+import EnrolledStudent from '../../components/Teacher_Dashboard/EnrolledStudent';
 //List pages
 import TeacherLogin from "../Authontication_Forms/Teacher_Login";
 import TeacherRegister from "../Authontication_Forms/Teacher_Register";
@@ -34,7 +39,9 @@ import AddCourse from "../Teacher_Dashboard/AddCouses";
 import TeacherProfileSetting from "../Teacher_Dashboard/T_ProfileSetting";
 import CategoryCourses from "../Home/Courses-section/CategoryCourses";
 import AddChapter from "../Teacher_Dashboard/AddChapter";
-import EditCourse from "../Teacher_Dashboard/EditCourse"
+import EditCourse from "../Teacher_Dashboard/EditCourse";
+
+
 
 //import HeroSlider from "../components/HeroSlider/HeroSlider"
 //import HeroSection from "../components/HeroSection/HeroSection"
@@ -64,7 +71,6 @@ const Pages = () => {
           <Route exact path='/teacher_login' element={<TeacherLogin />} />
           <Route exact path='/teacher_register' element={<TeacherRegister />} />
           <Route exact path='/teacher_courses' element={<TeacherCourses />} />
-          <Route exact path='/students_list' element={<StudentList />} />
           <Route exact path='/add_courses' element={<AddCourse />} />
           <Route exact path='/edit_course/:course_id' element={<EditCourse />} />
           <Route exact path='/add_chapter/:course_id' element={<AddChapter />} />
@@ -72,14 +78,22 @@ const Pages = () => {
           <Route exact path='/teacher_chnage_password' element={<TeacherChangePassword />} />
           <Route exact path='/teacher_logout' element={<TeacherLogout />} />
 
+          <Route exact path='/students_list' element={<StudentList />} />
+          <Route exact path='/students_login' element={<StudentLogin />} />
+          <Route exact path='/student_logout' element={<StudentLogout />} />
+          <Route exact path='/enrolled_students/:course_id' element={<EnrolledStudent />} /> 
+
+          
 
           <Route exact path='/CourseDetail/:course_id' element={<CourseDetail/>} />
-          <Route exact path="/teacher_detail:teacher_id" element={<TeacherDetail/>} />
+          <Route exact path="/teacher_detail/:teacher_id" element={<TeacherDetail/>} />
           <Route exact path="/all_courses" element={<AllCourses/>} />
           <Route exact path="/course_chapter/:course_id" element={<AllChapter/>} />
           <Route exact path="/edit_chapter/:chapter_id" element={<EditChapter/>} />
 
           <Route exact path="/category/:category_slug" element={<CategoryCourses/>} />
+        {/* fetch courses based on teacher skills */}
+          <Route exact path="/teacher_skill_course/:skill_name/:teacher_id" element={<TeacherSkillCourses/>} />
 
 
           <Route exact path="/poupler_courses" element={<PouplerCourses/>} />
