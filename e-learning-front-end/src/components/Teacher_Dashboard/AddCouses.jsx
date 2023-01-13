@@ -10,6 +10,7 @@ const AddCourse = () => {
     const [cats, setCtas]=useState([]);
     const [courseData, setCourseData] =useState({
         category:'',
+        teacher:'',
         course_title:'',
         course_description:'',
         feature_img:'',
@@ -62,7 +63,7 @@ const AddCourse = () => {
             console.log(error);
         }
     }; 
-
+    
 
   return (
     <div className="container mt-4">

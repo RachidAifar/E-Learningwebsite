@@ -99,7 +99,7 @@ const CourseChapter =()=>{
                                         <td>{chapter.remarks}</td>
                                         <td>
                                             <Link to={"/edit_chapter/"+chapter.chapter_id} name="edit" className='btn btn-info text-white mb-2 ms-2' ><i className="ri-edit-2-fill"></i></Link>
-                                            <Button onClick={()=>handleDeleteClick(chapter.chapter_id)}   name="delete" className="btn btn-danger mb-2  ms-2" ><i className="ri-delete-bin-fill"></i></Button>
+                                            <Link onClick={()=>handleDeleteClick(chapter.chapter_id)}   name="delete" className="btn btn-danger mb-2  ms-2" ><i className="ri-delete-bin-fill"></i></Link>
                                         </td>
                                     </tr>
                                     )}
