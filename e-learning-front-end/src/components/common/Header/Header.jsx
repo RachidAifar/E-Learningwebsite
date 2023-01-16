@@ -45,9 +45,13 @@ const Header = () => {
                       <li><Link to={"/login"} className="dropdown-item">Login</Link></li>
                       </>
                     }
+                    {studentLoginStatus === 'true'  && 
+                      <>
                       {/* <li><hr className="dropdown-divider"/></li> */}
                       <li><Link to={"/dashboard"} className="dropdown-item">Dashboard</Link></li>
                       <li><Link to={"/student_logout"} className="dropdown-item">Logout</Link></li>
+                      </>
+                    }
                     </ul>
                 </li>
                 <li className="nav-item">
@@ -60,10 +64,13 @@ const Header = () => {
                         <li><Link to={"/teacher_register"} className="dropdown-item">Register</Link></li>
                         <li><Link to={"/teacher_login"} className="dropdown-item">Login</Link></li></>
                       }
-                      
-                      <li><hr className="dropdown-divider"/></li>
-                      <li><Link to={"/teacher_dashboard"} className="dropdown-item">Dashboard</Link></li>
-                      <li><Link to={"/teacher_logout"} className="dropdown-item">Logout</Link></li>
+                      {teacherLoginStatus === 'true' && 
+                        <>
+                          <li><hr className="dropdown-divider"/></li>
+                          <li><Link to={"/teacher_dashboard"} className="dropdown-item">Dashboard</Link></li>
+                          <li><Link to={"/teacher_logout"} className="dropdown-item">Logout</Link></li>
+                        </>
+                      }
                     </ul>
                 </li>
               </ul>

@@ -48,8 +48,8 @@ const CategoryCourses = () => {
                 </div>
                 </Col>
                 {courseData && courseData.map((course,index)=>
-                <Col lg="4" md="6" sm="6">
-                  <div className="course_card">
+                <Col className="mb-5" lg="4" md="6" sm="6">
+                  <div className="course_card mb-5">
                   <div className="single__course__item">
                     <Link to={`/CourseDetail/${course.course_id}`}><img className="card-img-top " src={course.feature_img} alt={course.course_title}/></Link>
                       <div className="card-body">

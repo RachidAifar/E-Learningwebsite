@@ -26,11 +26,11 @@ const AllCourses = () => {
     return (
         <>
         <h3 className="pb-1 mt-4 ms-5">Our Courses</h3>
-        <div className="container mt-4 me-1">
-            <div className="row mt-4 me-1">
+        <div className="container  mt-4 me-1">
+            <div className="row mb-5 mt-4 me-1">
             {courseData && courseData.map((course,index)=>
-                <div className="col-sm-3 me-4" >
-                <div className="course_card ">
+                <div className="col-sm-3 mb-4 me-4" >
+                <div className="course_card">
                 <Link to={`/CourseDetail/${course.course_id}`}><img className="card-img-top" src={course.feature_img} alt={course.course_title}/></Link>
                 <div className="card-body">
                     <h5 className="card-title"><Link to={`/CourseDetail/${course.course_id}`}>{course.course_title}</Link></h5>
