@@ -29,6 +29,8 @@ const CourseDetail = () => {
   const [technoloListData, settechnoloListData] =useState([]);
   const [userLoginStatus, setuserLoginStatus]=useState([]);
   const [userEnrollStatus, setuserEnrollStatus]=useState([]);
+  const [ratingStatus, setRatingStatus]=useState();
+  const [avgRatingStatus, setAvgRatingStatus]=useState([0]);
 
   const{course_id}=useParams();
  const student_id =localStorage.getItem('student_id');
@@ -39,9 +41,13 @@ const CourseDetail = () => {
           axios.get(baseUrl+'/course/'+course_id).then((response)=>{//geting teacher by id
               setCourseData(response.data);
               setTeacherData(response.data.teacher);
-              setChapterCourseData(response.data.course_chapters)
-              setrelatedCourseData(JSON.parse(response.data.related_videos))
-              settechnoloListData(response.data.technologies_list)
+              setChapterCourseData(response.data.course_chapters);
+              setrelatedCourseData(JSON.parse(response.data.related_videos));
+              settechnoloListData(response.data.technologies_list);
+              if(response.data.course_rating!=='' && response.data.course_rating !==null){
+                setAvgRatingStatus(response.data.course_rating);
+              }
+              
           });
 
       }catch(error){
@@ -52,6 +58,18 @@ const CourseDetail = () => {
         axios.get(baseUrl+'/fetch_enroll_status/'+student_id+'/'+course_id).then((response)=>{//geting teacher by id
            if(response.data.bool===true){
             setuserEnrollStatus('success');
+           }
+        });
+
+      }catch(error){
+        console.log(error);
+      }
+      
+      //rating
+      try{
+        axios.get(baseUrl+'/fetch_rating_status/'+student_id+'/'+course_id).then((response)=>{//geting teacher by id
+           if(response.data.bool===true){
+            setRatingStatus('success');
            }
         });
 
@@ -85,18 +103,61 @@ const enrollCourse=()=>{
                     title: 'you have successfully enrolled in this course',
                     icon: 'success',
                     toast:true,
+                    timer:5000,
+                    position:"",
+                    timerProgressBar:true,
+                    showConfirmButton:false
+                  });
+                  window.location.reload();
+                  userEnrollStatus('success');
+                  
+                }
+            });  
+            }catch(error){
+                console.log(error);
+            }       
+    }
+      //ADD RATING
+      const [ratingData, setratingData] =useState({
+        rating:'',
+        reviews:''
+      });
+
+      const handleChange=(event)=>{
+        setratingData({
+            ...ratingData,
+            [event.target.name]:event.target.value
+        });
+      };
+
+      const submitForm=()=>{
+        const CourseFormData =new FormData();
+        CourseFormData.append("course",course_id );
+        CourseFormData.append("student", student_id);
+        CourseFormData.append("rating",ratingData.rating );
+        CourseFormData.append("reviews",ratingData.reviews);
+       
+         try{
+            axios.post(baseUrl+'/course_rating/'+course_id,CourseFormData,)
+            .then((res)=>{
+              if(res.status===200 || res.status===201){
+                Swal.fire({
+                    title: 'Thanks for rating',
+                    icon: 'success',
+                    toast:true,
                     timer:3000,
                     position:"",
                     timerProgressBar:true,
                     showConfirmButton:false
                   });
-                  userEnrollStatus('success');
+                  setRatingStatus('success');
+                  window.location.reload();
                 }
-            });  
+          });  
         }catch(error){
             console.log(error);
         }
-}
+    }; 
 
   //console.log(relatedCourseData);
   return(
@@ -115,7 +176,7 @@ const enrollCourse=()=>{
               <p>
               {courseData.course_description}
               </p>
-              <p className="fw-bold">Upoaded by: <Link to={`/teacher_detail/:${teacherData.teacher_id}`}>{teacherData.teacher_fullname}</Link></p>
+              <p className="fw-bold">Upoaded by: <Link to={`/teacher_detail/${teacherData.teacher_id}`}>{teacherData.teacher_fullname}</Link></p>
               <p className="fw-bold">technologies:&nbsp;
               {technoloListData.map((tech,index) =>
                 <>
@@ -125,9 +186,57 @@ const enrollCourse=()=>{
               </p>
               <p className="fw-bold">Time: 2 Hours 13 Minuts</p>  
               <p className="fw-bold">Total Enrolled: {courseData.total_enrolled_students} Students</p> 
-              <p className="fw-bold">Rating 4/5</p>
+              <p className="fw-bold">
+                Rating: {avgRatingStatus}/5
+                {userEnrollStatus ==='success' && userLoginStatus==='success' &&
+                <>
+                  {ratingStatus !== 'success' &&
+                  <Link className="btn btn-warning btn-sm text-light ms-2" data-bs-toggle="modal" data-bs-target="#ratingModal"><i className="ri-star-fill  me-2"></i>Rating</Link>
+                  }
+                  {
+                    ratingStatus === 'success' &&
+                    <small className="badge bg-success ms-2">Thanks for rating this course</small>
+                  }
+                  <div className="rating_modal mt-4">
+                    <div className="modal fade mt-5" id="ratingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div className="modal-dialog modal-lg mt-5">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <h1 className="modal-title fs-3" id="exampleModalLabel">Rating for {courseData.course_title}</h1>
+                          </div>
+                          <div className="modal-body">
+                            <form>
+                              <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Rating</label>
+                                <select onChange={handleChange} className="form-control " name='rating'>
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                                  <option value="4">4</option>
+                                  <option value="5">5</option>
+                                </select>
+                              </div>
+                              <div class="mb-3">
+                                <label for="exampleInputPassword1" className="form-label" >Review</label>
+                                <textarea className="form-control" onChange={handleChange} name="reviews" rows="5" cols="30" ></textarea>
+                              </div>
+                              <button type="button" onClick={submitForm} class="btn btn-primary">Submit</button>
+                            </form>
+                          </div>
+                          <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-primary">Save changes</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </>  
+
+                }
+              </p>
               {userEnrollStatus ==='success' && userLoginStatus==='success' &&
-                <p><span className="btn btn-success mb-5" >you have already enrolled in this course</span> </p>
+                <p className="h4"><span className="badge bg-success bg-lg mb-5" >you have already enrolled in this course</span> </p>
               }
               {userLoginStatus ==='success' && userEnrollStatus !== 'success' &&
                 <p><Button  onClick={enrollCourse} type="Button" className="btn btn-primary mb-5" >Enroll Now</Button> </p>
@@ -181,9 +290,9 @@ const enrollCourse=()=>{
                   consequatur libero quod voluptatibus ullam quia quas, vitae
                   voluptatem recusandae reprehenderit!
                 </p>
-            <div className="row mb-4">
+            <div className="row mb-5">
               {relatedCourseData.map((rcourse,index)=>
-                <Col lg="4" md="6" sm="6">
+                <Col lg="4" md="6" sm="6" className="row mb-5">
                   <div className="course_card">
                   <div className="single__course__item">
                     <Link target={"_blank"} to={`/CourseDetail/${rcourse.pk}`}><img className="card-img-top " src={`${siteUrl}media/${rcourse.fields.feature_img}`} alt={rcourse.fields.course_title}/></Link>
