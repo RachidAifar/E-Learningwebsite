@@ -5,7 +5,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework import permissions
-from .serializers import StudentSerialize, TeacherSerialize, CourseCategorySerialize, CourseSerialize, ChapterSerialize
+from .serializers import StudentSerialize, TeacherSerialize, CourseCategorySerialize, CourseSerialize, ChapterSerialize, \
+    CourseRatingSerializer, EnrollmentSerialize, TeacherDashboardSerializer
 from . import models
 from django.http import Http404
 
@@ -14,18 +15,30 @@ from django.http import Http404
 class StudentList(generics.ListCreateAPIView):
     queryset = models.Students.objects.all()
     serializer_class = StudentSerialize
-    permission_classes = [permissions.IsAuthenticated]
 
 
 # update date and delete data
 class StudentDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Students.objects.all()
     serializer_class = StudentSerialize
-    permission_classes = [permissions.IsAuthenticated]
     # def get(self, request):
     #     students = models.Students.objects.all()
     #     serializer = StudentSerialize(students, many=True)
     #     return Response(serializer.data)
+
+
+@csrf_exempt
+def student_login(request):
+    email = request.POST['email']
+    password = request.POST['password']
+    try:
+        studentData = models.Students.objects.get(password=password, email=email)
+    except models.Students.DoesNotExist:
+        studentData = None
+    if studentData:
+        return JsonResponse({'bool': True, 'student_id': studentData.student_id})
+    else:
+        return JsonResponse({'bool': False})
 
 
 class TeacherList(generics.ListCreateAPIView):
@@ -52,6 +65,11 @@ def teachers_login(request):
         return JsonResponse({'bool': False})
 
 
+class TeacherDashboard(generics.RetrieveAPIView):
+    queryset = models.Teacher.objects.all()
+    serializer_class = TeacherDashboardSerializer
+
+
 class StudentDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Students.objects.all()
     serializer_class = StudentSerialize
@@ -74,10 +92,19 @@ class CourseList(generics.ListCreateAPIView):
         if 'result' in self.request.GET:
             limit = int(self.request.GET['result'])
             qs = models.Course.objects.all().order_by('-course_id')[:limit]
+        if 'category' in self.request.GET:
+            category = self.request.GET['category']
+            qs = models.Course.objects.filter(technologies__icontains=category)
+        if 'skill_name' in self.request.GET and 'teacher' in self.request.GET:
+            skill_name = self.request.GET['skill_name']
+            teacher = self.request.GET['teacher']
+            teacher = models.Teacher.objects.filter(teacher_id=teacher).first()
+            qs = models.Course.objects.filter(technologies__icontains=skill_name, teacher=teacher)
+
         return qs
 
 
-class CourseDetailView(generics.RetrieveAPIView):
+class CourseDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Course.objects.all()
     serializer_class = CourseSerialize
 
@@ -119,3 +146,78 @@ class CourseChapterList(generics.ListAPIView):
 class ChapterDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Chapter.objects.all()
     serializer_class = ChapterSerialize
+
+
+class StudentEnrollmentList(generics.ListCreateAPIView):
+    queryset = models.Enrollments.objects.all()
+    serializer_class = EnrollmentSerialize
+
+
+def fetch_enroll_status(request, student_id, course_id):
+    student = models.Students.objects.filter(student_id=student_id).first()
+    course = models.Course.objects.filter(course_id=course_id).first()
+    enrollStatus = models.Enrollments.objects.filter(course=course, student=student)
+    if enrollStatus:
+        return JsonResponse({'bool': True})
+    else:
+        return JsonResponse({'bool': False})
+
+
+class EnrolledStudentList(generics.ListAPIView):
+    queryset = models.Enrollments.objects.all()
+    serializer_class = EnrollmentSerialize
+
+    def get_queryset(self):
+        try:
+            if 'course_id' in self.kwargs:
+                course_id = self.kwargs['course_id']
+                course = models.Course.objects.get(pk=course_id)
+                return models.Enrollments.objects.filter(course_id=course)
+            elif 'teacher_id' in self.kwargs:
+                teacher_id = self.kwargs['teacher_id']
+                teacher = models.Teacher.objects.get(pk=teacher_id)
+                return models.Enrollments.objects.filter(course__teacher=teacher).distinct('student_id')
+
+        except models.Enrollments.DoesNotExist:
+            raise Http404("no student enrolled in this course")
+        except Exception as e:
+            raise Http404("An error occurred")
+
+
+class CourseRatingList(generics.ListCreateAPIView):
+    serializer_class = CourseRatingSerializer
+
+    def get_queryset(self):
+        try:
+            course_id = self.kwargs['course_id']
+            # student_id = self.kwargs['student_id']
+            course = models.Course.objects.get(pk=course_id)
+            return models.CourseRating.objects.filter(course_id=course)
+        except models.Course.DoesNotExist:
+            raise Http404("Course does not exist")
+        except Exception as e:
+            raise Http404("An error occurred")
+
+
+def fetch_rating_status(request, student_id, course_id):
+    student = models.Students.objects.filter(student_id=student_id).first()
+    course = models.Course.objects.filter(course_id=course_id).first()
+    ratingStatus = models.CourseRating.objects.filter(course=course, student=student).count()
+    if ratingStatus:
+        return JsonResponse({'bool': True})
+    else:
+        return JsonResponse({'bool': False})
+
+
+@csrf_exempt
+def teacher_change_password(request, teacher_id):
+    password = request.POST['password']
+    try:
+        teacherData = models.Teacher.objects.get(teacher_id=teacher_id)
+    except models.Teacher.DoesNotExist:
+        teacherData = None
+    if teacherData:
+        models.Teacher.objects.filter(teacher_id=teacher_id).update(password=password)
+        return JsonResponse({'bool': True})
+    else:
+        return JsonResponse({'bool': False})
