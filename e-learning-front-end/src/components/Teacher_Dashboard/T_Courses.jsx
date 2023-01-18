@@ -11,6 +11,7 @@ const baseUrl='http://127.0.0.1:8000/api';
 
 const TeacherCourses =()=>{
     const [courseData, setCourseData] =useState([]);
+    
 
     const teacher_id= localStorage.getItem('teacher_id');
     useEffect(()=>{
@@ -18,7 +19,6 @@ const TeacherCourses =()=>{
         try{
             axios.get(baseUrl+'/teacher_courses/'+teacher_id).then((response)=>{//getting teacher by id
                 setCourseData(response.data);
-                console.log(response.data);
             });
 
         }catch(error){
@@ -31,10 +31,22 @@ const TeacherCourses =()=>{
             title: 'Confirm',
             text: 'Are you sure you want to delete this data?',
             icon:'info',
-            confirmButtonText:"info",
-            showConfirmButton:false
-          }
-        );
+            timer:5000,
+            confirmButtonText:'Continue',
+            showConfirmButton: true
+          }).then((result)=>{
+            if(result.isConfirmed){
+                try{
+                    axios.delete(baseUrl+'/course/'+course_id).then((res)=>{
+                        Swal.fire('success','Course has been deleted');
+                    });
+                }catch(error){
+                    Swal.fire('error','Course has not been deleted!!');
+            }}else{  
+                Swal.fire('error','Course has been delted!!!');
+            }
+          })
+          
 
     }
 
@@ -53,17 +65,28 @@ const TeacherCourses =()=>{
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Created By</th>
                                     <th>Image</th>
+                                    <th>Total Enrolled</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {courseData.map((course,index)=>  
                                 <tr>
-                                    <td><Link to={"/course_chapter/"+course.course_id}>{course.course_title}</Link></td>
-                                    <td><Link to={"/"}>Rachid Aifar</Link></td>
-                                    <td><img src={course.feature_img} alt={course.course_title} width={"200"} className="rounded" /></td> {/*add imagee from database*/}
+                                    <td>
+                                        <Link to={"/course_chapter/"+course.course_id}>{course.course_title}</Link>
+                                        <hr />
+                                        {course.course_rating &&
+                                            <span>Rating: {course.course_rating}/5</span>
+                                        }
+                                        {!course.course_rating &&
+                                            <span>No Rating</span>
+                                        }
+                                        
+                                    </td>
+                                    <td ><img src={course.feature_img} alt={course.course_title} width={"200"} className="rounded ms-3"/></td> {/*add imagee from database*/}
+                                    <td><Link to={'/enrolled_students/'+course.course_id} className='' >{course.total_enrolled_students}</Link></td>
+                                    
                                     <td>
                                         <Link to={'/add_chapter/'+course.course_id} className='btn btn-success btn-sm' >Add Chapters</Link>
                                         <Link to={'/edit_course/'+course.course_id} className="btn btn-info btn-sm mb-2  mt-2 2 ms-2" >Edit</Link>
