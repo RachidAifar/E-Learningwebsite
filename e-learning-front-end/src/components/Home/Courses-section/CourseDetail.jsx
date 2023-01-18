@@ -31,6 +31,7 @@ const CourseDetail = () => {
   const [userEnrollStatus, setuserEnrollStatus]=useState([]);
   const [ratingStatus, setRatingStatus]=useState();
   const [avgRatingStatus, setAvgRatingStatus]=useState([0]);
+  const [addtoFavorit, setAddtoFavorit]=useState();
 
   const{course_id}=useParams();
  const student_id =localStorage.getItem('student_id');
@@ -158,6 +159,70 @@ const enrollCourse=()=>{
             console.log(error);
         }
     }; 
+    //add to favorite courses
+    const addToFavorit = () =>{
+      const   CourseFormData =new FormData();
+      CourseFormData.append("course",course_id );
+      CourseFormData.append("student", student_id);
+      CourseFormData.append("status", true);
+
+      try{
+        axios.post(baseUrl+'/student_add_favorite_course/',CourseFormData,{
+            headers: {
+                'content-type':'multipart/form-data'
+            }
+        })
+        .then((res)=>{
+          if(res.status===200 || res.status===201){
+            Swal.fire({
+                title: 'This course has been added to your favorite courses',
+                icon: 'success',
+                toast:true,
+                timer:3000,
+                position:"",
+                timerProgressBar:true,
+                showConfirmButton:false
+              });
+              setAddtoFavorit('success');
+            }
+            
+      });  
+      }catch(error){
+          console.log(error);
+      }
+    };
+    const removeFavorit = () =>{
+      const   CourseFormData =new FormData();
+      CourseFormData.append("course",course_id );
+      CourseFormData.append("student", student_id);
+      CourseFormData.append("status", false);
+
+      try{
+        axios.get(baseUrl+'/student_remove_favorite_course/'+student_id+'/'+course_id,{
+            headers: {
+                'content-type':'multipart/form-data'
+            }
+        })
+        .then((res)=>{
+          if(res.status===200 || res.status===201){
+              Swal.fire({
+                  title: 'This course has been removed from your favorite courses',
+                  icon: 'success',
+                  toast:true,
+                  timer:3000,
+                  position:"",
+                  timerProgressBar:true,
+                  showConfirmButton:false
+                });
+                setAddtoFavorit('');
+              }
+            
+      });  
+      }catch(error){
+          console.log(error);
+      }
+    };
+    
 
   //console.log(relatedCourseData);
   return(
@@ -172,7 +237,15 @@ const enrollCourse=()=>{
 
           <Col mb="5" md="7">
             <div className="detail__content mb-5">
-              <h3>{courseData.course_title}</h3>
+              <h3>{courseData.course_title}  {userLoginStatus ==='success' && addtoFavorit !=='success' &&
+                <Link to={""} title="Add to your favorite course list"  onClick={addToFavorit} type="Button" className="btn btn-outline-danger flex-end" ><i className="ri-heart-line"></i></Link> 
+              }
+              {userLoginStatus ==='success' && addtoFavorit ==='success' &&
+                <Link to={""} title="remove from your favorite course list"  onClick={removeFavorit} type="Button" className="btn btn-danger flex-end" ><i className="ri-heart-line"></i></Link> 
+              }
+              
+              </h3>
+             
               <p>
               {courseData.course_description}
               </p>
@@ -241,8 +314,8 @@ const enrollCourse=()=>{
               {userLoginStatus ==='success' && userEnrollStatus !== 'success' &&
                 <p><Button  onClick={enrollCourse} type="Button" className="btn btn-primary mb-5" >Enroll Now</Button> </p>
               }
-              {userLoginStatus !=='success' &&
-                <p><Link to={"/login"}  onClick={enrollCourse} type="Button" className="btn btn-danger mb-5" >Please Login to Enroll in this course</Link> </p>
+               {userEnrollStatus ==='success' && userLoginStatus==='success' &&
+                <p className="h4"><span className="badge bg-success bg-lg mb-5" ></span> </p>
               }
             </div>
           </Col>

@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse  ##without this you can not submit a form to django
 from django.views.decorators.csrf import csrf_exempt
@@ -6,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework import permissions
 from .serializers import StudentSerialize, TeacherSerialize, CourseCategorySerialize, CourseSerialize, ChapterSerialize, \
-    CourseRatingSerializer, EnrollmentSerialize, TeacherDashboardSerializer
+    CourseRatingSerializer, EnrollmentSerialize, TeacherDashboardSerializer, StudentFavoriteCoursesSerializer
 from . import models
 from django.http import Http404
 
@@ -100,6 +101,16 @@ class CourseList(generics.ListCreateAPIView):
             teacher = self.request.GET['teacher']
             teacher = models.Teacher.objects.filter(teacher_id=teacher).first()
             qs = models.Course.objects.filter(technologies__icontains=skill_name, teacher=teacher)
+        elif 'studentId' in self.kwargs:
+            student_id = self.kwargs['studentId']
+            student = models.Students.objects.get(pk=student_id)
+            print(student.interested_categories)
+            queries = [Q(technologies__iendswith=value) for value in student.interested_categories]
+            query = queries.pop()
+            for item in queries:
+                query |= item
+            qs = models.Course.objects.filter(query)
+            return qs
 
         return qs
 
@@ -156,7 +167,7 @@ class StudentEnrollmentList(generics.ListCreateAPIView):
 def fetch_enroll_status(request, student_id, course_id):
     student = models.Students.objects.filter(student_id=student_id).first()
     course = models.Course.objects.filter(course_id=course_id).first()
-    enrollStatus = models.Enrollments.objects.filter(course=course, student=student)
+    enrollStatus = models.Enrollments.objects.filter(course=course, student=student) #//maybe i would need count() here
     if enrollStatus:
         return JsonResponse({'bool': True})
     else:
@@ -177,7 +188,10 @@ class EnrolledStudentList(generics.ListAPIView):
                 teacher_id = self.kwargs['teacher_id']
                 teacher = models.Teacher.objects.get(pk=teacher_id)
                 return models.Enrollments.objects.filter(course__teacher=teacher).distinct('student_id')
-
+            elif 'student_id' in self.kwargs:
+                student_id = self.kwargs['student_id']
+                student = models.Students.objects.get(pk=student_id)
+                return models.Enrollments.objects.filter(student=student).distinct('course_id')
         except models.Enrollments.DoesNotExist:
             raise Http404("no student enrolled in this course")
         except Exception as e:
@@ -218,6 +232,32 @@ def teacher_change_password(request, teacher_id):
         teacherData = None
     if teacherData:
         models.Teacher.objects.filter(teacher_id=teacher_id).update(password=password)
+        return JsonResponse({'bool': True})
+    else:
+        return JsonResponse({'bool': False})
+
+
+class StudentFavoriteCoursesList(generics.ListCreateAPIView):
+    queryset = models.StudentFavoriteCourses.objects.all()
+    serializer_class = StudentFavoriteCoursesSerializer
+
+    def get_queryset(self):
+        try:
+            if 'student_id' in self.kwargs:
+                student_id = self.kwargs['student_id']
+                student = models.Students.objects.get(pk=student_id)
+                return models.StudentFavoriteCourses.objects.filter(student=student).distinct('course_id')
+        except models.Enrollments.DoesNotExist:
+            raise Http404("no student enrolled in this course")
+        except Exception as e:
+            raise Http404("An error occurred")
+
+
+def remove_favorite_course(request, course_id, student_id):
+    student = models.Students.objects.filter(student_id=student_id).first()
+    course = models.Course.objects.filter(course_id=course_id).first()
+    favoriteStatus = models.StudentFavoriteCourses.objects.filter(course=course, student=student).delete()
+    if favoriteStatus:
         return JsonResponse({'bool': True})
     else:
         return JsonResponse({'bool': False})

@@ -19,7 +19,7 @@ class Teacher(models.Model):
     teacher_id = models.AutoField(primary_key=True)
     teacher_fullname = models.CharField(max_length=100)
     password = models.CharField(max_length=100, blank=True, null=True)
-    email = models.EmailField(max_length=100)
+    email = models.EmailField(max_length=100,unique=True)
     mobile_phone = models.CharField(max_length=30)
     speciality = models.CharField(max_length=150, default='Teacher')
     bio = models.TextField(max_length=200, default='None')
@@ -116,7 +116,8 @@ class Students(models.Model):
     student_id = models.AutoField(primary_key=True)
     student_fullname = models.CharField(max_length=100)
     password = models.CharField(max_length=100)
-    email = models.EmailField(max_length=100)
+    email = models.EmailField(max_length=100, unique=True)
+    interested_categories = models.TextField(max_length=150, default='None')
     mobile_phone = models.CharField(max_length=30)
     address = models.CharField(max_length=30)
     dateOfJoining = models.DateField(auto_now_add=True)
@@ -212,3 +213,13 @@ class CourseRating(models.Model):
 
     def __str__(self):  ##we are returning title
         return f"{self.course}-{self.student}-{self.rating}"
+
+
+class StudentFavoriteCourses(models.Model):
+    course = models.ForeignKey(Course, default=None, on_delete=models.CASCADE)
+    student = models.ForeignKey(Students, default=None, on_delete=models.CASCADE)
+    status = models.BooleanField(default=False)
+    objects = models.Manager()
+
+    def __str__(self):  ##we are returning title
+        return f"{self.course}-{self.student}"

@@ -7,11 +7,21 @@ urlpatterns = [
     path('student/<int:pk>/', views.StudentDetails.as_view()),
     path('student_login', views.student_login),
     path('student_enroll_course/', views.StudentEnrollmentList.as_view()),
+    path('student_add_favorite_course/', views.StudentFavoriteCoursesList.as_view()),
+    path('student_remove_favorite_course/<int:student_id>/<int:course_id>', views.remove_favorite_course),
+
+
     path('fetch_enroll_status/<int:student_id>/<int:course_id>', views.fetch_enroll_status),
     path('fetch_rating_status/<int:student_id>/<int:course_id>', views.fetch_rating_status),
     path('fetch_allenrolled_students/<int:teacher_id>', views.EnrolledStudentList.as_view()),
     # fetch enrolled  student in specific course :
     path('fetch_enrolled_students/<int:course_id>', views.EnrolledStudentList.as_view()),
+    path('fetch_enrolled_courses/<int:student_id>', views.EnrolledStudentList.as_view()),
+    path('fetch_recommended_courses/<int:studentId>', views.CourseList.as_view()),
+    path('fetch_favorite_courses/<int:student_id>', views.StudentFavoriteCoursesList.as_view()),
+
+
+
     path('course_rating/<int:course_id>', views.CourseRatingList.as_view()),
 
     path('teacher/', views.TeacherList.as_view()),
