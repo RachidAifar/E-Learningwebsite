@@ -45,25 +45,28 @@ useEffect(()=>{
                   <div className="single__course__item">
                     <Link to={`/CourseDetail/${course.course_id}`}><img className="card-img-top " src={course.feature_img} alt={course.course_title}/></Link>
                       <div className="card-body mb-5">
-                        <h5 className="card-title mr-0"><Link to={`/CourseDetail/${course.course_id}`}>{course.course_title}</Link></h5>
-                        <div className="d-flex justify-content-between align-items-center">
+                        <h5 className="card-title mr-0 mt-2"><Link to={`/CourseDetail/${course.course_id}`}>{course.course_title}</Link></h5>
+                        <div className="d-flex justify-content-between align-items-center mt-3">
                           <p className="lesson d-flex align-items-center gap-1">
                               <i className="ri-book-open-line"></i>  Lessons
                           </p>
-
-                          <p className="students d-flex align-items-center gap-1">
-                              <i className="ri-user-line"></i> K
-                          </p>
-                        </div>
-
-                        <div className=" d-flex justify-content-between align-items-center">
-                          <p className="rating d-flex align-items-center gap-1">
-                              <i className="ri-star-fill"></i> Rating:
-                          </p>
-
                           <p className="enroll d-flex align-items-center gap-1">
                               <Link to={"/CourseDetail/1"}>Enroll Now</Link> 
                           </p>
+
+                          {/* <p className="students d-flex align-items-center gap-1">
+                              <i className="ri-user-line"></i> K
+                          </p> */}
+                        </div>
+
+                        <div className=" d-flex justify-content-between align-items-center">
+                          {/* <p className="rating d-flex align-items-center gap-1">
+                              <i className="ri-star-fill"></i> Rating:{}
+                          </p> */}
+
+                          {/* <p className="enroll d-flex align-items-center gap-1">
+                              <Link to={"/CourseDetail/1"}>Enroll Now</Link> 
+                          </p> */}
                         </div>
                       </div>
                   </div>

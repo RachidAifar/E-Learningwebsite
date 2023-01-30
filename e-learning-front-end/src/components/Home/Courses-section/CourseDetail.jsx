@@ -151,7 +151,7 @@ const enrollCourse=()=>{
                     timerProgressBar:true,
                     showConfirmButton:false
                   });
-                  setRatingStatus('success');
+                  // setRatingStatus('success');
                   window.location.reload();
                 }
           });  
