@@ -2,14 +2,8 @@ import {Link, useParams} from 'react-router-dom'
 import React from "react";
 import axios from 'axios';
 import { useState,useEffect } from 'react';
-
-
-
-import ListGroup from 'react-bootstrap/ListGroup';
 import { Container, Row, Col } from "reactstrap";
-import Card from 'react-bootstrap/Card';
 import TeacherImage from "../images/202100527_1640328372828097_4475152047372531726_n.jpg";
-import "./teacherDetail.css"
 
 
 
@@ -47,7 +41,7 @@ const TeacherDetail = () => {
         <Row>
           <Col lg="5" md="5" className='mt-4'>
             <div className="thumbail">
-              <img src={TeacherImage} alt="Teacher_Image" className="w-100" />
+              <img src={teacherData.teacher_profile} alt="Teacher_Image" className="w-100" />
             </div>
           </Col>
 
