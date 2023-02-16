@@ -5,24 +5,40 @@ import {Link} from 'react-router-dom';
 import { useState,useEffect } from 'react';
 
 
-const baseUrl='http://127.0.0.1:8000/api';
+const baseUrl='http://127.0.0.1:8000/api/course/';
 
 
 const AllCourses = () => {
 
     const [courseData, setCourseData] =useState([]);
+    const [nextUrl, setNextUrl] =useState(baseUrl);
+    const [previousUrl, setPreviousUrl] =useState([]);
     useEffect(()=>{
         //fetch courses
         try{
-            axios.get(baseUrl+'/course').then((response)=>{//getting teacher by id
-                setCourseData(response.data);
-                console.log(response.data);
+            axios.get(baseUrl).then((response)=>{//getting teacher by id  
+                setNextUrl(response.data.next);
+                setPreviousUrl(response.data.previous);
+                setCourseData(response.data.results);
             });
 
         }catch(error){
             console.log(error);
         }
     },[]);
+
+    const paginationHandler=(url)=>{
+        try{
+            axios.get(url).then((response)=>{//getting teacher by id
+                setCourseData(response.data.results);
+                setNextUrl(response.data.next);
+                setPreviousUrl(response.data.previous);
+            });
+
+        }catch(error){
+            console.log(error);
+        }
+    }
     return (
         <>
         <h3 className="pb-1 mt-4 ms-5">Our Courses</h3>
@@ -61,19 +77,12 @@ const AllCourses = () => {
             </div>
             <nav aria-label="Page navigation example mt-5">
                 <ul className="pagination justify-content-center">
-                    <li className="page-item">
-                        <a className="page-link" href="/" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li className="page-item"><a class="page-link" href="/">1</a></li>
-                    <li className="page-item"><a class="page-link" href="/">2</a></li>
-                    <li className="page-item"><a class="page-link" href="/">3</a></li>
-                    <li className="page-item">
-                        <a className="page-link" href="/" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
+                    {previousUrl &&
+                        <li className="page-item"><button class="page-link" onClick={()=>paginationHandler( previousUrl)}><i class="ri-arrow-left-line"></i> Previous</button></li>
+                    }
+                    {nextUrl &&
+                        <li className="page-item"><button class="page-link" onClick={()=>paginationHandler(nextUrl)} >Next <i class="ri-arrow-right-line"></i></button></li>
+                    }   
                 </ul>
             </nav>
            

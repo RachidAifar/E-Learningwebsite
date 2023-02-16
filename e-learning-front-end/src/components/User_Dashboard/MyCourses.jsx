@@ -46,7 +46,8 @@ const MyCourses =()=>{
                                 <tr>
                                     <th>Name</th>
                                     <th>Created By</th>
-                                    <th>Action</th>
+                                    <th>Quiz</th>
+                                    <th>Materials</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -55,7 +56,10 @@ const MyCourses =()=>{
                                     <td><Link to={`/CourseDetail/${row.course.course_id}`}>{row.course.course_title}</Link></td>
                                     <td><Link to={`/teacher_detail/${row.course.teacher.teacher_id}`}>{row.course.teacher.teacher_fullname}</Link></td>
                                     <td>
-                                        <Link className="btn btn-danger btn-sm mb-2  ms-2" >Drop this course</Link>
+                                        <Link  to={`/quiz_course/${row.course.course_id}`} className="btn btn-info btn-sm mb-2  ms-2" >Quiz List</Link>
+                                    </td>
+                                    <td>
+                                        <Link to={'/user/study_materials/'+row.course.course_id} className="btn btn-primary btn-sm mb-2   ms-2" >Study Material</Link> 
                                     </td>
                                 </tr>    
                             )}

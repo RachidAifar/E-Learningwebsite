@@ -11,6 +11,8 @@ import axios from "axios";
 const baseUrl='http://127.0.0.1:8000/api';
 const Courses = () => {
   const [courseData,setCourseData] =useState([]);
+  const [popularCourseData,setPopularCourseData] =useState([]);
+  const [teacherData,setTeacherData] =useState([]);
 
 //todo: addd cards to home so you can display the courses.
 useEffect(()=>{
@@ -18,12 +20,30 @@ useEffect(()=>{
       try{
           axios.get(baseUrl+'/course/?result=3').then((response)=>{//getting teacher by id
               setCourseData(response.data);
-              console.log(response.data);
           });
 
       }catch(error){
           console.log(error);
       }
+      //fetch popular courses
+      try{
+        axios.get(baseUrl+'/popular_courses/?popular=1').then((response)=>{//getting teacher by id
+          setPopularCourseData(response.data);
+        });
+
+    }catch(error){
+        console.log(error);
+    }
+    //fetch teachers
+    //fetch popular courses
+    try{
+      axios.get(baseUrl+'/popular_teachers/?popular=1').then((response)=>{//getting teacher by id
+        setTeacherData(response.data);
+      });
+
+  }catch(error){
+      console.log(error);
+  }
   },[]);
 
   return (
@@ -50,23 +70,64 @@ useEffect(()=>{
                           <p className="lesson d-flex align-items-center gap-1">
                               <i className="ri-book-open-line"></i>  Lessons
                           </p>
-                          <p className="enroll d-flex align-items-center gap-1">
-                              <Link to={"/CourseDetail/1"}>Enroll Now</Link> 
-                          </p>
+                          
 
-                          {/* <p className="students d-flex align-items-center gap-1">
-                              <i className="ri-user-line"></i> K
-                          </p> */}
+                          <p className="students d-flex align-items-center gap-1">
+                          {course.total_enrolled_students}<i className="ri-user-line"></i>
+                          </p>
                         </div>
 
                         <div className=" d-flex justify-content-between align-items-center">
-                          {/* <p className="rating d-flex align-items-center gap-1">
-                              <i className="ri-star-fill"></i> Rating:{}
-                          </p> */}
+                          <p className="rating d-flex align-items-center gap-1">
+                              <i className="ri-star-fill"></i> Rating:{course.course_rating}
+                          </p>
 
+                          <p className="enroll d-flex align-items-center gap-1">
+                              <Link to={"/CourseDetail/1"}>Enroll Now</Link> 
+                          </p>
+                        </div>
+                      </div>
+                  </div>
+                  </div>
+                </Col>
+              )}
+            </div>
+            <Link to={"/poupler_courses"} className="float-end"><button className="btn"> See All</button></Link>
+            <h3 className="pb-1 mb-4 mt-4">Popular Courses</h3>
+            <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
+                  consequatur libero quod voluptatibus ullam quia quas, vitae
+                  voluptatem recusandae reprehenderit!
+                </p>
+            <div className="row mb-4 ms-4">
+              {popularCourseData && popularCourseData.map((raw,index)=>
+                <Col lg="4" md="6" sm="6">
+                  <div className="course_card mb-5">
+                  <div className="single__course__item">
+                    <Link to={`/CourseDetail/${raw.course.course_id}`}><img className="card-img-top " src={raw.course.feature_img} alt={raw.course.course_title}/></Link>
+                      <div className="card-body mb-5">
+                        <h5 className="card-title mr-0 mt-2"><Link to={`/CourseDetail/${raw.course.course_id}`}>{raw.course.course_title}</Link></h5>
+                        <div className="d-flex justify-content-between align-items-center mt-3">
+                          <p className="lesson d-flex align-items-center gap-1">
+                              <i className="ri-book-open-line"></i> Lessons
+                          </p>
                           {/* <p className="enroll d-flex align-items-center gap-1">
                               <Link to={"/CourseDetail/1"}>Enroll Now</Link> 
                           </p> */}
+
+                          <p className="students d-flex align-items-center gap-1">
+                          {raw.course.course_views}<i className="ri-user-line"></i>
+                          </p>
+                        </div>
+
+                        <div className=" d-flex justify-content-between align-items-center">
+                          <p className="rating d-flex align-items-center gap-1">
+                              <i className="ri-star-fill"></i> Rating:{raw.rating}
+                          </p>
+
+                          <p className="enroll d-flex align-items-center gap-1">
+                              <Link to={"/CourseDetail/1"}>Enroll Now</Link> 
+                          </p>
                         </div>
                       </div>
                   </div>
@@ -75,54 +136,12 @@ useEffect(()=>{
               )}
             </div>
          <Row>
-           {/* <Col lg="12" className="mb-2">
-            <div className="course__top d-flex justify-content-between align-items-center">
-              <div className="course__top__left w-50 mt-5">
-                <h4>Online Courses</h4>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
-                  consequatur libero quod voluptatibus ullam quia quas, vitae
-                  voluptatem recusandae reprehenderit!
-                </p>
-              </div>
-
-              <div className="w-50 text-end">
-                <button className="btn">See All</button>
-              </div>
-            </div>
-          </Col>
-          {olineCoursesData.map((item) => (
-            <Col lg="4" md="3" sm="4" >
-              <CourseCard key={item.id} item={item} />
-            </Col>
-          ))} */}
-          {/* <Col lg="12" className="mb-5">
-            <div className="course__top d-flex justify-content-between align-items-center">
-              <div className="course__top__left w-50">
-                <h4>Popular Courses</h4>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
-                  consequatur libero quod voluptatibus ullam quia quas, vitae
-                  voluptatem recusandae reprehenderit!
-                </p>
-              </div>
-
-              <div className="w-50 text-end">
-              <Link to={"/poupler_courses"}><button className="btn"> See All</button></Link>
-              </div>
-            </div>
-          </Col>
-          {ourCoursesData.map((item) => (
-            <Col lg="4" md="6" sm="6" onClick={() => this.goToDetails(item)}>
-              <CourseCard key={item.id} item={item} />
-            </Col>
-          ))} */}
         </Row>
         <Row>
           <Col lg="12" className="mb-5">
             <div className="course__top d-flex justify-content-between align-items-center">
               <div className="course__top__left w-50">
-                <h4>Popular Teachers</h4>
+                <h4>Popular Online Courses</h4>
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
                   consequatur libero quod voluptatibus ullam quia quas, vitae
@@ -141,6 +160,41 @@ useEffect(()=>{
             </Col>
           ))}
         </Row>
+        <Link to={"/poupler_teachers"} className="float-end"><button className="btn"> See All</button></Link>
+            <h3 className="pb-1 mb-4 mt-4">Teachers</h3>
+            <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
+                  consequatur libero quod voluptatibus ullam quia quas, vitae
+                  voluptatem recusandae reprehenderit!
+                </p>
+            <div className="row mb-4 ms-4">
+              {teacherData && teacherData.map((raw,index)=>
+                <Col lg="4" md="6" sm="6">
+                  <div className="course_card mb-5">
+                  <div className="single__course__item">
+                    <Link to={`/teacher_detail/${raw.teacher_id}`}><img className="card-img-top " src={raw.teacher_profile} alt={raw.teacher_fullname}/></Link>
+                      <div className="card-body mb-5">
+                        <h5 className="card-title mr-0 mt-2"><Link to={`/teacher_detail/${raw.teacher_id}`}>{raw.teacher_fullname}</Link></h5>
+                        <div className="d-flex justify-content-between align-items-center mt-3">
+                          <p className="lesson d-flex align-items-center gap-1">
+                              <i className="ri-book-open-line"></i> Lessons
+                          </p>
+                          {/* <p className="enroll d-flex align-items-center gap-1">
+                              <Link to={"/CourseDetail/1"}>Enroll Now</Link> 
+                          </p> */}
+
+                          <p className="students d-flex align-items-center gap-1">
+                          <i className="ri-user-line"></i><Link to={`/teacher_detail/${raw.teacher_id}`}>Deatil</Link> 
+                          </p>
+                        </div>
+
+                       
+                      </div>
+                  </div>
+                  </div>
+                </Col>
+              )}
+            </div>
       </Container>
 
     </>

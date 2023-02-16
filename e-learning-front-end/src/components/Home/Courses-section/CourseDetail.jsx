@@ -32,6 +32,7 @@ const CourseDetail = () => {
   const [ratingStatus, setRatingStatus]=useState();
   const [avgRatingStatus, setAvgRatingStatus]=useState([0]);
   const [addtoFavorit, setAddtoFavorit]=useState();
+  const [courseViews, setCourseViews]=useState( 0);
 
   const{course_id}=useParams();
  const student_id =localStorage.getItem('student_id');
@@ -50,6 +51,11 @@ const CourseDetail = () => {
               }
               
           });
+
+          //get views
+          axios.get(baseUrl+'/update_view/'+course_id).then((res)=>{
+            setCourseViews(res.data.views)
+          })
 
       }catch(error){
           console.log(error);
@@ -258,6 +264,7 @@ const enrollCourse=()=>{
               )}
               </p>
               <p className="fw-bold">Time: 2 Hours 13 Minuts</p>  
+              <p className="fw-bold">Views: {courseViews}</p> 
               <p className="fw-bold">Total Enrolled: {courseData.total_enrolled_students} Students</p> 
               <p className="fw-bold">
                 Rating: {avgRatingStatus}/5
