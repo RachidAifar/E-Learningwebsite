@@ -3,21 +3,39 @@ import { Container } from "reactstrap";
 import "bootstrap";
 import { navLinks } from "../../Data/Data";
 import { Link } from "react-router-dom";
+import {useState} from "react";
 //import Dropdown from './Dropdown'
 import "./header.css";
 
 
 const Header = () => {
+
+ 
+  const [searchString, setSearchString] =useState({
+    'search':''
+  });
   const menuRef = useRef();
 
-
+ 
   const menuToggle = () => menuRef.current.classList.toggle("active__menu");
   
   const teacherLoginStatus= localStorage.getItem('teacherLoginStatus');//the redirect the loged in user to dashboard 
   const studentLoginStatus= localStorage.getItem('studentLoginStatus');
-  
+
+  const handleChange=(event)=>{
+    setSearchString({
+        ...searchString,
+        [event.target.name]:event.target.value
+    });
+};
 
 
+  const searchCourse =()=>{
+    if( searchString.search !== ''){
+      window.location.href='/search_courses/'+searchString.search;
+    }
+   
+  }
   return (
     <header className="header">
       <Container>
@@ -25,7 +43,11 @@ const Header = () => {
           <div className="logo">
             <Link to={"../../"}><img  src="/images/e-learning-logo.png" alt="" /></Link>
           </div>
-
+          <form className="d-flex" role="search">
+            <input name="search" onChange={handleChange} className="form-control me-2" type="search" placeholder="Course title or Technology" aria-label="Search"/>
+            <button onClick={searchCourse} className="btn btn-outline-success btn-sm" type="button">Search</button>
+          </form>
+          
           <div className="nav d-flex align-items-center gap-5">
             <div className="nav__menu" ref={menuRef} onClick={menuToggle}>
               <ul className="nav__list">
