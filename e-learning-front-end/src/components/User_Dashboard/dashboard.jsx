@@ -60,10 +60,10 @@ const Dashboard = () => {
                   </div>
                   <div className="col-md-4">
                     <div className="card border-primary">
-                      <h4 className="card-header bg-warning text-white">Assignments</h4>
+                      <h4 className="card-header bg-warning text-white">Assignments Status</h4>
                       <div className="card-body">
-                        <h5>Complted: <Link to={"/my_assignment"}>{dashboar.total_completed_assignments}</Link></h5>
-                        <h5>Pading: <Link to={"/my_assignment"}>{dashboar.total_pending_assignment}</Link></h5>
+                        <p>
+                        <h5>Complted: <Link to={"/my_assignment"}>{dashboar.total_completed_assignments}</Link>  Pading: <Link to={"/my_assignment"}>{dashboar.total_pending_assignment}</Link></h5></p>
                       </div>
                     </div>   
                   </div>
