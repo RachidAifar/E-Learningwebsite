@@ -19,13 +19,13 @@ class Teacher(models.Model):
     teacher_id = models.AutoField(primary_key=True)
     teacher_fullname = models.CharField(max_length=100)
     password = models.CharField(max_length=100, blank=True, null=True)
-    email = models.EmailField(max_length=100,unique=True)
+    email = models.EmailField(max_length=100, unique=True)
     mobile_phone = models.CharField(max_length=30)
     speciality = models.CharField(max_length=150, default='Teacher')
     bio = models.TextField(max_length=200, default='None')
     address = models.CharField(max_length=30)
     skills = models.TextField(max_length=200, default='None')
-    teacher_profile = models.ImageField(upload_to='teacher_profile_images/', null=True)
+    teacher_profile = models.ImageField(upload_to='teacher_profile_images/', default='https://t4.ftcdn.net/jpg/03/31/69/91/360_F_331699188_lRpvqxO5QRtwOM05gR50ImaaJgBx68vi.jpg', null=True)
     dateofjoining = models.DateField(auto_now_add=True)
     objects = models.Manager()
 
@@ -74,6 +74,7 @@ class Course(models.Model):
     course_description = models.TextField(max_length=400, default='None')
     feature_img = models.ImageField(upload_to='course_images/', null=True)
     technologies = models.TextField(max_length=50, default='None')
+    course_views = models.BigIntegerField(default=0)
     dateOfJoining = models.DateField(auto_now_add=True)
     objects = models.Manager()
 
@@ -115,7 +116,7 @@ class Chapter(models.Model):
 class Students(models.Model):
     student_id = models.AutoField(primary_key=True)
     student_fullname = models.CharField(max_length=100)
-    password = models.CharField(max_length=100)
+    password = models.CharField(max_length=100, blank=True, null=True)
     email = models.EmailField(max_length=100, unique=True)
     interested_categories = models.TextField(max_length=150, default='None')
     mobile_phone = models.CharField(max_length=30)
@@ -128,6 +129,28 @@ class Students(models.Model):
 
     def __str__(self):  ##we are returning title
         return self.student_fullname
+
+    # total enrolled course
+    def total_enrolled_courses(self):
+        total_courses = Enrollments.objects.filter(student=self).count()
+        return total_courses
+
+        # total Favorite Chapters
+
+    def total_favorite_courses(self):
+        favorite_courses = StudentFavoriteCourses.objects.filter(student=self).count()
+        return favorite_courses
+
+        # completed assignment
+
+    def total_completed_assignments(self):
+        completed_assignments = StudentAssignment.objects.filter(student=self, student_status=True).count()
+        return completed_assignments
+
+    # pending assignment
+    def total_pending_assignment(self):
+        pending_assignment = StudentAssignment.objects.filter(student=self, student_status=False).count()
+        return pending_assignment
 
 
 class VideoInfo(models.Model):
@@ -154,18 +177,42 @@ class CourseVideo(models.Model):
 
 class Quizzes(models.Model):
     quiz_id = models.AutoField(primary_key=True)
-    course_id = models.ForeignKey(Course, default=None, on_delete=models.CASCADE)
-    teacher_id = models.ForeignKey(Teacher, default=None, on_delete=models.CASCADE)
-    question = models.CharField(max_length=100)
-    correct_answer = models.CharField(max_length=100)
-    answer_1 = models.CharField(max_length=100)
-    answer_2 = models.CharField(max_length=100)
-    answer_3 = models.CharField(max_length=100)
-    answer_4 = models.CharField(max_length=100)
+    teacher = models.ForeignKey(Teacher, default=None, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+    detail = models.TextField(max_length=300, default='None')
     dateOfCreating = models.DateField(auto_now_add=True)
+    objects = models.Manager()
+
+    def assign_status(self):
+        return CourseQuiz.objects.filter(quiz=self).count()
+
+
+class QuizzesQuestions(models.Model):
+    quizQuestion_id = models.AutoField(primary_key=True)
+    quiz = models.ForeignKey(Quizzes, default=None, on_delete=models.CASCADE)
+    question = models.CharField(max_length=200)
+    correct_answer = models.CharField(max_length=200)
+    answer_1 = models.CharField(max_length=200)
+    answer_2 = models.CharField(max_length=200)
+    answer_3 = models.CharField(max_length=200)
+    answer_4 = models.CharField(max_length=200)
+    dateOfCreating = models.DateField(auto_now_add=True)
+    objects = models.Manager()
 
     class Meta:
-        verbose_name = "Quizzes"
+        verbose_name = "Quizzes Question "
+
+
+# add quiz to the course
+class CourseQuiz(models.Model):
+    teacher = models.ForeignKey(Teacher, null=True, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, null=True, on_delete=models.CASCADE)
+    quiz = models.ForeignKey(Quizzes, null=True, on_delete=models.CASCADE)
+    created_time = models.DateField(auto_now_add=True)
+    objects = models.Manager()
+
+    class Meta:
+        verbose_name = "Course Quiz"
 
 
 class CoursePDF(models.Model):
@@ -223,3 +270,65 @@ class StudentFavoriteCourses(models.Model):
 
     def __str__(self):  ##we are returning title
         return f"{self.course}-{self.student}"
+
+
+class StudentAssignment(models.Model):
+    teacher = models.ForeignKey(Teacher, default=None, on_delete=models.CASCADE)
+    student = models.ForeignKey(Students, default=None, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    detail = models.TextField(max_length=200, default=None)
+    created_time = models.DateField(auto_now_add=True)
+    student_status = models.BooleanField(default=False, null=True)
+    objects = models.Manager()
+
+    def __str__(self):  ##we are returning title
+        return f"{self.title}"
+
+
+class Notification(models.Model):
+    notif_id = models.AutoField(primary_key=True)
+    teacher = models.ForeignKey(Teacher, default=None, on_delete=models.CASCADE)
+    student = models.ForeignKey(Students, default=None, on_delete=models.CASCADE)
+    notif_for = models.CharField(max_length=200, default=None)
+    notif_subject = models.CharField(max_length=200, default=None)
+    created_time = models.DateField(auto_now_add=True)
+    status = models.BooleanField(default=False, null=True)
+    objects = models.Manager()
+
+
+# attempt quiz question by student
+class AttemptQuestion(models.Model):
+    student = models.ForeignKey(Students, null=True, on_delete=models.CASCADE)
+    question = models.ForeignKey(QuizzesQuestions, null=True, on_delete=models.CASCADE)
+    correct_answer = models.CharField(max_length=200, default=None)
+    created_time = models.DateField(auto_now_add=True)
+    objects = models.Manager()
+
+    class Meta:
+        verbose_name = "Attempt Question"
+
+
+# study material model
+class StudyMaterial(models.Model):
+    course = models.ForeignKey(Course, default=None, on_delete=models.CASCADE)
+    title = models.CharField(max_length=150, default=None)
+    description = models.TextField(max_length=300, default='None')
+    files = models.FileField(upload_to='study_materials/', null=True)
+    remarks = models.TextField(max_length=150, default='None')
+    uploaded_date = models.DateField(auto_now_add=True)
+    objects = models.Manager()
+
+    class Meta:
+        verbose_name = "Course Study Materials"
+
+
+class AttemptQuiz(models.Model):
+    student = models.ForeignKey(Students, default=None, on_delete=models.CASCADE)
+    quiz = models.ForeignKey(Quizzes, default=None, on_delete=models.CASCADE)
+    question = models.ForeignKey(QuizzesQuestions, default=None, on_delete=models.CASCADE)
+    correct_answer = models.CharField(max_length=200, default=None)
+    uploaded_date = models.DateField(auto_now_add=True)
+    objects = models.Manager()
+
+    class Meta:
+        verbose_name = "Attempted  Quiz"
