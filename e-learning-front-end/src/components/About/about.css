@@ -25,9 +25,8 @@
   .about__content h2 {
     font-weight: 600;
   }
-  .footer {
+  /* .Aboutfooter {
     position: absolute;
     bottom: 0;
     width: 100%;
     background-color:  rgba(226, 248, 248, 0.664);           /* Footer height */
-  }
