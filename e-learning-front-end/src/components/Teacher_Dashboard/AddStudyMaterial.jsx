@@ -8,53 +8,51 @@ import {useState} from "react";
 const baseUrl='http://127.0.0.1:8000/api';
 
 
-const AddChapter = () => {
-    const [chapterData, setChapterData] =useState({
-        course_id:'',
-        course_description:'',
-        video:'',
+const AddStudyMaterials = () => {
+    const [materialData, setMaterialData] =useState({
+        course:'',
+        title:'',
+        description:'',
+        files:'',
         remarks:''
     });
 
     const handleChange=(event)=>{
-        setChapterData({
-            ...chapterData,
+        setMaterialData({
+            ...materialData,
             [event.target.name]:event.target.value
         });
     };
     const handleFileChange=(event)=>{
-        setChapterData({
-            ...chapterData,
+        
+        window.url =window.url || window.webkitURL;
+        var upload =document.createElement('upload');
+        upload.src = URL.createObjectURL(event.target.files[0]);
+        setMaterialData({
+            ...materialData,
             [event.target.name]:event.target.files[0]
         });
-        // window.url =window.url || window.webkitURL;
-        // var video =document.createElement('video');
-        // video.preload = 'metadata';
-        // video.onloadedmetadata = function() {
-        //     window.url.revokeObjectURL(video.src);
-        //     setvideoDuration(video.duration);
-        // }
     };
 
     const{course_id}=useParams();//TAKE A ID OF THE COURE FROM URL USING useParms
     const submitForm=()=>{
         const   CourseFormData =new FormData();
-        CourseFormData.append("course_id",course_id );
-        CourseFormData.append("chapter_title", chapterData.chapter_title);
-        CourseFormData.append("chapter_description",chapterData.chapter_description );
-        CourseFormData.append("video",chapterData.video,chapterData.video.name );
-        CourseFormData.append("remarks",chapterData.remarks );
+        CourseFormData.append("course",course_id );
+        CourseFormData.append("title", materialData.title);
+        CourseFormData.append("description",materialData.description );
+        CourseFormData.append("files",materialData.files,materialData.files.name );
+        CourseFormData.append("remarks",materialData.remarks );
        
        
 
          try{
-            axios.post(baseUrl+'/chapter/',CourseFormData,{
+            axios.post(baseUrl+'/study_materials/'+course_id,CourseFormData,{
                 headers: {
                     'content-type':'multipart/form-data'
                 }
             })
             .then((res)=>{
-                window.location.href='/add_chapter/1';
+                window.location.href='/study_materials/'+course_id;
             });
         }catch(error){
             console.log(error);
@@ -69,25 +67,25 @@ const AddChapter = () => {
                 </aside>
                 <section className="col-md-9">
                 <div className="card"> 
-                    <h4 className="card-header">Add Chapter</h4>   
+                    <h4 className="card-header">Add Study Materials</h4>   
                     <div className="card-body">
                     <div class="mb-2 row">
                         <label for="staticEmail" class="col-sm-2 col-form-label">Title</label>
                         <div class="col-sm-10">
-                        <input onChange={handleChange} name="chapter_title" type="text" readonly class="form-control" id="staticEmail" />
+                        <input onChange={handleChange} name="title" type="text" readonly class="form-control" id="staticEmail" />
                         </div>
                     </div>
                     
                     <div class="mb-2 row">
                         <label for="inputPassword" class="col-sm-2 col-form-label">Description</label>
                         <div class="col-sm-10">
-                        <textarea onChange={handleChange} name="chapter_description" type="text" class="form-control" id="inputPassword"/>
+                        <textarea onChange={handleChange} name="description" type="text" class="form-control" id="inputPassword"/>
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="inputPassword" class="col-sm-2 col-form-label">Video</label>
+                        <label for="inputPassword" class="col-sm-2 col-form-label">File</label>
                         <div class="col-sm-10">
-                        <input onChange={handleFileChange} name="video" type="file" class="form-control" id="inputPassword"/>
+                        <input onChange={handleFileChange} name="files" type="file" class="form-control" id="inputPassword"/>
                         </div>
                     </div>
                     <div class="mb-2 row">
@@ -107,4 +105,4 @@ const AddChapter = () => {
     </div>
   );
 };
-export default AddChapter;
+export default AddStudyMaterials;
