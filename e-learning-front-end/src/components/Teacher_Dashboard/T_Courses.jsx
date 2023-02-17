@@ -54,10 +54,10 @@ const TeacherCourses =()=>{
     return(
         <div className="container mt-4">
             <div className="row">
-                <aside className='col-md-3'>
+                <aside className='col-md-2'>
                     <Sidebar/>
                 </aside>
-                <section className="col-md-9">    
+                <section className="col-md-10">    
                 <div className="card">
                     <h4 className="card-header">My Courses</h4>
                     <div className="card-body">
@@ -84,13 +84,15 @@ const TeacherCourses =()=>{
                                         }
                                         
                                     </td>
-                                    <td ><img src={course.feature_img} alt={course.course_title} width={"200"} className="rounded ms-3"/></td> {/*add imagee from database*/}
+                                    <td ><img src={course.feature_img} alt={course.course_title} width={"100"} className="rounded ms-1"/></td> {/*add imagee from database*/}
                                     <td><Link to={'/enrolled_students/'+course.course_id} className='' >{course.total_enrolled_students}</Link></td>
                                     
                                     <td>
                                         <Link to={'/add_chapter/'+course.course_id} className='btn btn-success btn-sm' >Add Chapters</Link>
                                         <Link to={'/edit_course/'+course.course_id} className="btn btn-info btn-sm mb-2  mt-2 2 ms-2" >Edit</Link>
-                                        <Link onClick={()=>handleDeleteClick(course.course_id)} className="btn btn-danger btn-sm mb-2  mt-2 2 ms-2" >Delete</Link> 
+                                        <Link onClick={()=>handleDeleteClick(course.course_id)} className="btn btn-danger btn-sm mb-2  mt-2 2 ms-2" >Delete</Link>
+                                        <Link to={'/study_materials/'+course.course_id} className="btn btn-primary btn-sm mb-2  mt-2 2 ms-2" >Study Material</Link> 
+                                        <Link to={'/assign_quiz/'+course.course_id} className="btn btn-warning btn-sm mb-2  mt-2 2 ms-2" >Assign Quiz</Link>
                                     </td>
                                 </tr>
                                 )}

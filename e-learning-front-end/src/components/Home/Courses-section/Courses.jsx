@@ -19,7 +19,7 @@ useEffect(()=>{
       //fetch courses
       try{
           axios.get(baseUrl+'/course/?result=3').then((response)=>{//getting teacher by id
-              setCourseData(response.data);
+              setCourseData(response.data.results);
           });
 
       }catch(error){
