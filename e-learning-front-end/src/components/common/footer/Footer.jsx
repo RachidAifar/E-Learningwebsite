@@ -34,8 +34,8 @@ const footerInfoLinks = [
   },
 
   {
-    display: "Purchases Guide",
-    url: "#",
+    display: "FAQ",
+    url: "/faq",
   },
 
   {
