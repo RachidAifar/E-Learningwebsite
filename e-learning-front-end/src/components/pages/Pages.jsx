@@ -20,6 +20,7 @@ import ChangePassword from "../User_Dashboard/ChangePassword";
 import ProfileSetting from "../User_Dashboard/ProfileSetting";
 import StudentLogin from "../../components/Authontication_Forms/Login_form"
 import StudentLogout from '../User_Dashboard/UserLogout';
+import UserStudyMaterials from '../User_Dashboard/UserStudyMaterials';
 
 //teacher
 import AllCourses from "../Home/Courses-section/AllCourses";
@@ -28,6 +29,11 @@ import AllChapter from "../../components/Teacher_Dashboard/AllChapter";
 import EditChapter from "../../components/Teacher_Dashboard/EditChapter";
 import TeacherSkillCourses from "../../components/Teacher_Dashboard/TeacherSkillCourses";
 import EnrolledStudent from '../../components/Teacher_Dashboard/EnrolledStudent';
+import StudyMaterials from '../../components/Teacher_Dashboard/StudyMaterials';
+//assignemnt
+import AddAssignment from "../Teacher_Dashboard/AddAssignment";
+import ViewAssignment from "../Teacher_Dashboard/ViewAssignment";
+import StudentAssignment from "../User_Dashboard/StudentAssignment";
 //List pages
 import TeacherLogin from "../Authontication_Forms/Teacher_Login";
 import TeacherRegister from "../Authontication_Forms/Teacher_Register";
@@ -40,6 +46,18 @@ import TeacherProfileSetting from "../Teacher_Dashboard/T_ProfileSetting";
 import CategoryCourses from "../Home/Courses-section/CategoryCourses";
 import AddChapter from "../Teacher_Dashboard/AddChapter";
 import EditCourse from "../Teacher_Dashboard/EditCourse";
+import AddQuiz from "../Teacher_Dashboard/AddQuiz";
+import AllQuizzes from "../Teacher_Dashboard/AllQuizzes";
+import EditQuiz from "../Teacher_Dashboard/EditQuiz";
+import QuizQuestion from "../Teacher_Dashboard/QuizQuestions";
+import AddQuizQuestion from "../Teacher_Dashboard/AddQuizQuestion";
+import AssignQuiz from "../Teacher_Dashboard/AssignQuiz";
+import CourseQuizList from "../User_Dashboard/CourseQuizList";
+import TakeQuiz from "../User_Dashboard/TakeQuiz";
+import SearchCourses from "../Home/Courses-section/SearchCourse";
+import AddStudyMaterials from "../Teacher_Dashboard/AddStudyMaterial";
+import AttemptedStudents from "../Teacher_Dashboard/AttemptedStudent";
+import FAQ from "../common/faq";
 
 
 
@@ -78,6 +96,26 @@ const Pages = () => {
           <Route exact path='/teacher_chnage_password' element={<TeacherChangePassword />} />
           <Route exact path='/teacher_logout' element={<TeacherLogout />} />
 
+          <Route exact path='/add_quiz' element={<AddQuiz />} />
+          <Route exact path='/all_quiz' element={<AllQuizzes />} />
+          <Route exact path='/edit_quiz/:quiz_id' element={<EditQuiz/>} />
+          <Route exact path='/all_questions/:quiz_id' element={<QuizQuestion/>} />
+          <Route exact path='/add_quiz_questions/:quiz_id' element={<AddQuizQuestion/>} />
+          <Route exact path='/assign_quiz/:course_id' element={<AssignQuiz/>} />
+
+          <Route exact path='/quiz_course/:course_id' element={<CourseQuizList/>} />
+          <Route exact path='/quiz_course/:course_id/take_quiz/:quiz_id' element={<TakeQuiz/>} />
+
+
+          <Route exact path='/search_courses/:searchstring' element={<SearchCourses/>} />
+
+
+          <Route exact path='/student_assignment/:student_id/:teacher_id' element={<AddAssignment />} />
+          <Route exact path='/view_assignment/:student_id/:teacher_id' element={<ViewAssignment />} />
+          <Route exact path='/my_assignment/' element={<StudentAssignment />} />
+
+
+
           <Route exact path='/students_list' element={<StudentList />} />
           <Route exact path='/students_login' element={<StudentLogin />} />
           <Route exact path='/student_logout' element={<StudentLogout />} />
@@ -91,6 +129,12 @@ const Pages = () => {
           <Route exact path="/course_chapter/:course_id" element={<AllChapter/>} />
           <Route exact path="/edit_chapter/:chapter_id" element={<EditChapter/>} />
 
+          <Route exact path="/study_materials/:course_id" element={<StudyMaterials/>} />
+          <Route exact path="/add_materials/:course_id" element={<AddStudyMaterials/>} />
+          {/* <Route exact path="/edit_material/:study_id" element={<EditChapter/>} /> */}
+          
+          <Route exact path="/user/study_materials/:course_id" element={<UserStudyMaterials/>} />
+
           <Route exact path="/category/:category_slug" element={<CategoryCourses/>} />
         {/* fetch courses based on teacher skills */}
           <Route exact path="/teacher_skill_course/:skill_name/:teacher_id" element={<TeacherSkillCourses/>} />
@@ -98,6 +142,14 @@ const Pages = () => {
 
           <Route exact path="/poupler_courses" element={<PouplerCourses/>} />
           <Route exact path="/poupler_teachers" element={<PouplerTeachers/>} />
+
+          <Route exact path="/attempted_student/:quiz_id" element={<AttemptedStudents/>} />
+
+
+
+
+
+          <Route exact path="/faq" element={<FAQ/>} />
 
         </Routes>
         <Footer />
