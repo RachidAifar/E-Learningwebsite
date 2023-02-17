@@ -216,3 +216,16 @@ class AttemptQuizSerialize(serializers.ModelSerializer):
         self.Meta.depth = 0
         if request and request.method == "GET":
             self.Meta.depth = 2
+
+
+class FAQSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.FAQ
+        fields = ['faq_id', 'question', 'answer', 'uploaded_date']
+
+    # def __init__(self, *args, **kwargs):
+    #     super(FAQSerializer, self).__init__(*args, **kwargs)
+    #     request = self.context.get('request')
+    #     self.Meta.depth = 0
+    #     if request and request.method == "GET":
+    #         self.Meta.depth = 1

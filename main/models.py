@@ -332,3 +332,11 @@ class AttemptQuiz(models.Model):
 
     class Meta:
         verbose_name = "Attempted  Quiz"
+
+
+class FAQ(models.Model):
+    faq_id = models.AutoField(primary_key=True)
+    question = models.CharField(max_length=300, default='None')
+    answer = models.TextField(max_length=300, default=None)
+    uploaded_date = models.DateField(auto_now_add=True)
+    objects = models.Manager()

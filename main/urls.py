@@ -82,4 +82,8 @@ urlpatterns = [
     path('attempted_quiz/<int:quiz_id>', views.AttemptQuizList.as_view()),
     path('fetch_quiz_result/<int:quiz_id>/<int:student_id>', views.fetch_quiz_result),
 
+
+
+    path('faq/', views.FAQList.as_view()),
+
 ]

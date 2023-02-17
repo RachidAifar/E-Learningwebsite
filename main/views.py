@@ -11,7 +11,7 @@ from .serializers import StudentSerialize, TeacherSerialize, CourseCategorySeria
     CourseRatingSerializer, EnrollmentSerialize, TeacherDashboardSerializer, StudentFavoriteCoursesSerializer, \
     StudentAssignmentSerializer, StudentDashBoardSerialize, NotificationSerializer, CourseQuizSerialize, \
     QuizQuestionSerializer, CourseQuizSerialize, QuizSerializer, AttemptQuestionSerialize, StudyMaterialsSerialize, \
-    AttemptQuizSerialize
+    AttemptQuizSerialize, FAQSerializer
 from . import models
 from django.http import Http404
 
@@ -46,7 +46,7 @@ def student_login(request):
         studentData = models.Students.objects.get(password=password, email=email)
     except models.Students.DoesNotExist:
         studentData = None
-    if studentData: 
+    if studentData:
         return JsonResponse({'bool': True, 'student_id': studentData.student_id})
     else:
         return JsonResponse({'bool': False})
@@ -503,3 +503,8 @@ def update_view(request, course_id):
     queryset.course_views += 1
     queryset.save()
     return JsonResponse({'views': queryset.course_views})
+
+
+class FAQList(generics.ListAPIView):
+    queryset = models.FAQ.objects.all()
+    serializer_class = FAQSerializer
