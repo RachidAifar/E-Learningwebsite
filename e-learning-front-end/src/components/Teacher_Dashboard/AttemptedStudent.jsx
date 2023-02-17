@@ -2,28 +2,36 @@ import React from 'react';
 import axios from 'axios';
 import {Link, useParams} from 'react-router-dom';
 import Sidebar from './T_Sidebar';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 import { useState,useEffect } from 'react';
+import QuizResult from './QuizResult'
 
 
 const baseUrl='http://127.0.0.1:8000/api';
 
 
-const StudentsList =()=>{
+const AttemptedStudent =()=>{
     const [studentData, setStudentData] =useState([]);
-    const teacher_id= localStorage.getItem('teacher_id');
+    const {quiz_id} = useParams();
+    
     useEffect(()=>{
         //fetch courses
         try{
-            axios.get(baseUrl+'/fetch_allenrolled_students/'+teacher_id).then((response)=>{//getting teacher by id
+            axios.get(baseUrl+'/attempted_quiz/'+quiz_id).then((response)=>{ 
                 setStudentData(response.data);
+                console.log(response.data);
             });
 
         }catch(error){
             console.log(error);
         }
-    },[teacher_id]);
+
+       
+    },[quiz_id]);
+
     
+
+
     return(
         <div className="container mt-4">
             <div className="row">
@@ -32,30 +40,34 @@ const StudentsList =()=>{
                 </aside>
                 <section className="col-md-9">    
                 <div className="card">
-                    <h4 className="card-header">All Students List</h4>
+                    <h4 className="card-header">Student List</h4>
                     <div className="card-body">
                         <table className="table table-bordered ">
                             <thead>
                                 <tr>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>date of enrolling</th>
-                                    <th>Mobil Phone</th>
-                                    <th>Assignments</th>
+                                    <th>Joining Date</th>
+                                    <th>Result</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {studentData.map((student,index)=>  
+                                {studentData.map((row,index)=> 
                                 <tr>
-                                    <td>{student.student.student_fullname}</td>
-                                    <td >{student.student.email}</td> {/*add imagee from database*/}
-                                    <td>{student.enrollment_date}</td>
                                     <td>
-                                        {student.student.mobile_phone}
+                                        {row.student.student_fullname}
                                     </td>
                                     <td>
-                                        <Link to={`/view_assignment/${student.student.student_id}/${teacher_id}`} className='btn btn-sm btn-info mb-2'>View Assignments</Link><br/>
-                                        <Link to={`/student_assignment/${student.student.student_id}/${teacher_id}`}  className='btn btn-sm btn-success'  >Add Assignments</Link>
+                                    {row.student.email}
+                                    </td>
+                                    <td>{row.student.dateOfJoining} </td>
+                                    <td>
+                                    <button type="button"  className="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target={`#resultModal${row.student_id}`}>
+                                        Quiz Result
+                                    </button>
+                                    <div className="modal fade mt-5" id={`resultModal${row.student_id}`} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <QuizResult quiz={row.quiz.quiz_id} student={row.student.student_id} />
+                                    </div>  
                                     </td>
                                 </tr>
                                 )}
@@ -65,7 +77,7 @@ const StudentsList =()=>{
                 </div>
                 </section>
             </div>
-        </div>         
+        </div>        
     )
 }
-export default StudentsList;
+export default AttemptedStudent;

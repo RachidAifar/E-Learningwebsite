@@ -21,8 +21,7 @@ const TeacherSkilllCourses = () => {
         //fetch courses
         try{
             axios.get(baseUrl+'/course/?skill_name='+skill_name+'&teacher='+teacher_id).then((response)=>{//getting teacher by id
-                setCourseData(response.data);
-                console.log(response.data);
+                setCourseData(response.data.results);
             });
 
         }catch(error){

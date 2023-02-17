@@ -49,17 +49,18 @@ const TeacherDetail = () => {
             <div className="detail__content">
               <h3>{teacherData.teacher_fullname}</h3>
               <p>{teacherData.bio}</p>
-              <p className="fw-bold">Speciality: <Link to={"/teacher_detail/:teacher_id"}>{teacherData.speciality}</Link></p>
-              <p className="fw-bold">Skills:&nbsp; 
+              <p className="fw-bold">Speciality: <span className='btn btn-info btn-sm'>{teacherData.speciality}</span></p>
+              <p className="fw-bold">Skills:&nbsp;
               {skillsData.map((skills,index) =>
                 <>
                   <Link className="badge bg-warning ms-1" to={`/teacher_skill_course/${skills.trim()}/${teacherData.teacher_id}`}>{skills}</Link>
                 </>
               )}
               </p>
-              <p className="fw-bold">Total Courses: 5</p>
-              <p className="fw-bold">Rating 4/5</p> 
+              <p className="fw-bold">Total Courses: {teacherData.total_teacher_courses}</p>
+              <p className="fw-bold">Contact Info: <span className='emphasis-text'>{teacherData.email}</span> </p>
             </div>
+           
           </Col>
         </Row>
         <div className="listItem mb-3">

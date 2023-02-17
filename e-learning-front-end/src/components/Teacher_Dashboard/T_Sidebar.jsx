@@ -8,6 +8,8 @@ const Sidebar = () => {
             <Link to={'/teacher_courses'} className="list-group-item list-group-action ">My Courses</Link>
             <Link to={'/add_courses'} className="list-group-item list-group-action ">Add Course</Link>
             <Link to={'/students_list'} className="list-group-item list-group-action ">My Student</Link>
+            <Link to={'/all_quiz'} className="list-group-item list-group-action ">Quizzes</Link>
+            <Link to={'/add_quiz'} className="list-group-item list-group-action ">Add Quiz</Link>
             <Link to={'/teacher_profile_setting'} className="list-group-item list-group-action ">Profile Setting</Link>
             <Link to={'/teacher_chnage_password'} className="list-group-item list-group-action ">Change Password</Link>
             <Link to={'/login'} className="list-group-item list-group-action text-danger">Logout</Link>
