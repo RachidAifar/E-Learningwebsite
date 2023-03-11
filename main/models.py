@@ -2,18 +2,6 @@ from django.db import models
 from django.core import serializers
 
 
-class Users(models.Model):
-    user_id = models.AutoField(primary_key=True)
-    user_name = models.CharField(max_length=100)
-    password = models.CharField(max_length=100)
-    email = models.CharField(max_length=100)
-    image = models.CharField(max_length=100)
-    dateOfJoining = models.DateField(auto_now_add=True)
-    objects = models.Manager()
-
-    class Meta:
-        verbose_name = "Users"
-
 
 class Teacher(models.Model):
     teacher_id = models.AutoField(primary_key=True)

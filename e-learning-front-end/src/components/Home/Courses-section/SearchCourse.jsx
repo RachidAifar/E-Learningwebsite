@@ -18,7 +18,7 @@ const SearchCourses = () => {
         //fetch courses
         try{
             axios.get(baseUrl+'/search_courses/'+searchstring).then((response)=>{//getting teacher by id
-                setCourseData(response.data);
+                setCourseData(response.data.results);
             });
 
         }catch(error){

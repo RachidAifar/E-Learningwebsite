@@ -48,25 +48,29 @@ useEffect(()=>{
 
   return (
     <>
-
       <Container className="container">
-
-           <Link to={"/all_courses"} className="float-end"><button className="btn"> See All</button></Link>
-            <h3 className="pb-1 mb-4 mt-5">Our Courses</h3>
-            <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
-                  consequatur libero quod voluptatibus ullam quia quas, vitae
-                  voluptatem recusandae reprehenderit!
+            <div className="course__top d-flex justify-content-between align-items-center">
+              <div className="course__top__left w-50">
+                <h3 className="pb-1 mb-2 mt-3">Our Courses</h3>
+                <p>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
+                      consequatur libero quod voluptatibus ullam quia quas, vitae
+                      voluptatem recusandae reprehenderit!
                 </p>
+              </div>
+              <div>
+                    <Link to={"/all_courses"} className="w-50 text-end"><button className="btn"> See All</button></Link>
+              </div>
+            </div>
             <div className="row mb-4 ms-4">
               {courseData && courseData.map((course,index)=>
                 <Col lg="4" md="6" sm="6">
                   <div className="course_card mb-5">
-                  <div className="single__course__item">
+                  <div className="single__course__item ">
                     <Link to={`/CourseDetail/${course.course_id}`}><img className="card-img-top " src={course.feature_img} alt={course.course_title}/></Link>
                       <div className="card-body mb-5">
                         <h5 className="card-title mr-0 mt-2"><Link to={`/CourseDetail/${course.course_id}`}>{course.course_title}</Link></h5>
-                        <div className="d-flex justify-content-between align-items-center mt-3">
+                        <div className="d-flex justify-content-between align-items-center mt-3 ">
                           <p className="lesson d-flex align-items-center gap-1">
                               <i className="ri-book-open-line"></i>  Lessons
                           </p>
@@ -83,7 +87,7 @@ useEffect(()=>{
                           </p>
 
                           <p className="enroll d-flex align-items-center gap-1">
-                              <Link to={"/CourseDetail/1"}>Enroll Now</Link> 
+                              <Link to={`/CourseDetail/${course.course_id}`}>Enroll Now</Link> 
                           </p>
                         </div>
                       </div>
@@ -92,13 +96,20 @@ useEffect(()=>{
                 </Col>
               )}
             </div>
-            <Link to={"/poupler_courses"} className="float-end"><button className="btn"> See All</button></Link>
-            <h3 className="pb-1 mb-4 mt-4">Popular Courses</h3>
-            <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
-                  consequatur libero quod voluptatibus ullam quia quas, vitae
-                  voluptatem recusandae reprehenderit!
-                </p>
+            <hr />
+            <div className="course__top d-flex justify-content-between align-items-center">
+              <div className="course__top__left w-50">
+                <h4 className="pb-1 mb-2 mt-3">Popular Courses</h4>
+                <p>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
+                      consequatur libero quod voluptatibus ullam quia quas, vitae
+                      voluptatem recusandae reprehenderit!
+                  </p>
+              </div>
+                <div className="w-50 text-end">
+                  <Link to={"/poupler_courses"} className="float-end"><button className="btn"> See All</button></Link>
+                </div>
+            </div>
             <div className="row mb-4 ms-4">
               {popularCourseData && popularCourseData.map((raw,index)=>
                 <Col lg="4" md="6" sm="6">
@@ -126,7 +137,7 @@ useEffect(()=>{
                           </p>
 
                           <p className="enroll d-flex align-items-center gap-1">
-                              <Link to={"/CourseDetail/1"}>Enroll Now</Link> 
+                              <Link to={`/CourseDetail/${raw.course.course_id}`}>Enroll Now</Link> 
                           </p>
                         </div>
                       </div>
@@ -135,10 +146,13 @@ useEffect(()=>{
                 </Col>
               )}
             </div>
+           
          <Row>
         </Row>
+        <hr />
         <Row>
-          <Col lg="12" className="mb-5">
+          <Col lg="12" className="mb-2 mt-3">
+          
             <div className="course__top d-flex justify-content-between align-items-center">
               <div className="course__top__left w-50">
                 <h4>Popular Online Courses</h4>
@@ -160,14 +174,21 @@ useEffect(()=>{
             </Col>
           ))}
         </Row>
-        <Link to={"/poupler_teachers"} className="float-end"><button className="btn"> See All</button></Link>
-            <h3 className="pb-1 mb-4 mt-4">Teachers</h3>
-            <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
-                  consequatur libero quod voluptatibus ullam quia quas, vitae
-                  voluptatem recusandae reprehenderit!
+        <hr />
+        <div className="course__top d-flex justify-content-between align-items-center">
+              <div className="course__top__left w-50">
+                <h3 className="pb-1 mb-2 mt-3">Populer Teacher</h3>
+                <p>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
+                      consequatur libero quod voluptatibus ullam quia quas, vitae
+                      voluptatem recusandae reprehenderit!
                 </p>
-            <div className="row mb-4 ms-4">
+              </div>
+              <div>
+                    <Link to={"/poupler_teachers"} className="w-50 text-end"><button className="btn"> See All</button></Link>
+              </div>
+            </div>
+            <div className="row mb-2 ms-4">
               {teacherData && teacherData.map((raw,index)=>
                 <Col lg="4" md="6" sm="6">
                   <div className="course_card mb-5">

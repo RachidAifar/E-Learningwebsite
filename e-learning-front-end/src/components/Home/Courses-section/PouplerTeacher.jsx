@@ -34,7 +34,7 @@ const PouplerTeacher = () => {
                   <div className="course_card mb-5">
                     <Link to={`/CourseDetail/${raw.teacher_id}`}><img className="card-img-top " src={raw.teacher_profile} alt={raw.teacher_fullname}/></Link>
                       <div className="card-body mb-5">
-                        <h5 className="card-title mr-0 mt-2"><Link to={`/CourseDetail/${raw.teacher_id}`}>{raw.teacher_fullname}</Link></h5>
+                        <h5 className="card-title mr-0 mt-2"><Link to={`/teacher_detail/${raw.teacher_id}`}>{raw.teacher_fullname}</Link></h5>
                         <div className="d-flex justify-content-between align-items-center mt-3">
                           <p className="lesson d-flex align-items-center gap-1">
                               <i className="ri-book-open-line"></i> Lessons

@@ -1,4 +1,4 @@
-import Pages from '../src/components/pages/Pages';
+import Pages from '../src/components/Routes/Pages';
 
 function App() {
   return (

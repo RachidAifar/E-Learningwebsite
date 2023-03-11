@@ -53,10 +53,10 @@ const ChangePassword = () => {
         }
         
     }; 
-    const teacherLoginStatus= localStorage.getItem('teacherLoginStatus');//if the user is logied in redirect them to teacher dashboard.
-    if(teacherLoginStatus!=='true'){
-        window.location.href='/teacher_login'
-    }
+    // const teacherLoginStatus= localStorage.getItem('teacherLoginStatus');//if the user is logied in redirect them to teacher dashboard.
+    // if(teacherLoginStatus!=='true'){
+    //     window.location.href='/teacher_login'
+    // }
 
 
   return (

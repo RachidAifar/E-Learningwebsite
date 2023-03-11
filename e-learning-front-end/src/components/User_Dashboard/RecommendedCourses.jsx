@@ -1,10 +1,34 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { useState,useEffect } from 'react';
 import Sidebar from './Sidebar'
+import axios from 'axios';
+import {Link} from 'react-router-dom';
 
+
+
+const baseUrl='http://127.0.0.1:8000/api';
 
 
 const RecommendedCourses =()=>{
+    const [courseData, setCourseData] =useState([]);
+    const student_id= localStorage.getItem('student_id');
+
+    
+    useEffect(()=>{
+        //fetch courses
+        try{
+            axios.get(baseUrl+'/fetch_recommended_courses/'+student_id).then((response)=>{
+                setCourseData(response.data);
+                console.log(response.data);
+            });
+
+        }catch(error){
+            console.log(error);
+        }
+    },[student_id]);
+
+
+
     return(
         <div className="container mt-4">
             <div className="row">
@@ -19,16 +43,20 @@ const RecommendedCourses =()=>{
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Created By</th>
-                                    <th>Action</th>
+                                    <th>Technologies</th>
+                                    <th>Enrollment Date</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <td>Java Development</td>
-                                <td><Link to={""}>Mohammed Aifar</Link></td>
-                                <td>
-                                    <button className="btn btn-primery  text-danger" >Delete</button>
-                                </td>
+                            {courseData.map((row,index)=>  
+                                <tr>
+                                    <td><Link to={`/CourseDetail/${row.teacher.course_id}`}>{row.teacher.course_title}</Link></td>
+                                    <td>{row.teacher.technologies}</td>
+                                    <td>
+                                        {row.teacher.enrollment_date}
+                                    </td>
+                                </tr>    
+                            )}
                             </tbody>
                         </table>
                     </div>

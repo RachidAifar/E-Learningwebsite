@@ -23,7 +23,7 @@ const CategoryCourses = () => {
         //fetch courses
         try{
             axios.get(baseUrl+'/course/?category='+category_slug).then((response)=>{//getting teacher by id
-                setCourseData(response.data);
+                setCourseData(response.data.results);
                 console.log(response.data);
             });
 
