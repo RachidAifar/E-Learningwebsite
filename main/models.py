@@ -123,6 +123,11 @@ class Students(models.Model):
     def __str__(self):  ##we are returning title
         return self.student_fullname
 
+    def save(self, *args, **kwargs):
+        # Hash the password before saving to the database
+        self.password = make_password(self.password)
+        super().save(*args, **kwargs)
+
     # total enrolled course
     def total_enrolled_courses(self):
         total_courses = Enrollments.objects.filter(student=self).count()

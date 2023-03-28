@@ -39,18 +39,32 @@ class StudentDetails(generics.RetrieveUpdateDestroyAPIView):
     #     return Response(serializer.data)
 
 
+# @csrf_exempt
+# def student_login(request):
+#     email = request.POST['email']
+#     password = request.POST['password']
+#     try:
+#         studentData = models.Students.objects.get(password=password, email=email)
+#     except models.Students.DoesNotExist:
+#         studentData = None
+#     if studentData and check_password(password, studentData.password):
+#         return JsonResponse({'bool': True, 'student_id': studentData.student_id})
+#     else:
+#         return JsonResponse({'bool': False})
+
 @csrf_exempt
 def student_login(request):
-    email = request.POST['email']
-    password = request.POST['password']
-    try:
-        studentData = models.Students.objects.get(password=password, email=email)
-    except models.Students.DoesNotExist:
-        studentData = None
-    if studentData:
-        return JsonResponse({'bool': True, 'student_id': studentData.student_id})
-    else:
-        return JsonResponse({'bool': False})
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+        try:
+            studentData = models.Students.objects.get(email=email)
+        except models.Students.DoesNotExist:
+            studentData = None
+        if studentData and check_password(password, studentData.password):
+            return JsonResponse({'bool': True, 'student_id': studentData.student_id})
+        else:
+            return JsonResponse({'bool': False})
 
 
 class TeacherList(generics.ListCreateAPIView):
