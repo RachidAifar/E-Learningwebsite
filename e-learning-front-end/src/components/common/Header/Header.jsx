@@ -57,9 +57,10 @@ const Header = () => {
                   </li>
                 ))}
                  <li className="nav-item">
+                  {teacherLoginStatus !== 'true'&&
                     <Link className="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       User
-                    </Link>
+                    </Link>}
                     <ul className="dropdown-menu">
                     {studentLoginStatus !== 'true'  && 
                       <>
@@ -77,11 +78,12 @@ const Header = () => {
                     </ul>
                 </li>
                 <li className="nav-item">
+                  {studentLoginStatus !=="true" &&
                     <Link className="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Teacher
-                    </Link>
+                    </Link>}
                     <ul className="dropdown-menu">
-                      {teacherLoginStatus !== 'true' && 
+                      {teacherLoginStatus !== 'true' && studentLoginStatus !=="true" &&
                         <>
                         <li><Link to={"/teacher_register"} className="dropdown-item">Register</Link></li>
                         <li><Link to={"/teacher_login"} className="dropdown-item">Login</Link></li></>
