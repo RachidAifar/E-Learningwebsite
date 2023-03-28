@@ -30,7 +30,6 @@ class TeacherDashboardSerializer(serializers.ModelSerializer):
         model = models.Teacher
         fields = ['total_teacher_courses', 'total_teacher_chapters', 'total_teacher_student']
 
-
 class StudentDashBoardSerialize(serializers.ModelSerializer):
     class Meta:
         model = models.Students

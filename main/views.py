@@ -2,6 +2,7 @@ from django.db.models import Q
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse  ##without this you can not submit a form to django
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.hashers import check_password
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics
@@ -58,7 +59,7 @@ class TeacherList(generics.ListCreateAPIView):
 
     def get_queryset(self):
         if 'popular' in self.request.GET:
-            sql = "SELECT *,COUNT(c.course_id) as total_course FROM main_teacher as t INNER JOIN main_course as c ON c.teacher_id=t.teacher_id GROUP BY t.teacher_id,c.course_id ORDER BY total_course desc LIMIT 3"
+            sql = "SELECT DISTINCT t.*,COUNT(c.course_id) as total_course FROM main_teacher as t INNER JOIN main_course as c ON c.teacher_id=t.teacher_id GROUP BY t.teacher_id,c.course_id ORDER BY total_course desc LIMIT 3"
             return models.Teacher.objects.raw(sql)
         if 'all' in self.request.GET:
             sql = "SELECT *,COUNT(c.course_id) as total_course FROM main_teacher as t INNER JOIN main_course as c ON c.teacher_id=t.teacher_id GROUP BY t.teacher_id,c.course_id ORDER BY total_course desc"
@@ -72,16 +73,19 @@ class TeacherDetail(generics.RetrieveUpdateDestroyAPIView):
 
 @csrf_exempt
 def teachers_login(request):
-    email = request.POST['email']
-    password = request.POST['password']
-    try:
-        teacherData = models.Teacher.objects.get(password=password, email=email)
-    except models.Teacher.DoesNotExist:
-        teacherData = None
-    if teacherData:
-        return JsonResponse({'bool': True, 'teacher_id': teacherData.teacher_id})
-    else:
-        return JsonResponse({'bool': False})
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+
+        try:
+            teacherData = models.Teacher.objects.get(email=email)
+        except models.Teacher.DoesNotExist:
+            teacherData = None
+
+        if teacherData and check_password(password, teacherData.password):
+            return JsonResponse({'bool': True, 'teacher_id': teacherData.teacher_id})
+        else:
+            return JsonResponse({'bool': False})
 
 
 class TeacherDashboard(generics.RetrieveAPIView):

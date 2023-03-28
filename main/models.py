@@ -1,5 +1,6 @@
 from django.db import models
 from django.core import serializers
+from django.contrib.auth.hashers import make_password
 
 
 
@@ -20,6 +21,10 @@ class Teacher(models.Model):
     class Meta:
         verbose_name = "Teacher"
 
+    def save(self, *args, **kwargs):
+        # Hash the password before saving to the database
+        self.password = make_password(self.password)
+        super().save(*args, **kwargs)
     # fetch all the skills
     def skills_list(self):
         skills_list = str(self.skills).split(',')

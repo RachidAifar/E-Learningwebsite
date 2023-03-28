@@ -12,7 +12,7 @@ const Sidebar = () => {
             <Link to={'/add_quiz'} className="list-group-item list-group-action ">Add Quiz</Link>
             <Link to={'/teacher_profile_setting'} className="list-group-item list-group-action ">Profile Setting</Link>
             <Link to={'/teacher_chnage_password'} className="list-group-item list-group-action ">Change Password</Link>
-            <Link to={'/login'} className="list-group-item list-group-action text-danger">Logout</Link>
+            <Link to={'/teacher_logout'} className="list-group-item list-group-action text-danger">Logout</Link>
         </div>
     </div>
     )
