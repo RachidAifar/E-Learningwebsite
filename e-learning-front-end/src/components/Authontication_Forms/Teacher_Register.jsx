@@ -18,16 +18,66 @@ const Register = () => {
         'skills':'',
         'status':''
     });
+    const [errors, setErrors] = useState({});
     //change element value
     const handleChange=(event)=>{
         setTeacherData({
             ...teacherData,
             [event.target.name]:event.target.value
         });
+        setErrors({
+            ...errors,
+            [event.target.name]: ''
+          });
     };
+    const validateData = () => {
+        let errors = {};
+      
+        if (!teacherData.teacher_fullname) {
+          errors.teacher_fullname = 'Name is required';
+        }
+      
+        if (!teacherData.email) {
+          errors.email = 'Email is required';
+        } else if (!/\S+@\S+\.\S+/.test(teacherData.email)) {
+          errors.email = 'Email is invalid';
+        }
+      
+        if (!teacherData.password) {
+          errors.password = 'Password is required';
+        } else if (teacherData.password.length < 8) {
+          errors.password = 'Password must be at least 8 characters';
+        }
+      
+        if (!teacherData.mobile_phone) {
+          errors.mobile_phone = 'Mobile Phone is required';
+        } else if (!/^[0-9]+$/.test(teacherData.mobile_phone)) {
+          errors.mobile_phone = 'Mobile Phone is invalid';
+        }
+      
+        if (!teacherData.address) {
+          errors.address = 'Address is required';
+        }
+      
+        if (!teacherData.bio) {
+          errors.bio = 'Bio is required';
+        }
+      
+        if (!teacherData.skills) {
+          errors.skills = 'Skills are required';
+        }
+      
+        if (!teacherData.speciality) {
+          errors.speciality = 'Speciality is required';
+        }
+      
+        return errors;
+      };
+    
     //end
     const submitForm=()=>{
         const teacherFormData =new FormData();
+        const errors = validateData();
         teacherFormData.append("teacher_fullname", teacherData.teacher_fullname)
         teacherFormData.append("password", teacherData.password)
         teacherFormData.append("email", teacherData.email)
@@ -38,6 +88,7 @@ const Register = () => {
         teacherFormData.append("skills", teacherData.skills)
 
         try{
+            if (Object.keys(errors).length === 0){
             axios.post(baseUrl,teacherFormData,).then((response)=>{
                 setTeacherData({
                     'teacher_fullname':'',
@@ -50,10 +101,11 @@ const Register = () => {
                     'bio':'',
                     'status':'success'
                 });
-            });
+            })};
         }catch(error){
             setTeacherData({'status':'error'});
         }
+        setErrors(errors);
         console.log(teacherData);
     }; 
     const teacherLoginStatus= localStorage.getItem('teacherLoginStatus');//if the user is logied in redirect them to teacher dashboard.
@@ -75,37 +127,55 @@ const Register = () => {
                                     <h2 className="text-uppercase text-center mb-5">Teacher Register</h2>
                                     <form>
                                         <div className="form-outline mb-2">
-                                            <input value={teacherData.teacher_fullname} onChange={handleChange} name="teacher_fullname" type="text" id="form3Example1cg" className="form-control form-control-sm" />
                                             <label className="form-label" htmlFor="form3Example1cg">Your Name</label>
+                                            <input value={teacherData.teacher_fullname} onChange={handleChange} name="teacher_fullname" type="text" id="form3Example1cg"  className={`form-control form-control-sm ${
+                                            errors.teacher_fullname ? "is-invalid" : ""
+                                            }`} />
+                                            {errors.teacher_fullname && (
+                                            <div className="invalid-feedback">{errors.teacher_fullname}</div>
+                                        )}
                                         </div>
                                         <div className="form-outline mb-2">
-                                            <input value={teacherData.password} onChange={handleChange}  name="password" type="password" id="form3Example4cg" className="form-control form-control-sm" />
-                                            <label className="form-label" htmlFor="form3Example4cg">Password</label>
-                                        </div>
-                                        <div className="form-outline mb-2">
-                                            <input value={teacherData.email} onChange={handleChange}  name="email" type="email" id="form3Example3cg" className="form-control form-control-sm" />
                                             <label className="form-label" htmlFor="form3Example3cg">Your Email</label>
+                                            <input value={teacherData.email} onChange={handleChange}  name="email" type="email" id="form3Example3cg"  className={`form-control form-control-sm ${
+                                            errors.email ? "is-invalid" : ""
+                                            }`} />
+                                             {errors.email && <div className="invalid-feedback">{errors.email}</div>}
                                         </div>
                                         <div className="form-outline mb-2">
-                                            <input value={teacherData.mobile_phone} onChange={handleChange}  name ="mobile_phone" type="text" id="form3Example4cdg" className="form-control form-control-sm" />
+                                            <label className="form-label" htmlFor="form3Example4cg">Password</label>
+                                            <input value={teacherData.password} onChange={handleChange}  name="password" type="password" id="form3Example4cg"  className={`form-control form-control-sm ${
+                                            errors.password ? "is-invalid" : ""
+                                            }`} />
+                                            {errors.password && (
+                                            <div className="invalid-feedback">{errors.password}</div>
+                                        )}
+                                        </div>
+                                       
+                                        <div className="form-outline mb-2">
                                             <label className="form-label" htmlFor="form3Example4cdg">Mobile Phone</label>
+                                            <input value={teacherData.mobile_phone} onChange={handleChange}  name ="mobile_phone" type="text" id="form3Example4cdg" className={`form-control form-control-sm ${errors.mobile_phone && 'is-invalid'}`} />
+                                            {errors.mobile_phone && <div className="invalid-feedback">{errors.mobile_phone}</div>}      
                                         </div>
                                         <div className="form-outline mb-2">
-                                            <textarea value={teacherData.address} onChange={handleChange}  name="address" type="text" id="form3Example3cg" className="form-control" />
                                             <label className="form-label" htmlFor="form3Example3cg">Address</label>
+                                            <textarea value={teacherData.address} onChange={handleChange}  name="address" type="text" id="form3Example3cg" className={`form-control form-control-sm ${errors.address && 'is-invalid'}`} />
+                                            {errors.address && <div className="invalid-feedback">{errors.address}</div>}
                                         </div>
                                         <div className="form-outline mb-2">
-                                            <textarea value={teacherData.speciality} onChange={handleChange}  name="speciality" type="text" id="form3Example3cg" className="form-control" />
                                             <label className="form-label" htmlFor="form3Example3cg">Speciality</label>
+                                            <textarea value={teacherData.speciality} onChange={handleChange}  name="speciality" type="text" id="form3Example3cg" className={`form-control form-control-sm ${errors.speciality && 'is-invalid'}`} />
+                                            {errors.speciality && <div className="invalid-feedback">{errors.speciality}</div>}
                                         </div>
                                         <div className="form-outline mb-2">
                                             <label className="form-label" htmlFor="form3Example4cdg">Skills</label>
-                                            <input value={teacherData.skills} onChange={handleChange}  name ="skills" type="text" id="form3Example4cdg" className="form-control" />
-                                            
+                                            <input value={teacherData.skills} onChange={handleChange}  name ="skills" type="text" id="form3Example4cdg"className={`form-control form-control-sm ${errors.skills && 'is-invalid'}`} />
+                                            {errors.skills && <div className="invalid-feedback">{errors.skills}</div>}
                                         </div>
                                         <div className="form-outline mb-2">
-                                            <textarea value={teacherData.bio} onChange={handleChange}  name="bio" type="text" id="form3Example3cg" className="form-control" />
                                             <label className="form-label" htmlFor="form3Example3cg">Bio:Few words about you</label>
+                                            <textarea value={teacherData.bio} onChange={handleChange}  name="bio" type="text" id="form3Example3cg" className={`form-control form-control-sm ${errors.bio && 'is-invalid'}`} />
+                                            {errors.bio && <div className="invalid-feedback">{errors.bio}</div>}
                                         </div>
                                         <div className="d-flex justify-content-center">
                                             <button onClick={submitForm} type="button"
@@ -125,4 +195,3 @@ const Register = () => {
     );
 };
 export default Register;
-    

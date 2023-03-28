@@ -162,6 +162,7 @@ const Register = () => {
                                     <div className="form-outline mb-2">
                                         <label className="form-label" htmlFor="form3Example3cg">Address</label>
                                         <textarea   name="address" onChange={handleChange} value={studentData.address} type="text" id="form3Example3cg" className={`form-control form-control-sm ${errors.address && 'is-invalid'}`} />
+                                        {errors.address && <div className="invalid-feedback">{errors.address}</div>}
                                     </div>
                                         
                                     <div className="d-flex justify-content-center">
