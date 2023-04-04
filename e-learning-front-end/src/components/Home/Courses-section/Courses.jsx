@@ -163,9 +163,9 @@ useEffect(()=>{
                 </p>
               </div>
 
-              <div className="w-50 text-end">
-              <Link to={"/poupler_teachers"}><button className="btn"> See All</button></Link>
-              </div>
+              {<div className="w-50 text-end">
+                <a href="https://www.udemy.com/courses/search/?q=programming&src=sac&kw=progra"  rel="noreferrer" target="_blank"><button className="btn"> See All</button></a>
+              </div>}
             </div>
           </Col>
           {ourCoursesData.map((item) => (

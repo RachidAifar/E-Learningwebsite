@@ -27,10 +27,10 @@ export const navLinks = [
       text: "About",
       path: "/about",
     },
-    {
-      text: "Contact Us",
-      path: "/about",
-    },
+    // {
+    //   text: "Contact Us",
+    //   path: "/about",
+    // },
     {
       
      

@@ -70,7 +70,7 @@ const CategoryCourses = () => {
                           </p>
 
                           <p className="enroll d-flex align-items-center gap-1">
-                              <Link to={"/CourseDetail/1"}>Enroll Now</Link> 
+                              <Link to={`/CourseDetail/${course.course_id}`}>Enroll Now</Link> 
                           </p>
                         </div>
                       </div>

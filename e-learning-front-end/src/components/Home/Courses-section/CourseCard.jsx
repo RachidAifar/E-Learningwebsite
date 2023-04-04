@@ -29,7 +29,7 @@ const CourseCard = (props) => {
           </p>
 
           <p className="enroll d-flex align-items-center gap-1">
-            <Link to={"/CourseDetail/1"}>Enroll Now</Link> 
+            <a href="https://www.udemy.com/courses/development/programming-languages/?search-query=programming+languages" rel="noreferrer" target={"_blank"}>Enroll Now</a> 
           </p>
         </div>
       </div>
