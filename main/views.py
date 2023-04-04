@@ -76,7 +76,7 @@ class TeacherList(generics.ListCreateAPIView):
             sql = "SELECT DISTINCT t.*,COUNT(c.course_id) as total_course FROM main_teacher as t INNER JOIN main_course as c ON c.teacher_id=t.teacher_id GROUP BY t.teacher_id,c.course_id ORDER BY total_course desc LIMIT 3"
             return models.Teacher.objects.raw(sql)
         if 'all' in self.request.GET:
-            sql = "SELECT *,COUNT(c.course_id) as total_course FROM main_teacher as t INNER JOIN main_course as c ON c.teacher_id=t.teacher_id GROUP BY t.teacher_id,c.course_id ORDER BY total_course desc"
+            sql = "SELECT  DISTINCT t.*,COUNT(c.course_id) as total_course FROM main_teacher as t INNER JOIN main_course as c ON c.teacher_id=t.teacher_id GROUP BY t.teacher_id,c.course_id ORDER BY total_course desc"
             return models.Teacher.objects.raw(sql)
 
 
