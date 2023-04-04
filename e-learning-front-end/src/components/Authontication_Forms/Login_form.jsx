@@ -3,7 +3,7 @@ import {useEffect,useState } from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import "./Login.css";
-
+import image1 from '../images/6310507.jpg'
 
 
 
@@ -58,9 +58,9 @@ const Login = () => {
         <section className="sm-image">
             <div className="container-fluid h-custom">
                 <div className="row d-flex justify-content-center align-items-center">
-                    <div className="col-md-5 col-lg-6 col-sm-5">
-                        <img src={`https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp`}
-                            className="img-fluid" alt=""></img>
+                    <div className="col-md-5 col-sm-6 col-sm-5">
+                        <img src={image1}
+                            className="img-fluid  p-3 " alt=""></img>
                     </div>
                     <div className="card col-md-5 col-md-4">
                         <div className="card-body">
@@ -68,16 +68,18 @@ const Login = () => {
                         {errorMsg&& <p className="text-danger">{errorMsg}</p>}
                                 {/* <!-- Email input --> */}
                                 <div className="form-outline mb-2">
+                                    <label className="form-label" htmlFor="form3Example3">Email</label>
                                     <input value={studentLoginData.email} onChange={handleChange} name="email"  type="email" id="form3Example3" className="form-control form-control-sm"
-                                        placeholder="Enter a valid email address" />
-                                    <label className="form-label" htmlFor="form3Example3">Email address</label>
+                                        placeholder="Email" />
+                                    
                                 </div>
 
                                 {/* <!-- Password input --> */}
                                 <div className="form-outline mb-2">
-                                    <input value={studentLoginData.password} onChange={handleChange} name="password" type="password" id="form3Example4" className="form-control form-control-sm"
-                                        placeholder="Enter password" />
                                     <label className="form-label" htmlFor="form3Example4">Password</label>
+                                    <input value={studentLoginData.password} onChange={handleChange} name="password" type="password" id="form3Example4" className="form-control form-control-sm"
+                                        placeholder="Password" />
+                                    
                                 </div>
 
                                 <div className="text-center text-md-start mt-2 pt-2">

@@ -3,6 +3,7 @@ import {useEffect,useState } from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import "./Login.css";
+import image1 from '../images/6310507.jpg'
 
 
 
@@ -60,10 +61,10 @@ const Login = () => {
             <div className="container-fluid h-custom  h-100">
             {/* {teacherData.status==='auccess' && <p className='text-success'>you register successfully</p>}
             {teacherData.status==='error' && <p className='text-danger'>something went wrong!! try again</p>} */}
-                <div className="row d-flex justify-content-center align-items-center">
-                    <div className="col-md-5 col-lg-6 col-sm-5">
-                        <img src={`https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp`}
-                            className="img-fluid" alt=""></img>
+                <div className="row d-flex justify-content-center align-items-center mt-4">
+                    <div className="col-md-5 col-sm-6 col-sm-5">
+                        <img src={image1}
+                            className="img-fluid  p-3 " alt=""></img>
                     </div>
                     <div className="card col-md-5 col-md-4">
                         <div className="card-body">
@@ -96,7 +97,7 @@ const Login = () => {
                                 </div> */}
 
                                 <div className="text-center text-md-start mt-4 pt-2">
-                                    <button type="button" onClick={submitForm} className="btn btn-primary btn-sm">Login</button>
+                                    <button type="button" onClick={submitForm} className="btn btn-primary float-end">Login</button>
                                     <p className="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <Link to={"/register"}
                                         className="link-danger">Register</Link></p>
                                 </div>
