@@ -73,14 +73,14 @@ const Login = () => {
                             <form>
                                 {/* <!-- Email input --> */}
                                 <div className="form-outline mb-2">
-                                    <input value={teacherLoginData.email} onChange={handleChange} name="email" type="email" id="form3Example3" className="form-control form-control-sm"
+                                    <input value={teacherLoginData.email} onChange={handleChange} name="email" type="email" id="emailInput" className="form-control form-control-sm"
                                         placeholder="Enter a valid email address" />
                                     <label className="form-label" htmlFor="form3Example3">Email address</label>
                                 </div>
 
                                 {/* <!-- Password input --> */}
                                 <div className="form-outline mb-2">
-                                    <input value={teacherLoginData.password} onChange={handleChange} name="password"  type="password" id="form3Example4" className="form-control form-control-sm"
+                                    <input value={teacherLoginData.password} onChange={handleChange} name="password"  type="password" id="passwordInput" className="form-control form-control-sm"
                                         placeholder="Enter password" />
                                     <label className="form-label" htmlFor="form3Example4">Password</label>
                                 </div>
