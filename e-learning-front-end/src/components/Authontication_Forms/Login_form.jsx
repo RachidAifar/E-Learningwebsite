@@ -68,16 +68,16 @@ const Login = () => {
                         {errorMsg&& <p className="text-danger">{errorMsg}</p>}
                                 {/* <!-- Email input --> */}
                                 <div className="form-outline mb-2">
-                                    <label className="form-label" htmlFor="form3Example3">Email</label>
-                                    <input value={studentLoginData.email} onChange={handleChange} name="email"  type="email" id="form3Example3" className="form-control form-control-sm"
+                                    <label className="form-label-email" htmlFor="form3Example3">Email</label>
+                                    <input value={studentLoginData.email} onChange={handleChange} name="email"  type="email" id="emailInput" className="form-control form-control-sm"
                                         placeholder="Email" />
                                     
                                 </div>
 
                                 {/* <!-- Password input --> */}
                                 <div className="form-outline mb-2">
-                                    <label className="form-label" htmlFor="form3Example4">Password</label>
-                                    <input value={studentLoginData.password} onChange={handleChange} name="password" type="password" id="form3Example4" className="form-control form-control-sm"
+                                    <label className="form-label-password" htmlFor="form3Example4">Password</label>
+                                    <input value={studentLoginData.password} onChange={handleChange} name="password" type="password" id="passwordInput" className="form-control form-control-sm"
                                         placeholder="Password" />
                                     
                                 </div>

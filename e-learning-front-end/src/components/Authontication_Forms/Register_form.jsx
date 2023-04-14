@@ -32,6 +32,8 @@ const Register = () => {
     
         if (!studentData.student_fullname) {
           errors.student_fullname = 'Name is required';
+        } else if (studentData.student_fullname.length < 8) {
+            errors.student_fullname = 'Please enter a valid name fullname must be at least 8 characters';
         }
     
         if (!studentData.email) {
@@ -47,12 +49,13 @@ const Register = () => {
         }
         if (!studentData.mobile_phone) {
             errors.mobile_phone = "Mobile Phone is required";
-          } else if (!/^[0-9]+$/.test(studentData.mobile_phone)) {
-            errors.mobile_phone = "Mobile Phone is invalid";
-          }
-          if (!studentData.address) {
+        } else if (!/^[0-9]+$/.test(studentData.mobile_phone)) {
+            errors.mobile_phone = "Mobile Phone is invalid";}
+        if (!studentData.address) {
             errors.address = "Address is required";
-          }
+        }else if (studentData.address.length < 5) {
+            errors.address = 'address must be at least 5 characters';
+        }
     
           return errors;
       };
@@ -115,7 +118,7 @@ const Register = () => {
                                             }`}
                                         />
                                         {errors.student_fullname && (
-                                            <div className="invalid-feedback">{errors.student_fullname}</div>
+                                            <div className="invalid-feedback-name">{errors.student_fullname}</div>
                                         )}
                                     </div>
                                    <div className="form-outline mb-2">
@@ -132,7 +135,7 @@ const Register = () => {
                                             errors.email ? "is-invalid" : ""
                                             }`}
                                         />
-                                        {errors.email && <div className="invalid-feedback">{errors.email}</div>}
+                                        {errors.email && <div className="invalid-feedback-email">{errors.email}</div>}
                                     </div>
 
                                     <div className="form-outline mb-2">
@@ -150,23 +153,23 @@ const Register = () => {
                                             }`}
                                         />
                                         {errors.password && (
-                                            <div className="invalid-feedback">{errors.password}</div>
+                                            <div className="invalid-feedback-password">{errors.password}</div>
                                         )}
                                     </div>
                                     <div className="form-outline mb-2">
                                         <label className="form-label" htmlFor="form3Example1cg">Mobile Phone</label>
                                         <input type="text" name="mobile_phone" onChange={handleChange} value={studentData.mobile_phone} id="form3Example1cg" className={`form-control form-control-sm ${errors.mobile_phone && 'is-invalid'}`} />
-                                        {errors.mobile_phone && <div className="invalid-feedback">{errors.mobile_phone}</div>}      
+                                        {errors.mobile_phone && <div className="invalid-feedback-mobilephone">{errors.mobile_phone}</div>}      
                                     </div>
 
                                     <div className="form-outline mb-2">
                                         <label className="form-label" htmlFor="form3Example3cg">Address</label>
                                         <textarea   name="address" onChange={handleChange} value={studentData.address} type="text" id="form3Example3cg" className={`form-control form-control-sm ${errors.address && 'is-invalid'}`} />
-                                        {errors.address && <div className="invalid-feedback">{errors.address}</div>}
+                                        {errors.address && <div className="invalid-feedback-address">{errors.address}</div>}
                                     </div>
                                         
                                     <div className="d-flex justify-content-center">
-                                        <button type="button" onClick={submitForm} className="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
+                                        <button id="button1" type="button" onClick={submitForm} className="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
                                     </div>
 
                                     <p className="text-center text-muted mt-2 mb-0">Have already an account? <Link to={"/login"}
