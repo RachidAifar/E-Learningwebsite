@@ -17,7 +17,7 @@ const StudyMaterials =()=>{
     useEffect(()=>{
         //fetch courses
         try{
-            axios.get(baseUrl+'/user/study_materials/'+course_id).then((response)=>{//geting teacher by id
+            axios.get(baseUrl+'/user/study_materials/'+course_id).then((response)=>{
                 setTotalResult(response.data.length);
                 setMaterialData(response.data);
             });
