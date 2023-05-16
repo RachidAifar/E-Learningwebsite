@@ -3,7 +3,6 @@ import { useState,useEffect } from 'react';
 import Sidebar from './Sidebar'
 import axios from 'axios';
 import {Link} from 'react-router-dom';
-import Swal from 'sweetalert2';
 
 
 
@@ -27,8 +26,7 @@ const MyAssignment =()=>{
 
         }catch(error){
             console.log(error);
-        }
-        
+        }  
     },[student_id]);
 
     

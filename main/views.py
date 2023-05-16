@@ -344,7 +344,7 @@ class MyAssignmentList(generics.ListCreateAPIView):
             student_id = self.kwargs['student_id']
             student = models.Students.objects.get(pk=student_id)
             # Update Notification
-            models.CourseQuize.objects.filter(student=student, notif_for='student', notif_subject='assignment').update(
+            models.Notification.objects.filter(student=student, notif_for='student', notif_subject='assignment').update(
                 status=True)
             return models.StudentAssignment.objects.filter(student=student)
         except models.StudentAssignment.DoesNotExist:

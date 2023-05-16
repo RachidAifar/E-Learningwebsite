@@ -1,0 +1,17 @@
+.contact-us {
+    background-color: #f9f9f9;
+    padding: 20px;
+  }
+  
+  .contact-us h2 {
+    margin-top: 0;
+  }
+  
+  .contact-us ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .contact-us ul li {
+    margin-bottom: 10px;
+  }
