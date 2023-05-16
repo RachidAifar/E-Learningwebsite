@@ -278,7 +278,7 @@ const enrollCourse=()=>{
                     <small className="badge bg-success ms-2">Thanks for rating this course</small>
                   }
                   <div className="rating_modal mt-4">
-                    <div className="modal fade mt-5" id="ratingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal fade mt-5" id="ratingModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div className="modal-dialog modal-lg mt-5">
                         <div className="modal-content">
                           <div className="modal-header">
@@ -286,8 +286,8 @@ const enrollCourse=()=>{
                           </div>
                           <div className="modal-body">
                             <form>
-                              <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Rating</label>
+                              <div className="mb-3">
+                                <label for="exampleInputEmail1" className="form-label">Rating</label>
                                 <select onChange={handleChange} className="form-control " name='rating'>
                                   <option value="1">1</option>
                                   <option value="2">2</option>
@@ -296,11 +296,11 @@ const enrollCourse=()=>{
                                   <option value="5">5</option>
                                 </select>
                               </div>
-                              <div class="mb-3">
+                              <div className="mb-3">
                                 <label for="exampleInputPassword1" className="form-label" >Review</label>
                                 <textarea className="form-control" onChange={handleChange} name="reviews" rows="5" cols="30" ></textarea>
                               </div>
-                              <button type="button" onClick={submitForm} class="btn btn-primary">Submit</button>
+                              <button type="button" onClick={submitForm} className="btn btn-primary">Submit</button>
                             </form>
                           </div>
                           <div className="modal-footer">
@@ -336,23 +336,25 @@ const enrollCourse=()=>{
             {chapterData.map((chapter,index) =>
               <li className="text-bg-light p-3 ms-2 mt-2 mb-2">{chapter.chapter_title}<button className="btn btn-sm btn-info mt-1 float-end" data-bs-toggle="modal" data-bs-target="#videoModal1"><i className="ri-youtube-fill"></i> Play</button>
               <div className="modal fade" id="videoModal1" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div className="modal-dialog modal-lg mt-5 pt-5">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <h5 className="modal-title" id="exampleModalLabel">Video 1</h5>
-                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div className="modal-dialog modal-lg mt-5 pt-5">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title" id="exampleModalLabel">Video 1</h5>
+                      <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div className="modal-body">
+                      <div className="ratio ratio-16x9">
+                        <video controls>
+                          <source src={chapter.video} type="video/mp4" />
+                          {/* Add additional <source> elements for other video formats if needed */}
+                        </video>
+                      </div>
+                    </div>
+                    <div className="modal-footer">
+                      <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
                   </div>
-                  <div className="modal-body">
-                    <div className="ratio ratio-16x9">
-                    <iframe src={chapter.video} title="YouTube video" allowFullScreen></iframe>
-                  </div>
-                  </div>
-                  <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" className="btn btn-primary">Save changes</button>
-                  </div>
-                </div> 
-              </div>
+                </div>
               </div>
               </li>
                )}
