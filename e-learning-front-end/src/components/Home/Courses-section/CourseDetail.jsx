@@ -267,7 +267,7 @@ const enrollCourse=()=>{
               <p className="fw-bold">Views: {courseViews}</p> 
               <p className="fw-bold">Total Enrolled: {courseData.total_enrolled_students} Students</p> 
               <p className="fw-bold">
-                Rating: {avgRatingStatus}/5
+                Rating: {avgRatingStatus.toFixed(2)}/5
                 {userEnrollStatus ==='success' && userLoginStatus==='success' &&
                 <>
                   {ratingStatus !== 'success' &&
