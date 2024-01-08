@@ -50,6 +50,7 @@ We welcome contributions! Feel free to submit issues, feature requests, or pull 
 ## Result 
 
 ## Screenshots
+  - Home page 
 
 ![E-Learning Platform Screenshot](Images_Result/HomePage1.PNG)
 
