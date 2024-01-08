@@ -51,6 +51,6 @@ We welcome contributions! Feel free to submit issues, feature requests, or pull 
 
 ## Screenshots
 
-![E-Learning Platform Screenshot](E-Learningwebsite/Images_Result/HomePage1.PNG)
+![E-Learning Platform Screenshot](Images_Result/HomePage1.PNG)
 
 
