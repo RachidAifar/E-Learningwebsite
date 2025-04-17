@@ -26,7 +26,7 @@ urlpatterns = [
     # fetch enrolled  student in specific course :
     path('fetch_enrolled_students/<int:course_id>', views.EnrolledStudentList.as_view()),
     path('fetch_enrolled_courses/<int:student_id>', views.EnrolledStudentList.as_view()),
-    path('recommendations/<int:student_id>/', views.recommended_courses, name='recommended-courses'),
+    path('api/recommend/<int:course_id>/', views.CourseRecommendationAPIView.as_view()),
     path('fetch_favorite_courses/<int:student_id>', views.StudentFavoriteCoursesList.as_view()),
 
 

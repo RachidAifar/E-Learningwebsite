@@ -17,9 +17,15 @@ from . import models
 from django.http import Http404
 
 
-from .recommender import get_course_recommendations
+# from .recommender import get_course_recommendations
 from .serializers import CourseSerialize
 from .models import Course
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .recommendation_engine import recommend_similar_courses
+from .serializers import CourseSerialize
+
 
 
 
@@ -161,6 +167,15 @@ class CourseList(generics.ListCreateAPIView):
             return qs
 
         return qs
+
+
+
+
+class CourseRecommendationAPIView(APIView):
+    def get(self, request, course_id):
+        recommended = recommend_similar_courses(course_id)
+        serializer = CourseSerialize(recommended, many=True)
+        return Response(serializer.data)
 
 
 class CourseDetailView(generics.RetrieveUpdateDestroyAPIView):

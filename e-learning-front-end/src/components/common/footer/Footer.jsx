@@ -51,7 +51,7 @@ const Footer = () => {
         <Row>
           <Col lg="3" md="6" className="mb-6">
             <h2 className=" d-flex align-items-center gap-1">
-            <i className="ri-home-2-line"></i> E-Learning EKKE.
+            <i className="ri-home-2-line"></i> E-Learning MIT.
             </h2>
             <div className="follows">
               <p className="mb-0">Follow us on social media</p>
@@ -112,7 +112,7 @@ const Footer = () => {
           <Col lg="3" md="6">
             <h6 className="fw-bold">Get in Touch</h6>
 
-            <p>Address: Eger ,Hungary</p>
+            <p>Address: Budapeat ,Hungary</p>
             <p> Phone: +36 654456789 </p>
             <p>Email: example@gmail.com</p>
           </Col>
