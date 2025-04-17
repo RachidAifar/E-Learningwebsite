@@ -17,6 +17,12 @@ from . import models
 from django.http import Http404
 
 
+from .recommender import get_course_recommendations
+from .serializers import CourseSerialize
+from .models import Course
+
+
+
 class StandardResultsSetPagination(PageNumberPagination):
     page_size = 6
     page_size_query_param = 'page_size'
@@ -526,3 +532,11 @@ def update_view(request, course_id):
 class FAQList(generics.ListAPIView):
     queryset = models.FAQ.objects.all()
     serializer_class = FAQSerializer
+
+
+@csrf_exempt
+def recommended_courses(request, student_id):
+    course_ids = get_course_recommendations(student_id)
+    recommended_courses = Course.objects.filter(course_id__in=course_ids)
+    serializer = CourseSerialize(recommended_courses, many=True)
+    return JsonResponse(serializer.data, safe=False)

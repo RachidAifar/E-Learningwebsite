@@ -14,7 +14,7 @@ urlpatterns = [
     path('student/change_password/<int:student_id>/', views.student_change_password),
     path('student/fetch_all_notifications/<int:student_id>', views.NotificationList.as_view()),
     path('save_notification/', views.NotificationList.as_view()),
-
+    path('recommendations/<int:student_id>/', views.recommended_courses, name='recommended-courses'),
 
     path('fetch_student_assignment/<int:student_id>', views.MyAssignmentList.as_view()),
     path('update_assignment_status/<int:pk>', views.UpdateAssignmentStatusList.as_view()),
@@ -26,7 +26,7 @@ urlpatterns = [
     # fetch enrolled  student in specific course :
     path('fetch_enrolled_students/<int:course_id>', views.EnrolledStudentList.as_view()),
     path('fetch_enrolled_courses/<int:student_id>', views.EnrolledStudentList.as_view()),
-    path('fetch_recommended_courses/<int:studentId>', views.CourseList.as_view()),
+    path('recommendations/<int:student_id>/', views.recommended_courses, name='recommended-courses'),
     path('fetch_favorite_courses/<int:student_id>', views.StudentFavoriteCoursesList.as_view()),
 
 

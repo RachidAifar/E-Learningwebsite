@@ -62,7 +62,7 @@ const AllCourses = () => {
 
                     <div className=" d-flex justify-content-between align-items-center">
                     <p className="rating d-flex align-items-center gap-1">
-                        <i className="ri-star-fill"></i> Rating:
+                        <i className="ri-star-fill"></i> Rating:{course.course_rating !== null ? course.course_rating.toFixed(2):'No Rating'}
                     </p>
 
                     <p className="enroll d-flex align-items-center gap-1">
