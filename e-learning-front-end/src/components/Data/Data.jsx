@@ -132,8 +132,8 @@ export const navLinks = [
       title: "Java for Beginners in 2022",
       students: 12.5,
       rating: 4.9,
-      imgUrl: "https://img.freepik.com/premium-vector/man-character-avatar-icon-teacher-male-with-chalkboard_51635-2975.jpg?w=2000",
-    },
+      imgUrl: "https://img.freepik.com/free-vector/programming-concept-illustration_114360-1351.jpg",
+    },    
     {
       id: "06",
       title: "C Sharp for Beginners in 2022",
@@ -186,7 +186,7 @@ export const navLinks = [
       lesson: 12,
       students: 12.5,
       rating: 4.9,
-      imgUrl: "https://www.developer.com/wp-content/uploads/2021/09/Java-tutorials.jpg",
+      imgUrl: "https://logodownload.org/wp-content/uploads/2017/04/java-logo-1.png",
     },
     {
       id: "06",
