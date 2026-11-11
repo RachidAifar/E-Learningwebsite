@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+djangoenv/
+.env
+db.sqlite3
+.coverage
+htmlcov/
+
+# Uploaded files (created at runtime)
+media/
+
+# Node / React
+node_modules/
+e-learning-front-end/build/
+e-learning-front-end/coverage/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+.DS_Store
