@@ -80,11 +80,12 @@ const Register = () => {
                     'address':'',
                     'status':'success'
                 });
+            }).catch(()=>{
+                setStudentData({...studentData, 'status':'error'});
             })};
         }catch(error){
             setStudentData({'status':'error'});
         }
-        console.log(studentData);
     }; 
     // const teacherLoginStatus= localStorage.getItem('teacherLoginStatus');//if the user is logied in redirect them to teacher dashboard.
     // if(teacherLoginStatus==='true'){
@@ -97,7 +98,7 @@ const Register = () => {
                 <div className="container h-100">
                     <div className="row d-flex justify-content-center align-items-center h-100">
                         <div className="col-5 col-md-5 col-lg-5 col-md-2">
-                        {studentData.status ==='success' && <p className='text-success'>Thanks for registeration</p>}
+                        {studentData.status ==='success' && <p className='text-success'>Thanks for registering!</p>}
                         {studentData.status ==='error' && <p className='text-danger'>Something went wrong!!!</p>}
                             <div className="card mt-3 mb-2" >
                                 <div className="card-body">

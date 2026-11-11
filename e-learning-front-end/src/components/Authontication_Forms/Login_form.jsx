@@ -36,8 +36,10 @@ const Login = () => {
                 localStorage.setItem('student_id', response.data.student_id);
                 window.location.href='/dashboard';
             }else{
-                seterrorMsg('Inavalid Email Or Password');
+                seterrorMsg('Invalid email or password');
             }
+             }).catch(()=>{
+                seterrorMsg('Could not reach the server. Please try again.');
              });
 
         }catch(error){
