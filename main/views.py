@@ -134,7 +134,7 @@ class CourseCategoryList(generics.ListCreateAPIView):
 
 # get all courses
 class CourseList(generics.ListCreateAPIView):
-    queryset = models.Course.objects.all()
+    queryset = models.Course.objects.all().order_by('-course_id')
     serializer_class = CourseSerialize
     pagination_class = StandardResultsSetPagination
 
