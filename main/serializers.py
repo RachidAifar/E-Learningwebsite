@@ -7,6 +7,8 @@ class StudentSerialize(serializers.ModelSerializer):
         model = models.Students
         fields = ['student_id', 'student_fullname', 'password', 'email', 'mobile_phone', 'interested_categories',
                   'address', 'dateOfJoining']
+        # Accept a password on create, but never send the hash back in responses.
+        extra_kwargs = {'password': {'write_only': True}}
 
 
 class TeacherSerialize(serializers.ModelSerializer):
@@ -16,6 +18,8 @@ class TeacherSerialize(serializers.ModelSerializer):
                   'speciality', 'bio',
                   'skills', 'skills_list',
                   'dateofjoining', 'teacher_courses', 'total_teacher_courses']
+        # Accept a password on create, but never send the hash back in responses.
+        extra_kwargs = {'password': {'write_only': True}}
 
     def __init__(self, *args, **kwargs):
         super(TeacherSerialize, self).__init__(*args, **kwargs)

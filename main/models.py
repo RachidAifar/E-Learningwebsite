@@ -1,7 +1,21 @@
 from django.db import models
 from django.core import serializers
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import identify_hasher, make_password
 
+
+def hash_if_raw(password):
+    """Hash a plain-text password, but leave an existing hash untouched.
+
+    Without this check every save() (for example a profile update) would hash
+    the stored hash again, and the user could no longer log in.
+    """
+    if not password:
+        return password
+    try:
+        identify_hasher(password)
+        return password
+    except ValueError:
+        return make_password(password)
 
 
 class Teacher(models.Model):
@@ -22,8 +36,7 @@ class Teacher(models.Model):
         verbose_name = "Teacher"
 
     def save(self, *args, **kwargs):
-        # Hash the password before saving to the database
-        self.password = make_password(self.password)
+        self.password = hash_if_raw(self.password)
         super().save(*args, **kwargs)
     # fetch all the skills
     def skills_list(self):
@@ -124,8 +137,7 @@ class Students(models.Model):
         return self.student_fullname
 
     def save(self, *args, **kwargs):
-        # Hash the password before saving to the database
-        self.password = make_password(self.password)
+        self.password = hash_if_raw(self.password)
         super().save(*args, **kwargs)
 
     # total enrolled course

@@ -90,6 +90,7 @@ class TeacherList(generics.ListCreateAPIView):
         if 'all' in self.request.GET:
             sql = "SELECT  DISTINCT t.*,COUNT(c.course_id) as total_course FROM main_teacher as t INNER JOIN main_course as c ON c.teacher_id=t.teacher_id GROUP BY t.teacher_id,c.course_id ORDER BY total_course desc"
             return models.Teacher.objects.raw(sql)
+        return super().get_queryset()
 
 
 class TeacherDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -307,7 +308,9 @@ def teacher_change_password(request, teacher_id):
     except models.Teacher.DoesNotExist:
         teacherData = None
     if teacherData:
-        models.Teacher.objects.filter(teacher_id=teacher_id).update(password=password)
+        # save() hashes the new password; queryset.update() would store it as plain text.
+        teacherData.password = password
+        teacherData.save()
         return JsonResponse({'bool': True})
     else:
         return JsonResponse({'bool': False})
@@ -392,7 +395,9 @@ def student_change_password(request, student_id):
     except models.Students.DoesNotExist:
         studentData = None
     if studentData:
-        models.Students.objects.filter(student_id=student_id).update(password=password)
+        # save() hashes the new password; queryset.update() would store it as plain text.
+        studentData.password = password
+        studentData.save()
         return JsonResponse({'bool': True})
     else:
         return JsonResponse({'bool': False})
